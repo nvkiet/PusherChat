@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1E6FC14CA5474099970CDB78 /* libPods-PusherChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E6C5F59D5F148EBB086EA58 /* libPods-PusherChat.a */; };
+		928F183B1921188700A05BF5 /* PSCChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 928F18391921188700A05BF5 /* PSCChatViewController.m */; };
+		928F183C1921188700A05BF5 /* PSCChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 928F183A1921188700A05BF5 /* PSCChatViewController.xib */; };
 		92B1C3451920644500897029 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B1C3441920644500897029 /* Foundation.framework */; };
 		92B1C3471920644500897029 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B1C3461920644500897029 /* CoreGraphics.framework */; };
 		92B1C3491920644500897029 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B1C3481920644500897029 /* UIKit.framework */; };
@@ -20,8 +22,6 @@
 		92B1C3661920644500897029 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B1C3481920644500897029 /* UIKit.framework */; };
 		92B1C36E1920644500897029 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 92B1C36C1920644500897029 /* InfoPlist.strings */; };
 		92B1C3701920644500897029 /* PusherChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B1C36F1920644500897029 /* PusherChatTests.m */; };
-		92B1C37E19206B7900897029 /* PSCChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B1C37C19206B7900897029 /* PSCChatViewController.m */; };
-		92B1C37F19206B7900897029 /* PSCChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92B1C37D19206B7900897029 /* PSCChatViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +36,9 @@
 
 /* Begin PBXFileReference section */
 		8E6C5F59D5F148EBB086EA58 /* libPods-PusherChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PusherChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		928F18381921188700A05BF5 /* PSCChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCChatViewController.h; sourceTree = "<group>"; };
+		928F18391921188700A05BF5 /* PSCChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCChatViewController.m; sourceTree = "<group>"; };
+		928F183A1921188700A05BF5 /* PSCChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCChatViewController.xib; sourceTree = "<group>"; };
 		92B1C3411920644500897029 /* PusherChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PusherChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92B1C3441920644500897029 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		92B1C3461920644500897029 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -52,9 +55,6 @@
 		92B1C36B1920644500897029 /* PusherChatTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PusherChatTests-Info.plist"; sourceTree = "<group>"; };
 		92B1C36D1920644500897029 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		92B1C36F1920644500897029 /* PusherChatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PusherChatTests.m; sourceTree = "<group>"; };
-		92B1C37B19206B7900897029 /* PSCChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCChatViewController.h; sourceTree = "<group>"; };
-		92B1C37C19206B7900897029 /* PSCChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCChatViewController.m; sourceTree = "<group>"; };
-		92B1C37D19206B7900897029 /* PSCChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCChatViewController.xib; sourceTree = "<group>"; };
 		BF9434D7FA854FCD81932877 /* Pods-PusherChat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PusherChat.xcconfig"; path = "Pods/Pods-PusherChat.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,6 +83,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		928F18371921186E00A05BF5 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				928F18381921188700A05BF5 /* PSCChatViewController.h */,
+				928F18391921188700A05BF5 /* PSCChatViewController.m */,
+				928F183A1921188700A05BF5 /* PSCChatViewController.xib */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
 		92B1C3381920644500897029 = {
 			isa = PBXGroup;
 			children = (
@@ -159,9 +169,7 @@
 		92B1C37A19206B5D00897029 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				92B1C37B19206B7900897029 /* PSCChatViewController.h */,
-				92B1C37C19206B7900897029 /* PSCChatViewController.m */,
-				92B1C37D19206B7900897029 /* PSCChatViewController.xib */,
+				928F18371921186E00A05BF5 /* Chat */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -246,7 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92B1C35D1920644500897029 /* Images.xcassets in Resources */,
-				92B1C37F19206B7900897029 /* PSCChatViewController.xib in Resources */,
+				928F183C1921188700A05BF5 /* PSCChatViewController.xib in Resources */,
 				92B1C34F1920644500897029 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -299,7 +307,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92B1C37E19206B7900897029 /* PSCChatViewController.m in Sources */,
+				928F183B1921188700A05BF5 /* PSCChatViewController.m in Sources */,
 				92B1C3511920644500897029 /* main.m in Sources */,
 				92B1C3551920644500897029 /* PSCAppDelegate.m in Sources */,
 			);
