@@ -5,8 +5,11 @@
 //
 
 #import <Availability.h>
+
+// Verdors
 #import <Pusher/Pusher.h>
 #import <Pusher/PTPusherChannel.h>
+#import "Reachability.h"
 
 // Constants
 #define PUSHER_API_KEY @"a303b94353376eae7485"
