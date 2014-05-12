@@ -1,0 +1,472 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		92B1C3451920644500897029 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B1C3441920644500897029 /* Foundation.framework */; };
+		92B1C3471920644500897029 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B1C3461920644500897029 /* CoreGraphics.framework */; };
+		92B1C3491920644500897029 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B1C3481920644500897029 /* UIKit.framework */; };
+		92B1C34F1920644500897029 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 92B1C34D1920644500897029 /* InfoPlist.strings */; };
+		92B1C3511920644500897029 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B1C3501920644500897029 /* main.m */; };
+		92B1C3551920644500897029 /* PSCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B1C3541920644500897029 /* PSCAppDelegate.m */; };
+		92B1C3581920644500897029 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92B1C3561920644500897029 /* Main.storyboard */; };
+		92B1C35B1920644500897029 /* PSCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B1C35A1920644500897029 /* PSCViewController.m */; };
+		92B1C35D1920644500897029 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92B1C35C1920644500897029 /* Images.xcassets */; };
+		92B1C3641920644500897029 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B1C3631920644500897029 /* XCTest.framework */; };
+		92B1C3651920644500897029 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B1C3441920644500897029 /* Foundation.framework */; };
+		92B1C3661920644500897029 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B1C3481920644500897029 /* UIKit.framework */; };
+		92B1C36E1920644500897029 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 92B1C36C1920644500897029 /* InfoPlist.strings */; };
+		92B1C3701920644500897029 /* PusherChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B1C36F1920644500897029 /* PusherChatTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		92B1C3671920644500897029 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 92B1C3391920644500897029 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 92B1C3401920644500897029;
+			remoteInfo = PusherChat;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		92B1C3411920644500897029 /* PusherChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PusherChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		92B1C3441920644500897029 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		92B1C3461920644500897029 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		92B1C3481920644500897029 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		92B1C34C1920644500897029 /* PusherChat-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PusherChat-Info.plist"; sourceTree = "<group>"; };
+		92B1C34E1920644500897029 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		92B1C3501920644500897029 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		92B1C3521920644500897029 /* PusherChat-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PusherChat-Prefix.pch"; sourceTree = "<group>"; };
+		92B1C3531920644500897029 /* PSCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSCAppDelegate.h; sourceTree = "<group>"; };
+		92B1C3541920644500897029 /* PSCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSCAppDelegate.m; sourceTree = "<group>"; };
+		92B1C3571920644500897029 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		92B1C3591920644500897029 /* PSCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSCViewController.h; sourceTree = "<group>"; };
+		92B1C35A1920644500897029 /* PSCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSCViewController.m; sourceTree = "<group>"; };
+		92B1C35C1920644500897029 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		92B1C3621920644500897029 /* PusherChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PusherChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		92B1C3631920644500897029 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		92B1C36B1920644500897029 /* PusherChatTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PusherChatTests-Info.plist"; sourceTree = "<group>"; };
+		92B1C36D1920644500897029 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		92B1C36F1920644500897029 /* PusherChatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PusherChatTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		92B1C33E1920644500897029 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92B1C3471920644500897029 /* CoreGraphics.framework in Frameworks */,
+				92B1C3491920644500897029 /* UIKit.framework in Frameworks */,
+				92B1C3451920644500897029 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92B1C35F1920644500897029 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92B1C3641920644500897029 /* XCTest.framework in Frameworks */,
+				92B1C3661920644500897029 /* UIKit.framework in Frameworks */,
+				92B1C3651920644500897029 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		92B1C3381920644500897029 = {
+			isa = PBXGroup;
+			children = (
+				92B1C34A1920644500897029 /* PusherChat */,
+				92B1C3691920644500897029 /* PusherChatTests */,
+				92B1C3431920644500897029 /* Frameworks */,
+				92B1C3421920644500897029 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		92B1C3421920644500897029 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				92B1C3411920644500897029 /* PusherChat.app */,
+				92B1C3621920644500897029 /* PusherChatTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		92B1C3431920644500897029 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				92B1C3441920644500897029 /* Foundation.framework */,
+				92B1C3461920644500897029 /* CoreGraphics.framework */,
+				92B1C3481920644500897029 /* UIKit.framework */,
+				92B1C3631920644500897029 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		92B1C34A1920644500897029 /* PusherChat */ = {
+			isa = PBXGroup;
+			children = (
+				92B1C3531920644500897029 /* PSCAppDelegate.h */,
+				92B1C3541920644500897029 /* PSCAppDelegate.m */,
+				92B1C3561920644500897029 /* Main.storyboard */,
+				92B1C3591920644500897029 /* PSCViewController.h */,
+				92B1C35A1920644500897029 /* PSCViewController.m */,
+				92B1C35C1920644500897029 /* Images.xcassets */,
+				92B1C34B1920644500897029 /* Supporting Files */,
+			);
+			path = PusherChat;
+			sourceTree = "<group>";
+		};
+		92B1C34B1920644500897029 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				92B1C34C1920644500897029 /* PusherChat-Info.plist */,
+				92B1C34D1920644500897029 /* InfoPlist.strings */,
+				92B1C3501920644500897029 /* main.m */,
+				92B1C3521920644500897029 /* PusherChat-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		92B1C3691920644500897029 /* PusherChatTests */ = {
+			isa = PBXGroup;
+			children = (
+				92B1C36F1920644500897029 /* PusherChatTests.m */,
+				92B1C36A1920644500897029 /* Supporting Files */,
+			);
+			path = PusherChatTests;
+			sourceTree = "<group>";
+		};
+		92B1C36A1920644500897029 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				92B1C36B1920644500897029 /* PusherChatTests-Info.plist */,
+				92B1C36C1920644500897029 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		92B1C3401920644500897029 /* PusherChat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 92B1C3731920644500897029 /* Build configuration list for PBXNativeTarget "PusherChat" */;
+			buildPhases = (
+				92B1C33D1920644500897029 /* Sources */,
+				92B1C33E1920644500897029 /* Frameworks */,
+				92B1C33F1920644500897029 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PusherChat;
+			productName = PusherChat;
+			productReference = 92B1C3411920644500897029 /* PusherChat.app */;
+			productType = "com.apple.product-type.application";
+		};
+		92B1C3611920644500897029 /* PusherChatTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 92B1C3761920644500897029 /* Build configuration list for PBXNativeTarget "PusherChatTests" */;
+			buildPhases = (
+				92B1C35E1920644500897029 /* Sources */,
+				92B1C35F1920644500897029 /* Frameworks */,
+				92B1C3601920644500897029 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				92B1C3681920644500897029 /* PBXTargetDependency */,
+			);
+			name = PusherChatTests;
+			productName = PusherChatTests;
+			productReference = 92B1C3621920644500897029 /* PusherChatTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		92B1C3391920644500897029 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = PSC;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Kiet Nguyen";
+				TargetAttributes = {
+					92B1C3611920644500897029 = {
+						TestTargetID = 92B1C3401920644500897029;
+					};
+				};
+			};
+			buildConfigurationList = 92B1C33C1920644500897029 /* Build configuration list for PBXProject "PusherChat" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 92B1C3381920644500897029;
+			productRefGroup = 92B1C3421920644500897029 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				92B1C3401920644500897029 /* PusherChat */,
+				92B1C3611920644500897029 /* PusherChatTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		92B1C33F1920644500897029 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92B1C35D1920644500897029 /* Images.xcassets in Resources */,
+				92B1C34F1920644500897029 /* InfoPlist.strings in Resources */,
+				92B1C3581920644500897029 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92B1C3601920644500897029 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92B1C36E1920644500897029 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		92B1C33D1920644500897029 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92B1C35B1920644500897029 /* PSCViewController.m in Sources */,
+				92B1C3511920644500897029 /* main.m in Sources */,
+				92B1C3551920644500897029 /* PSCAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92B1C35E1920644500897029 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92B1C3701920644500897029 /* PusherChatTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		92B1C3681920644500897029 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 92B1C3401920644500897029 /* PusherChat */;
+			targetProxy = 92B1C3671920644500897029 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		92B1C34D1920644500897029 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				92B1C34E1920644500897029 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		92B1C3561920644500897029 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				92B1C3571920644500897029 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		92B1C36C1920644500897029 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				92B1C36D1920644500897029 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		92B1C3711920644500897029 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		92B1C3721920644500897029 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		92B1C3741920644500897029 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PusherChat/PusherChat-Prefix.pch";
+				INFOPLIST_FILE = "PusherChat/PusherChat-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		92B1C3751920644500897029 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PusherChat/PusherChat-Prefix.pch";
+				INFOPLIST_FILE = "PusherChat/PusherChat-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		92B1C3771920644500897029 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PusherChat.app/PusherChat";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PusherChat/PusherChat-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "PusherChatTests/PusherChatTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		92B1C3781920644500897029 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PusherChat.app/PusherChat";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PusherChat/PusherChat-Prefix.pch";
+				INFOPLIST_FILE = "PusherChatTests/PusherChatTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		92B1C33C1920644500897029 /* Build configuration list for PBXProject "PusherChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92B1C3711920644500897029 /* Debug */,
+				92B1C3721920644500897029 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		92B1C3731920644500897029 /* Build configuration list for PBXNativeTarget "PusherChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92B1C3741920644500897029 /* Debug */,
+				92B1C3751920644500897029 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		92B1C3761920644500897029 /* Build configuration list for PBXNativeTarget "PusherChatTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92B1C3771920644500897029 /* Debug */,
+				92B1C3781920644500897029 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 92B1C3391920644500897029 /* Project object */;
+}
