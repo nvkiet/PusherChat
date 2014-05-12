@@ -7,12 +7,27 @@
 //
 
 #import "PSCAppDelegate.h"
+#import "PSCChatViewController.h"
+
+@interface PSCAppDelegate()
+
+@end
 
 @implementation PSCAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+    PSCChatViewController *chatViewController = [[PSCChatViewController alloc] initWithNibName:NSStringFromClass([PSCChatViewController class]) bundle:nil];
+    
+    self.navController = [[UINavigationController alloc] initWithRootViewController:chatViewController];
+    self.window.rootViewController = self.navController;
+    
+    [self.window makeKeyAndVisible];
+       
     return YES;
 }
 							

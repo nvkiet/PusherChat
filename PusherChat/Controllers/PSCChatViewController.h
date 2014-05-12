@@ -1,5 +1,5 @@
 //
-//  PSCViewController.h
+//  PSCChatViewController.h
 //  PusherChat
 //
 //  Created by Kiet Nguyen on 5/12/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PSCViewController : UIViewController
+@interface PSCChatViewController : UIViewController
 
 @end
