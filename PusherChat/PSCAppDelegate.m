@@ -9,15 +9,23 @@
 #import "PSCAppDelegate.h"
 #import "PSCChatViewController.h"
 
-@interface PSCAppDelegate()
-
+@interface PSCAppDelegate()<PTPusherDelegate>
 @end
 
 @implementation PSCAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    self.client = [PTPusher pusherWithKey:PUSHER_API_KEY delegate:self encrypted:YES];
+    
+    // Subscribe to channel and bind to event
+    PTPusherChannel *channel = [self.client subscribeToChannelNamed:@"chat"];
+    [channel bindToEventNamed:@"new-message" handleWithBlock:^(PTPusherEvent *channelEvent) {
+        NSString *message = [channelEvent.data objectForKey:@"text"];
+        NSLog(@"message received: %@", message);
+    }];
+    
+    [self.client connect];
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
@@ -30,7 +38,24 @@
        
     return YES;
 }
-							
+
+#pragma mark - PTPusherDelegate
+
+- (void)pusher:(PTPusher *)pusher connectionDidConnect:(PTPusherConnection *)connection
+{
+    NSLog(@"Has connected to the Pusher service successfully!");
+}
+
+// Handling disconnections
+- (void)pusher:(PTPusher *)pusher connection:(PTPusherConnection *)connection failedWithError:(NSError *)error
+{
+}
+
+- (void)pusher:(PTPusher *)pusher connection:(PTPusherConnection *)connection didDisconnectWithError:(NSError *)error willAttemptReconnect:(BOOL)willAttemptReconnect
+{
+}
+
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
