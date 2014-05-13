@@ -26,6 +26,8 @@
 		92685E4D1921DBB400C1CBEF /* PSCMoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92685E4B1921DBB400C1CBEF /* PSCMoreViewController.xib */; };
 		92685E511921E13600C1CBEF /* anonymousUser.png in Resources */ = {isa = PBXBuildFile; fileRef = 92685E4F1921E13600C1CBEF /* anonymousUser.png */; };
 		92685E521921E13600C1CBEF /* anonymousUser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92685E501921E13600C1CBEF /* anonymousUser@2x.png */; };
+		92685E5919222B8600C1CBEF /* PSCContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92685E5719222B8600C1CBEF /* PSCContactCell.m */; };
+		92685E5A19222B8600C1CBEF /* PSCContactCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92685E5819222B8600C1CBEF /* PSCContactCell.xib */; };
 		928F183B1921188700A05BF5 /* PSCChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 928F18391921188700A05BF5 /* PSCChatViewController.m */; };
 		928F183C1921188700A05BF5 /* PSCChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 928F183A1921188700A05BF5 /* PSCChatViewController.xib */; };
 		92B1C3451920644500897029 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B1C3441920644500897029 /* Foundation.framework */; };
@@ -79,6 +81,9 @@
 		92685E4B1921DBB400C1CBEF /* PSCMoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCMoreViewController.xib; sourceTree = "<group>"; };
 		92685E4F1921E13600C1CBEF /* anonymousUser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anonymousUser.png; sourceTree = "<group>"; };
 		92685E501921E13600C1CBEF /* anonymousUser@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "anonymousUser@2x.png"; sourceTree = "<group>"; };
+		92685E5619222B8600C1CBEF /* PSCContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCContactCell.h; sourceTree = "<group>"; };
+		92685E5719222B8600C1CBEF /* PSCContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCContactCell.m; sourceTree = "<group>"; };
+		92685E5819222B8600C1CBEF /* PSCContactCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCContactCell.xib; sourceTree = "<group>"; };
 		928F18381921188700A05BF5 /* PSCChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCChatViewController.h; sourceTree = "<group>"; };
 		928F18391921188700A05BF5 /* PSCChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCChatViewController.m; sourceTree = "<group>"; };
 		928F183A1921188700A05BF5 /* PSCChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCChatViewController.xib; sourceTree = "<group>"; };
@@ -231,6 +236,24 @@
 			path = More;
 			sourceTree = "<group>";
 		};
+		92685E5419222ACB00C1CBEF /* UIViews */ = {
+			isa = PBXGroup;
+			children = (
+				92685E5519222ACB00C1CBEF /* UITableViewCells */,
+			);
+			path = UIViews;
+			sourceTree = "<group>";
+		};
+		92685E5519222ACB00C1CBEF /* UITableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				92685E5619222B8600C1CBEF /* PSCContactCell.h */,
+				92685E5719222B8600C1CBEF /* PSCContactCell.m */,
+				92685E5819222B8600C1CBEF /* PSCContactCell.xib */,
+			);
+			path = UITableViewCells;
+			sourceTree = "<group>";
+		};
 		928F18371921186E00A05BF5 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
@@ -279,6 +302,7 @@
 				92B1C3531920644500897029 /* PSCAppDelegate.h */,
 				92B1C3541920644500897029 /* PSCAppDelegate.m */,
 				92685E201921C76200C1CBEF /* Models */,
+				92685E5419222ACB00C1CBEF /* UIViews */,
 				92B1C37A19206B5D00897029 /* Controllers */,
 				92685E1C1921C37300C1CBEF /* Managers */,
 				92685E2A1921CC7900C1CBEF /* Resources */,
@@ -417,6 +441,7 @@
 				92685E521921E13600C1CBEF /* anonymousUser@2x.png in Resources */,
 				92685E461921DB3B00C1CBEF /* PSCContactsViewController.xib in Resources */,
 				92685E401921DA8300C1CBEF /* PSCMessagesViewController.xib in Resources */,
+				92685E5A19222B8600C1CBEF /* PSCContactCell.xib in Resources */,
 				92B1C34F1920644500897029 /* InfoPlist.strings in Resources */,
 				92685E331921CCA400C1CBEF /* bt_facebook_onpress.png in Resources */,
 				92685E511921E13600C1CBEF /* anonymousUser.png in Resources */,
@@ -475,6 +500,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92685E4C1921DBB400C1CBEF /* PSCMoreViewController.m in Sources */,
+				92685E5919222B8600C1CBEF /* PSCContactCell.m in Sources */,
 				92685E451921DB3B00C1CBEF /* PSCContactsViewController.m in Sources */,
 				92685E231921C77B00C1CBEF /* PSCUser.m in Sources */,
 				928F183B1921188700A05BF5 /* PSCChatViewController.m in Sources */,

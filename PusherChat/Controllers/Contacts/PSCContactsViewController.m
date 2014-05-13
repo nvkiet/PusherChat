@@ -7,8 +7,10 @@
 //
 
 #import "PSCContactsViewController.h"
+#import "PSCContactCell.h"
+#import "PSCChatViewController.h"
 
-@interface PSCContactsViewController ()
+@interface PSCContactsViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @end
 
@@ -29,6 +31,44 @@
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
 }
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 20;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"PSCContactCell";
+    
+    PSCContactCell *cell = (PSCContactCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:self options:nil] firstObject];
+    }
+    
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    PSCChatViewController *chatVC = [[PSCChatViewController alloc] initWithNibName:NSStringFromClass([PSCChatViewController class]) bundle:nil];
+    [self.navigationController pushViewController:chatVC animated:YES];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
