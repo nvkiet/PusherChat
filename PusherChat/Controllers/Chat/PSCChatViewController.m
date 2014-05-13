@@ -9,7 +9,7 @@
 #import "PSCChatViewController.h"
 #import "PSCAppDelegate.h"
 
-@interface PSCChatViewController ()<PTPusherDelegate, PTPusherPresenceChannelDelegate>
+@interface PSCChatViewController ()<PTPusherPresenceChannelDelegate>
 
 @property (nonatomic, strong) PTPusher *pusherClient;
 @property (nonatomic, strong) PTPusherPresenceChannel *currentChannel;

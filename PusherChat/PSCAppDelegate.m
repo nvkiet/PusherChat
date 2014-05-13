@@ -129,7 +129,8 @@
 - (void)pusher:(PTPusher *)pusher willAuthorizeChannelWithRequest:(NSMutableURLRequest *)request
 {
     NSLog(@"[pusher-%@] Authorizing channel access...", pusher.connection.socketID);
-    [request setHTTPBasicAuthUsername:CHANNEL_AUTH_USERNAME password:CHANNEL_AUTH_PASSWORD];
+    
+//    [request setValue:[NSString stringWithFormat:@"Bearer %@",[[TMEUserManager sharedInstance] getAccessToken]] forHTTPHeaderField:@"Authorization"];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
