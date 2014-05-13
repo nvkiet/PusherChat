@@ -13,4 +13,15 @@
 // Login tokens
 @property (nonatomic, strong) NSString * access_token;
 
+// Facebook Graph API
+@property (nonatomic, strong) NSString * facebook_id;
+@property (nonatomic, strong) NSString * username;
+@property (nonatomic, strong) NSString * name;
+@property (nonatomic, strong) NSString * email;
+@property (nonatomic, strong) NSNumber * location;
+@property (nonatomic, strong) NSNumber * gender;
+@property (nonatomic, strong) NSString * birthdate;
+@property (nonatomic, strong) NSNumber * phone;
+@property (nonatomic, strong) NSString * profile_image_picture;
+
 @end

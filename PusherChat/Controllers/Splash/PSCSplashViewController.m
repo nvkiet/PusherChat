@@ -39,6 +39,8 @@
     else {
         [[PSCAppDelegate shareDelegate] showLoginScreen];
     }
+    
+    //[[PSCAppDelegate shareDelegate] showHomeScreen];
 }
 
 - (void)didReceiveMemoryWarning

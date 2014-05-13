@@ -21,5 +21,6 @@
 
 - (void)showLoginScreen;
 - (void)showHomeScreen;
+- (void)logOut;
 
 @end

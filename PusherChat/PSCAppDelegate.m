@@ -113,6 +113,15 @@
     }
 }
 
+- (void)logOut
+{
+    [PFUser logOut];
+    
+    self.messagesVC = nil;
+    self.contactsVC = nil;
+    self.moreVC = nil;
+}
+
 
 #pragma mark - PTPusherDelegate
 

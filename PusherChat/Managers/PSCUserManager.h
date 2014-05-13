@@ -16,4 +16,6 @@
 
 - (NSString *)getAccessToken;
 
+- (void)loginWithFacebookOnSuccess: (void(^)(PFUser *user))success failure:(void(^)(NSError *error))failure;
+
 @end
