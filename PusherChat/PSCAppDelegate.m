@@ -130,7 +130,7 @@
 {
     NSLog(@"[pusher-%@] Authorizing channel access...", pusher.connection.socketID);
     
-//    [request setValue:[NSString stringWithFormat:@"Bearer %@",[[TMEUserManager sharedInstance] getAccessToken]] forHTTPHeaderField:@"Authorization"];
+    [request setValue:[NSString stringWithFormat:@"Bearer %@",[[PSCUserManager sharedInstance] getAccessToken]] forHTTPHeaderField:@"Authorization"];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

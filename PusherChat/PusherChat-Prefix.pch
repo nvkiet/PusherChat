@@ -6,13 +6,16 @@
 
 #import <Availability.h>
 
+// Models
+#import "PSCUser.h"
+
 // Verdors
 #import <Pusher/Pusher.h>
 #import <Pusher/PTPusherChannel.h>
 #import "Reachability.h"
 
-// Categories
-#import "NSMutableURLRequest+BasicAuth.h"
+// Managers
+#import "PSCUserManager.h"
 
 // Constants
 #define PUSHER_API_KEY @"a303b94353376eae7485"
