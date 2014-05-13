@@ -8,8 +8,10 @@
 
 #import "PSCAppDelegate.h"
 #import "PSCChatViewController.h"
+#import "PSCSplashViewController.h"
 
 @interface PSCAppDelegate()<PTPusherDelegate>
+@property (nonatomic, strong) PSCSplashViewController *splashVC;
 @end
 
 @implementation PSCAppDelegate
@@ -29,9 +31,9 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    PSCChatViewController *chatViewController = [[PSCChatViewController alloc] initWithNibName:NSStringFromClass([PSCChatViewController class]) bundle:nil];
+    self.splashVC = [[PSCSplashViewController alloc] initWithNibName:NSStringFromClass([PSCSplashViewController class]) bundle:nil];
     
-    self.navController = [[UINavigationController alloc] initWithRootViewController:chatViewController];
+    self.navController = [[UINavigationController alloc] initWithRootViewController:self.splashVC];
     self.window.rootViewController = self.navController;
     
     [self.window makeKeyAndVisible];
@@ -39,6 +41,11 @@
     [self.pusherClient connect];
     
     return YES;
+}
+
++ (PSCAppDelegate *)shareDelegate
+{
+    return (PSCAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 #pragma mark - Reachability

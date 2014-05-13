@@ -15,6 +15,8 @@
 
 @property (strong, nonatomic) PTPusher *pusherClient;
 
++ (PSCAppDelegate *)shareDelegate;
+
 - (void)showLoginScreen;
 - (void)showHomeScreen;
 
