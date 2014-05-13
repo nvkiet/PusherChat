@@ -9,6 +9,7 @@
 #import "PSCAppDelegate.h"
 #import "PSCChatViewController.h"
 #import "PSCSplashViewController.h"
+#import "PSCLoginViewController.h"
 
 @interface PSCAppDelegate()<PTPusherDelegate>
 @property (nonatomic, strong) PSCSplashViewController *splashVC;
@@ -46,6 +47,15 @@
 + (PSCAppDelegate *)shareDelegate
 {
     return (PSCAppDelegate *)[[UIApplication sharedApplication] delegate];
+}
+
+- (void)showLoginScreen
+{
+    [self.splashVC presentViewController:[[PSCLoginViewController alloc] initWithNibName:NSStringFromClass([PSCLoginViewController class]) bundle:nil]  animated:YES completion:nil];
+}
+
+- (void)showHomeScreen
+{
 }
 
 #pragma mark - Reachability
