@@ -33,8 +33,7 @@
 {
     [super viewDidLoad];
     
-    PSCAppDelegate *appDelegate = (PSCAppDelegate *)[[UIApplication sharedApplication] delegate];
-    self.pusherClient = appDelegate.pusherClient;
+    self.pusherClient = [PSCAppDelegate shareDelegate].pusherClient;
     
     // Configure the auth URL for private/presence channels
     self.pusherClient.authorizationURL = [NSURL URLWithString:@"http://localhost:9292/presence/auth"];
