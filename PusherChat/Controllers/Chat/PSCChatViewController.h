@@ -10,4 +10,6 @@
 
 @interface PSCChatViewController : UIViewController
 
+- (void)subscribeToPresenceChannel:(NSString *)channelName;
+
 @end

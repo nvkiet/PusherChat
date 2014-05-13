@@ -13,6 +13,6 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UINavigationController *navController;
 
-@property (nonatomic, strong) PTPusher *pusherClient;
+@property (strong, nonatomic) PTPusher *pusherClient;
 
 @end

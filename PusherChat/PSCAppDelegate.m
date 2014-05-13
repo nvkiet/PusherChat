@@ -18,13 +18,6 @@
 {
     self.pusherClient = [PTPusher pusherWithKey:PUSHER_API_KEY delegate:self encrypted:YES];
     
-    // Subscribe to channel and bind to event
-    PTPusherChannel *channel = [self.pusherClient subscribeToChannelNamed:@"chat"];
-    [channel bindToEventNamed:@"new-message" handleWithBlock:^(PTPusherEvent *channelEvent) {
-        NSString *message = [channelEvent.data objectForKey:@"text"];
-        NSLog(@"message received: %@", message);
-    }];
-    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     PSCChatViewController *chatViewController = [[PSCChatViewController alloc] initWithNibName:NSStringFromClass([PSCChatViewController class]) bundle:nil];
@@ -129,6 +122,15 @@
     NSLog(@"[pusher-%@] Received error event %@", pusher.connection.socketID, errorEvent);
 }
 
+/*
+ This demonstrates how we can intercept the authorization request to configure it for our app's
+ authentication/authorisation needs.
+*/
+- (void)pusher:(PTPusher *)pusher willAuthorizeChannelWithRequest:(NSMutableURLRequest *)request
+{
+    NSLog(@"[pusher-%@] Authorizing channel access...", pusher.connection.socketID);
+    [request setHTTPBasicAuthUsername:CHANNEL_AUTH_USERNAME password:CHANNEL_AUTH_PASSWORD];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1E6FC14CA5474099970CDB78 /* libPods-PusherChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E6C5F59D5F148EBB086EA58 /* libPods-PusherChat.a */; };
+		92685E131921A1E800C1CBEF /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 92685E101921A1E800C1CBEF /* NSData+Base64.m */; };
+		92685E141921A1E800C1CBEF /* NSMutableURLRequest+BasicAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 92685E121921A1E800C1CBEF /* NSMutableURLRequest+BasicAuth.m */; };
 		928F183B1921188700A05BF5 /* PSCChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 928F18391921188700A05BF5 /* PSCChatViewController.m */; };
 		928F183C1921188700A05BF5 /* PSCChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 928F183A1921188700A05BF5 /* PSCChatViewController.xib */; };
 		92B1C3451920644500897029 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B1C3441920644500897029 /* Foundation.framework */; };
@@ -36,6 +38,10 @@
 
 /* Begin PBXFileReference section */
 		8E6C5F59D5F148EBB086EA58 /* libPods-PusherChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PusherChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		92685E0F1921A1E800C1CBEF /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		92685E101921A1E800C1CBEF /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		92685E111921A1E800C1CBEF /* NSMutableURLRequest+BasicAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+BasicAuth.h"; sourceTree = "<group>"; };
+		92685E121921A1E800C1CBEF /* NSMutableURLRequest+BasicAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableURLRequest+BasicAuth.m"; sourceTree = "<group>"; };
 		928F18381921188700A05BF5 /* PSCChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCChatViewController.h; sourceTree = "<group>"; };
 		928F18391921188700A05BF5 /* PSCChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCChatViewController.m; sourceTree = "<group>"; };
 		928F183A1921188700A05BF5 /* PSCChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCChatViewController.xib; sourceTree = "<group>"; };
@@ -93,6 +99,17 @@
 			path = Chat;
 			sourceTree = "<group>";
 		};
+		928F18441921317A00A05BF5 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				92685E0F1921A1E800C1CBEF /* NSData+Base64.h */,
+				92685E101921A1E800C1CBEF /* NSData+Base64.m */,
+				92685E111921A1E800C1CBEF /* NSMutableURLRequest+BasicAuth.h */,
+				92685E121921A1E800C1CBEF /* NSMutableURLRequest+BasicAuth.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
 		92B1C3381920644500897029 = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +147,7 @@
 			children = (
 				92B1C3531920644500897029 /* PSCAppDelegate.h */,
 				92B1C3541920644500897029 /* PSCAppDelegate.m */,
+				928F18441921317A00A05BF5 /* Categories */,
 				92B1C37A19206B5D00897029 /* Controllers */,
 				92B1C35C1920644500897029 /* Images.xcassets */,
 				92B1C34B1920644500897029 /* Supporting Files */,
@@ -308,6 +326,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				928F183B1921188700A05BF5 /* PSCChatViewController.m in Sources */,
+				92685E131921A1E800C1CBEF /* NSData+Base64.m in Sources */,
+				92685E141921A1E800C1CBEF /* NSMutableURLRequest+BasicAuth.m in Sources */,
 				92B1C3511920644500897029 /* main.m in Sources */,
 				92B1C3551920644500897029 /* PSCAppDelegate.m in Sources */,
 			);

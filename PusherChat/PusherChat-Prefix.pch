@@ -11,10 +11,16 @@
 #import <Pusher/PTPusherChannel.h>
 #import "Reachability.h"
 
+// Categories
+#import "NSMutableURLRequest+BasicAuth.h"
+
 // Constants
 #define PUSHER_API_KEY @"a303b94353376eae7485"
 #define PUSHER_APP_ID  @"74518"
 #define PUSHER_API_SECRET  @"43abb3c7a07e0b339e25"
+
+#define CHANNEL_AUTH_USERNAME @""
+#define CHANNEL_AUTH_PASSWORD @""
 
 #ifndef __IPHONE_5_0
 #warning "This project uses features only available in iOS SDK 5.0 and later."
