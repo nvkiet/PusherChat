@@ -37,6 +37,7 @@
     self.pusherClient = [PTPusher pusherWithKey:PUSHER_API_KEY delegate:self encrypted:YES];
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
     
     self.splashVC = [[PSCSplashViewController alloc] initWithNibName:NSStringFromClass([PSCSplashViewController class]) bundle:nil];
     
