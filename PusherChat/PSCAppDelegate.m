@@ -10,9 +10,15 @@
 #import "PSCChatViewController.h"
 #import "PSCSplashViewController.h"
 #import "PSCLoginViewController.h"
+#import "PSCMessagesViewController.h"
+#import "PSCContactsViewController.h"
+#import "PSCMoreViewController.h"
 
 @interface PSCAppDelegate()<PTPusherDelegate>
 @property (nonatomic, strong) PSCSplashViewController *splashVC;
+@property (nonatomic, strong) PSCMessagesViewController *messagesVC;
+@property (nonatomic, strong) PSCContactsViewController *contactsVC;
+@property (nonatomic, strong) PSCMoreViewController *moreVC;
 @end
 
 @implementation PSCAppDelegate
@@ -56,6 +62,25 @@
 
 - (void)showHomeScreen
 {
+    self.tabbarController = [[UITabBarController alloc] init];
+    self.tabbarController.delegate = self;
+    
+    self.messagesVC = [[PSCMessagesViewController alloc] initWithNibName:NSStringFromClass([PSCMessagesViewController class]) bundle:nil];
+    UINavigationController *messagesNC =  [[UINavigationController alloc] initWithRootViewController:self.messagesVC];
+    
+    self.contactsVC = [[PSCContactsViewController alloc] initWithNibName:NSStringFromClass([PSCContactsViewController class]) bundle:nil];
+    UINavigationController *contactsNC =  [[UINavigationController alloc] initWithRootViewController:self.contactsVC];
+    
+    self.moreVC = [[PSCMoreViewController alloc] initWithNibName:NSStringFromClass([PSCMoreViewController class]) bundle:nil];
+    UINavigationController *moreNC =  [[UINavigationController alloc] initWithRootViewController:self.moreVC];
+    
+    self.tabbarController.viewControllers = @ [ messagesNC, contactsNC, moreNC];
+    
+    [[self.tabbarController.tabBar.items objectAtIndex:0] setTitle:@"Messages"];
+    [[self.tabbarController.tabBar.items objectAtIndex:1] setTitle:@"Contacts"];
+    [[self.tabbarController.tabBar.items objectAtIndex:2] setTitle:@"More"];
+    
+    [self.splashVC presentViewController: self.tabbarController animated:NO completion:nil];
 }
 
 #pragma mark - Reachability
@@ -159,6 +184,12 @@
     [request setValue:[NSString stringWithFormat:@"Bearer %@",[[PSCUserManager sharedInstance] getAccessToken]] forHTTPHeaderField:@"Authorization"];
 }
 
+// App switching methods to support Facebook Single Sign-On.
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication withSession:[PFFacebookUtils session]];
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -179,11 +210,13 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:
+    [[PFFacebookUtils session] close];
 }
 
 @end

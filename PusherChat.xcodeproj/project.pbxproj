@@ -18,6 +18,12 @@
 		92685E341921CCA400C1CBEF /* bt_facebook_onpress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92685E301921CCA400C1CBEF /* bt_facebook_onpress@2x.png */; };
 		92685E391921CF9A00C1CBEF /* PSCSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92685E371921CF9A00C1CBEF /* PSCSplashViewController.m */; };
 		92685E3A1921CF9A00C1CBEF /* PSCSplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92685E381921CF9A00C1CBEF /* PSCSplashViewController.xib */; };
+		92685E3F1921DA8300C1CBEF /* PSCMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92685E3D1921DA8300C1CBEF /* PSCMessagesViewController.m */; };
+		92685E401921DA8300C1CBEF /* PSCMessagesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92685E3E1921DA8300C1CBEF /* PSCMessagesViewController.xib */; };
+		92685E451921DB3B00C1CBEF /* PSCContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92685E431921DB3B00C1CBEF /* PSCContactsViewController.m */; };
+		92685E461921DB3B00C1CBEF /* PSCContactsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92685E441921DB3B00C1CBEF /* PSCContactsViewController.xib */; };
+		92685E4C1921DBB400C1CBEF /* PSCMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92685E4A1921DBB400C1CBEF /* PSCMoreViewController.m */; };
+		92685E4D1921DBB400C1CBEF /* PSCMoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92685E4B1921DBB400C1CBEF /* PSCMoreViewController.xib */; };
 		928F183B1921188700A05BF5 /* PSCChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 928F18391921188700A05BF5 /* PSCChatViewController.m */; };
 		928F183C1921188700A05BF5 /* PSCChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 928F183A1921188700A05BF5 /* PSCChatViewController.xib */; };
 		92B1C3451920644500897029 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B1C3441920644500897029 /* Foundation.framework */; };
@@ -60,6 +66,15 @@
 		92685E361921CF9A00C1CBEF /* PSCSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCSplashViewController.h; sourceTree = "<group>"; };
 		92685E371921CF9A00C1CBEF /* PSCSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCSplashViewController.m; sourceTree = "<group>"; };
 		92685E381921CF9A00C1CBEF /* PSCSplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCSplashViewController.xib; sourceTree = "<group>"; };
+		92685E3C1921DA8300C1CBEF /* PSCMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCMessagesViewController.h; sourceTree = "<group>"; };
+		92685E3D1921DA8300C1CBEF /* PSCMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCMessagesViewController.m; sourceTree = "<group>"; };
+		92685E3E1921DA8300C1CBEF /* PSCMessagesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCMessagesViewController.xib; sourceTree = "<group>"; };
+		92685E421921DB3B00C1CBEF /* PSCContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCContactsViewController.h; sourceTree = "<group>"; };
+		92685E431921DB3B00C1CBEF /* PSCContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCContactsViewController.m; sourceTree = "<group>"; };
+		92685E441921DB3B00C1CBEF /* PSCContactsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCContactsViewController.xib; sourceTree = "<group>"; };
+		92685E491921DBB400C1CBEF /* PSCMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCMoreViewController.h; sourceTree = "<group>"; };
+		92685E4A1921DBB400C1CBEF /* PSCMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCMoreViewController.m; sourceTree = "<group>"; };
+		92685E4B1921DBB400C1CBEF /* PSCMoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCMoreViewController.xib; sourceTree = "<group>"; };
 		928F18381921188700A05BF5 /* PSCChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCChatViewController.h; sourceTree = "<group>"; };
 		928F18391921188700A05BF5 /* PSCChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCChatViewController.m; sourceTree = "<group>"; };
 		928F183A1921188700A05BF5 /* PSCChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCChatViewController.xib; sourceTree = "<group>"; };
@@ -172,6 +187,36 @@
 			path = Splash;
 			sourceTree = "<group>";
 		};
+		92685E3B1921DA2C00C1CBEF /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				92685E3C1921DA8300C1CBEF /* PSCMessagesViewController.h */,
+				92685E3D1921DA8300C1CBEF /* PSCMessagesViewController.m */,
+				92685E3E1921DA8300C1CBEF /* PSCMessagesViewController.xib */,
+			);
+			path = Messages;
+			sourceTree = "<group>";
+		};
+		92685E411921DB2D00C1CBEF /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				92685E421921DB3B00C1CBEF /* PSCContactsViewController.h */,
+				92685E431921DB3B00C1CBEF /* PSCContactsViewController.m */,
+				92685E441921DB3B00C1CBEF /* PSCContactsViewController.xib */,
+			);
+			path = Contacts;
+			sourceTree = "<group>";
+		};
+		92685E481921DBA800C1CBEF /* More */ = {
+			isa = PBXGroup;
+			children = (
+				92685E491921DBB400C1CBEF /* PSCMoreViewController.h */,
+				92685E4A1921DBB400C1CBEF /* PSCMoreViewController.m */,
+				92685E4B1921DBB400C1CBEF /* PSCMoreViewController.xib */,
+			);
+			path = More;
+			sourceTree = "<group>";
+		};
 		928F18371921186E00A05BF5 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
@@ -264,6 +309,9 @@
 				928F18371921186E00A05BF5 /* Chat */,
 				92685E241921CA9C00C1CBEF /* Login */,
 				92685E351921CF8800C1CBEF /* Splash */,
+				92685E3B1921DA2C00C1CBEF /* Messages */,
+				92685E411921DB2D00C1CBEF /* Contacts */,
+				92685E481921DBA800C1CBEF /* More */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -352,9 +400,12 @@
 				928F183C1921188700A05BF5 /* PSCChatViewController.xib in Resources */,
 				92685E3A1921CF9A00C1CBEF /* PSCSplashViewController.xib in Resources */,
 				92685E311921CCA400C1CBEF /* bt_facebook_normal.png in Resources */,
+				92685E461921DB3B00C1CBEF /* PSCContactsViewController.xib in Resources */,
+				92685E401921DA8300C1CBEF /* PSCMessagesViewController.xib in Resources */,
 				92B1C34F1920644500897029 /* InfoPlist.strings in Resources */,
 				92685E331921CCA400C1CBEF /* bt_facebook_onpress.png in Resources */,
 				92685E321921CCA400C1CBEF /* bt_facebook_normal@2x.png in Resources */,
+				92685E4D1921DBB400C1CBEF /* PSCMoreViewController.xib in Resources */,
 				92685E341921CCA400C1CBEF /* bt_facebook_onpress@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -407,9 +458,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92685E4C1921DBB400C1CBEF /* PSCMoreViewController.m in Sources */,
+				92685E451921DB3B00C1CBEF /* PSCContactsViewController.m in Sources */,
 				92685E231921C77B00C1CBEF /* PSCUser.m in Sources */,
 				928F183B1921188700A05BF5 /* PSCChatViewController.m in Sources */,
 				92B1C3511920644500897029 /* main.m in Sources */,
+				92685E3F1921DA8300C1CBEF /* PSCMessagesViewController.m in Sources */,
 				92685E281921CAB300C1CBEF /* PSCLoginViewController.m in Sources */,
 				92685E391921CF9A00C1CBEF /* PSCSplashViewController.m in Sources */,
 				92B1C3551920644500897029 /* PSCAppDelegate.m in Sources */,

@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PSCAppDelegate : UIResponder <UIApplicationDelegate>
+@interface PSCAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (strong, nonatomic) UITabBarController *tabbarController;
 @property (strong, nonatomic) UINavigationController *navController;
 
 @property (strong, nonatomic) PTPusher *pusherClient;
