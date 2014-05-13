@@ -10,6 +10,12 @@
 		1E6FC14CA5474099970CDB78 /* libPods-PusherChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E6C5F59D5F148EBB086EA58 /* libPods-PusherChat.a */; };
 		92685E1F1921C38100C1CBEF /* PSCUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 92685E1E1921C38100C1CBEF /* PSCUserManager.m */; };
 		92685E231921C77B00C1CBEF /* PSCUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 92685E221921C77B00C1CBEF /* PSCUser.m */; };
+		92685E281921CAB300C1CBEF /* PSCLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92685E261921CAB300C1CBEF /* PSCLoginViewController.m */; };
+		92685E291921CAB300C1CBEF /* PSCLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92685E271921CAB300C1CBEF /* PSCLoginViewController.xib */; };
+		92685E311921CCA400C1CBEF /* bt_facebook_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 92685E2D1921CCA400C1CBEF /* bt_facebook_normal.png */; };
+		92685E321921CCA400C1CBEF /* bt_facebook_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92685E2E1921CCA400C1CBEF /* bt_facebook_normal@2x.png */; };
+		92685E331921CCA400C1CBEF /* bt_facebook_onpress.png in Resources */ = {isa = PBXBuildFile; fileRef = 92685E2F1921CCA400C1CBEF /* bt_facebook_onpress.png */; };
+		92685E341921CCA400C1CBEF /* bt_facebook_onpress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92685E301921CCA400C1CBEF /* bt_facebook_onpress@2x.png */; };
 		928F183B1921188700A05BF5 /* PSCChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 928F18391921188700A05BF5 /* PSCChatViewController.m */; };
 		928F183C1921188700A05BF5 /* PSCChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 928F183A1921188700A05BF5 /* PSCChatViewController.xib */; };
 		92B1C3451920644500897029 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B1C3441920644500897029 /* Foundation.framework */; };
@@ -42,6 +48,13 @@
 		92685E1E1921C38100C1CBEF /* PSCUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCUserManager.m; sourceTree = "<group>"; };
 		92685E211921C77B00C1CBEF /* PSCUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCUser.h; sourceTree = "<group>"; };
 		92685E221921C77B00C1CBEF /* PSCUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCUser.m; sourceTree = "<group>"; };
+		92685E251921CAB300C1CBEF /* PSCLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCLoginViewController.h; sourceTree = "<group>"; };
+		92685E261921CAB300C1CBEF /* PSCLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCLoginViewController.m; sourceTree = "<group>"; };
+		92685E271921CAB300C1CBEF /* PSCLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCLoginViewController.xib; sourceTree = "<group>"; };
+		92685E2D1921CCA400C1CBEF /* bt_facebook_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bt_facebook_normal.png; sourceTree = "<group>"; };
+		92685E2E1921CCA400C1CBEF /* bt_facebook_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_facebook_normal@2x.png"; sourceTree = "<group>"; };
+		92685E2F1921CCA400C1CBEF /* bt_facebook_onpress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bt_facebook_onpress.png; sourceTree = "<group>"; };
+		92685E301921CCA400C1CBEF /* bt_facebook_onpress@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_facebook_onpress@2x.png"; sourceTree = "<group>"; };
 		928F18381921188700A05BF5 /* PSCChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCChatViewController.h; sourceTree = "<group>"; };
 		928F18391921188700A05BF5 /* PSCChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCChatViewController.m; sourceTree = "<group>"; };
 		928F183A1921188700A05BF5 /* PSCChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCChatViewController.xib; sourceTree = "<group>"; };
@@ -107,6 +120,43 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		92685E241921CA9C00C1CBEF /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				92685E251921CAB300C1CBEF /* PSCLoginViewController.h */,
+				92685E261921CAB300C1CBEF /* PSCLoginViewController.m */,
+				92685E271921CAB300C1CBEF /* PSCLoginViewController.xib */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		92685E2A1921CC7900C1CBEF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				92685E2B1921CC7900C1CBEF /* Images */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		92685E2B1921CC7900C1CBEF /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				92685E2C1921CC8E00C1CBEF /* Login */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		92685E2C1921CC8E00C1CBEF /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				92685E2D1921CCA400C1CBEF /* bt_facebook_normal.png */,
+				92685E2E1921CCA400C1CBEF /* bt_facebook_normal@2x.png */,
+				92685E2F1921CCA400C1CBEF /* bt_facebook_onpress.png */,
+				92685E301921CCA400C1CBEF /* bt_facebook_onpress@2x.png */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		928F18371921186E00A05BF5 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +207,7 @@
 				92685E201921C76200C1CBEF /* Models */,
 				92B1C37A19206B5D00897029 /* Controllers */,
 				92685E1C1921C37300C1CBEF /* Managers */,
+				92685E2A1921CC7900C1CBEF /* Resources */,
 				92B1C35C1920644500897029 /* Images.xcassets */,
 				92B1C34B1920644500897029 /* Supporting Files */,
 			);
@@ -196,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				928F18371921186E00A05BF5 /* Chat */,
+				92685E241921CA9C00C1CBEF /* Login */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -280,8 +332,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				92B1C35D1920644500897029 /* Images.xcassets in Resources */,
+				92685E291921CAB300C1CBEF /* PSCLoginViewController.xib in Resources */,
 				928F183C1921188700A05BF5 /* PSCChatViewController.xib in Resources */,
+				92685E311921CCA400C1CBEF /* bt_facebook_normal.png in Resources */,
 				92B1C34F1920644500897029 /* InfoPlist.strings in Resources */,
+				92685E331921CCA400C1CBEF /* bt_facebook_onpress.png in Resources */,
+				92685E321921CCA400C1CBEF /* bt_facebook_normal@2x.png in Resources */,
+				92685E341921CCA400C1CBEF /* bt_facebook_onpress@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +393,7 @@
 				92685E231921C77B00C1CBEF /* PSCUser.m in Sources */,
 				928F183B1921188700A05BF5 /* PSCChatViewController.m in Sources */,
 				92B1C3511920644500897029 /* main.m in Sources */,
+				92685E281921CAB300C1CBEF /* PSCLoginViewController.m in Sources */,
 				92B1C3551920644500897029 /* PSCAppDelegate.m in Sources */,
 				92685E1F1921C38100C1CBEF /* PSCUserManager.m in Sources */,
 			);

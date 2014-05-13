@@ -16,6 +16,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // Register to use Parse Server
+    [Parse setApplicationId:@"lpChB2mmgIXvXoxLDK659ZldptkaUfKMdiH2XBBv"
+                  clientKey:@"eTHM0k7l409cgJYWDeeyhMgB0gNd285SiPHnDGtk"];
+    
+    // Track statistics around application opens
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    [PFFacebookUtils initializeFacebook];
+    
     self.pusherClient = [PTPusher pusherWithKey:PUSHER_API_KEY delegate:self encrypted:YES];
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];

@@ -15,4 +15,7 @@
 
 @property (strong, nonatomic) PTPusher *pusherClient;
 
+- (void)showLoginScreen;
+- (void)showHomeScreen;
+
 @end

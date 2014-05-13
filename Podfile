@@ -4,6 +4,8 @@ platform :ios, "7.0"
 target "PusherChat" do
 pod 'libPusher', '~> 1.5'
 pod 'Reachability', '~> 3.1.1'
+pod 'Facebook-iOS-SDK', '~> 3.13.0'
+pod 'Parse-iOS-SDK', '~> 1.2.18'
 end
 
 target "PusherChatTests" do
