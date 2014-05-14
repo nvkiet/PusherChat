@@ -100,7 +100,6 @@
     [[UINavigationBar appearance] setTitleTextAttributes: @{ NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont fontWithName: FONT_HELVETICAL_REGULAR size:17.0f]}];
     
     [[UIBarButtonItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName:[UIColor whiteColor]} forState: UIControlStateNormal];
-     
     
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleLightContent];
 }

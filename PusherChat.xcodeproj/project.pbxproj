@@ -200,6 +200,7 @@
 				92685E2C1921CC8E00C1CBEF /* Login */,
 				92685E4E1921E12100C1CBEF /* More */,
 				92D25610192292820003347D /* Tabbar */,
+				9287F32019230C3E002DE925 /* Navigation Bar */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -280,6 +281,13 @@
 				92685E5819222B8600C1CBEF /* PSCContactCell.xib */,
 			);
 			path = UITableViewCells;
+			sourceTree = "<group>";
+		};
+		9287F32019230C3E002DE925 /* Navigation Bar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Navigation Bar";
 			sourceTree = "<group>";
 		};
 		928F18371921186E00A05BF5 /* Chat */ = {
