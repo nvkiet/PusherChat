@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4JL-b0-QZq">
-                        <rect key="frame" x="70" y="20" width="181" height="21"/>
+                        <rect key="frame" x="70" y="20" width="201" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -26,6 +26,10 @@
                     </label>
                 </subviews>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="avatarImageView" destination="xCt-av-hJc" id="dZe-1S-ETA"/>
+                <outlet property="nameLabel" destination="4JL-b0-QZq" id="c9z-8N-0lx"/>
+            </connections>
         </tableViewCell>
     </objects>
     <resources>

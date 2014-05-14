@@ -104,6 +104,7 @@
     [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleLightContent];
 }
 
+
 #pragma mark - Reachability
 
 - (void)startReachabilityCheck

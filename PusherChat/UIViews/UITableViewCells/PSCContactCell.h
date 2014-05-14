@@ -10,4 +10,6 @@
 
 @interface PSCContactCell : UITableViewCell
 
+- (void)configureDataWithModel: (id)model;
+
 @end

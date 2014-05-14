@@ -9,9 +9,13 @@
 #import "PSCContactsViewController.h"
 #import "PSCContactCell.h"
 #import "PSCChatViewController.h"
+#import "PSCAppDelegate.h"
 
-@interface PSCContactsViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface PSCContactsViewController ()<UITableViewDelegate,UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSArray *dataArray;
 
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 @end
 
 @implementation PSCContactsViewController
@@ -20,7 +24,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -30,6 +33,15 @@
     [super viewDidLoad];
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    self.navigationItem.title = @"Contacts";
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refreshData) forControlEvents:UIControlEventValueChanged];
+    
+    [self.tableView addSubview:self.refreshControl];
+    
+    [self refreshData];
 }
 
 #pragma mark - Table view data source
@@ -41,7 +53,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 20;
+   return self.dataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -52,6 +64,9 @@
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:self options:nil] firstObject];
     }
+    
+    PFUser *user = [self.dataArray objectAtIndex:indexPath.row];
+    [cell configureDataWithModel:user];
     
     return cell;
 }
@@ -69,6 +84,29 @@
     [self.navigationController pushViewController:chatVC animated:YES];
 }
 
+#pragma mark - Methods
+
+- (void)refreshData
+{
+    [SVProgressHUD show];
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    [query whereKey:@"username" notEqualTo:[PFUser currentUser].username];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            self.dataArray = objects;
+            
+            [self.tableView reloadData];
+            
+            [self.refreshControl endRefreshing];
+            
+            [SVProgressHUD dismiss];
+        } else {
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+}
 
 - (void)didReceiveMemoryWarning
 {

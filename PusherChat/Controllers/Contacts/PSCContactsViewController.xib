@@ -7,7 +7,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PSCContactsViewController">
             <connections>
                 <outlet property="searchDisplayController" destination="Imd-pQ-pYM" id="u32-eY-13x"/>
-                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="tableView" destination="7X0-j0-8sK" id="73y-WN-V1F"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="b96-tZ-jO8"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
