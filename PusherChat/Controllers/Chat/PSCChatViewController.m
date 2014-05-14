@@ -10,7 +10,6 @@
 #import "PSCAppDelegate.h"
 
 @interface PSCChatViewController ()<PTPusherPresenceChannelDelegate>
-
 @property (nonatomic, strong) PTPusher *pusherClient;
 @property (nonatomic, strong) PTPusherPresenceChannel *currentChannel;
 
@@ -37,7 +36,7 @@
     self.pusherClient = [PSCAppDelegate shareDelegate].pusherClient;
     
     // Configure the auth URL for private/presence channels
-    self.pusherClient.authorizationURL = [NSURL URLWithString:@"http://localhost:9292/presence/auth"];
+    self.pusherClient.authorizationURL = [NSURL URLWithString:@"http://localhost:5000/pusher/auth"]; //@"http://localhost:9292/presence/auth" @"https://api.parse.com/1/functions/auth"
     
     [self subscribeToPresenceChannel:@"demo"];
 }
