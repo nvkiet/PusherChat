@@ -24,6 +24,9 @@
 #define PUSHER_APP_ID  @"74518"
 #define PUSHER_API_SECRET  @"43abb3c7a07e0b339e25"
 
+#define FONT_HELVETICAL_REGULAR  @"HelveticaNeue"
+#define FONT_HELVETICAL_LIGHT  @"HelveticaNeue-Light"
+
 // Categories
 #import "UIImage+Utils.h"
 

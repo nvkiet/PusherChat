@@ -36,6 +36,8 @@
     
     self.pusherClient = [PTPusher pusherWithKey:PUSHER_API_KEY delegate:self encrypted:YES];
     
+    [self setupAppearance];
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     
@@ -88,6 +90,20 @@
     [self.splashVC presentViewController: self.tabbarController animated:NO completion:nil];
 }
 
+- (void)setupAppearance
+{
+    // Set Tabbar Text Color
+    [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName:[UIColor grayColor]} forState:UIControlStateSelected];
+    
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:127/255.0 green:43/255.0 blue:157/255.0 alpha:1.0f]];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes: @{ NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont fontWithName: FONT_HELVETICAL_REGULAR size:17.0f]}];
+    
+    [[UIBarButtonItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName:[UIColor whiteColor]} forState: UIControlStateNormal];
+     
+    
+    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleLightContent];
+}
 
 #pragma mark - Reachability
 
