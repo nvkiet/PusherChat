@@ -77,12 +77,17 @@
     
     self.tabbarController.viewControllers = @ [ messagesNC, contactsNC, moreNC];
     
-    [[self.tabbarController.tabBar.items objectAtIndex:0] setTitle:@"Messages"];
-    [[self.tabbarController.tabBar.items objectAtIndex:1] setTitle:@"Contacts"];
-    [[self.tabbarController.tabBar.items objectAtIndex:2] setTitle:@"More"];
+    self.messagesVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Messages" image:[UIImage imageRenderingModeAlwaysOrigininalWithName:@"tab_icon_messages_idle.png"] selectedImage:[UIImage imageRenderingModeAlwaysOrigininalWithName:@"tab_icon_messages_selected.png"]];
+
+    self.contactsVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Contacts" image:[UIImage imageRenderingModeAlwaysOrigininalWithName:@"tab_icon_contacts_idle.png"] selectedImage:[UIImage imageRenderingModeAlwaysOrigininalWithName:@"tab_icon_contacts_selected.png"]];
+
+    self.moreVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"More" image:[UIImage
+        imageRenderingModeAlwaysOrigininalWithName:@"tab_icon_more_idle.png"] selectedImage:[UIImage
+        imageRenderingModeAlwaysOrigininalWithName:@"tab_icon_more_selected.png"]];
     
     [self.splashVC presentViewController: self.tabbarController animated:NO completion:nil];
 }
+
 
 #pragma mark - Reachability
 
