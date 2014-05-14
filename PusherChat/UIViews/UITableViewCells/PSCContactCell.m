@@ -34,11 +34,13 @@
     
     self.nameLabel.text = user[@"profile"][@"name"];
     
-    NSURL *pictureURL = [NSURL URLWithString:user[@"profile"][@"pictureURL"]];
-    [self.avatarImageView setImageWithURL:pictureURL placeholderImage:[UIImage imageNamed:@"anonymousUser.png"]];
-    
-    self.avatarImageView.layer.cornerRadius = 20.0;
-    self.avatarImageView.layer.masksToBounds = YES;
+    if (user[@"profile"][@"pictureURL"]) {
+        NSURL *pictureURL = [NSURL URLWithString:user[@"profile"][@"pictureURL"]];
+        [self.avatarImageView setImageWithURL:pictureURL placeholderImage:[UIImage imageNamed:@"anonymousUser.png"]];
+        
+        self.avatarImageView.layer.cornerRadius = 20.0;
+        self.avatarImageView.layer.masksToBounds = YES;
+    }
 }
 
 @end

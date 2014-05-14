@@ -88,8 +88,6 @@
 
 - (void)refreshData
 {
-    [SVProgressHUD show];
-    
     PFQuery *query = [PFQuery queryWithClassName:@"_User"];
     [query whereKey:@"username" notEqualTo:[PFUser currentUser].username];
     
@@ -100,9 +98,8 @@
             [self.tableView reloadData];
             
             [self.refreshControl endRefreshing];
-            
-            [SVProgressHUD dismiss];
-        } else {
+        }
+        else {
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];

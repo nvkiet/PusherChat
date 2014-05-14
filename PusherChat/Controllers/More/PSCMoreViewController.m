@@ -9,11 +9,9 @@
 #import "PSCMoreViewController.h"
 #import "PSCAppDelegate.h"
 
-@interface PSCMoreViewController ()<NSURLConnectionDelegate, UIAlertViewDelegate>
+@interface PSCMoreViewController ()<UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-
-@property (nonatomic, strong) NSMutableData *imageData;
 @end
 
 @implementation PSCMoreViewController
@@ -119,22 +117,6 @@
     }
 }
 
-
-#pragma mark - NSURLConnectionDataDelegate
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    [self.imageData appendData:data];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    self.avatarImageView.image = [UIImage imageWithData:self.imageData];
-    
-    self.avatarImageView.layer.cornerRadius = 50;
-    self.avatarImageView.layer.masksToBounds = YES;
-}
-
 #pragma mark - Methods
 
 - (void)updateProfile
@@ -144,18 +126,14 @@
     // TODOME: Update to current User
     
     self.nameLabel.text = [currentUser objectForKey:@"profile"][@"name"];
-
-    self.imageData      = [[NSMutableData alloc] init];
     
     if ([currentUser objectForKey:@"profile"][@"pictureURL"]) {
-        NSURL *pictureURL              = [NSURL URLWithString:[currentUser objectForKey:@"profile"][@"pictureURL"]];
-        NSURLRequest *urlRequest       = [NSURLRequest requestWithURL:pictureURL
-                                                    cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                timeoutInterval:2.0f];
-        NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
-        if (!urlConnection) {
-            NSLog(@"Failed to download picture");
-        }
+        NSURL *pictureURL = [NSURL URLWithString:[currentUser objectForKey:@"profile"][@"pictureURL"]];
+        
+        [self.avatarImageView setImageWithURL:pictureURL placeholderImage:[UIImage imageNamed:@"anonymousUser.png"]];
+        
+        self.avatarImageView.layer.cornerRadius = 50;
+        self.avatarImageView.layer.masksToBounds = YES;
     }
 }
 
