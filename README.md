@@ -1,4 +1,4 @@
 PusherChat
 =============================
 
-Build a chat app like viber by using Pusher.com.
+Build a chat app like Viber by using Pusher.com.
