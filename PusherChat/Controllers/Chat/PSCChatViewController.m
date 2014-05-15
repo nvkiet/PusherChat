@@ -9,6 +9,8 @@
 #import "PSCChatViewController.h"
 #import "PSCAppDelegate.h"
 
+NSString *const kEventNameNewMessage = @"client-chat";
+
 @interface PSCChatViewController ()<PTPusherPresenceChannelDelegate>
 @property (nonatomic, strong) PTPusher *pusherClient;
 @property (nonatomic, strong) PTPusherPresenceChannel *currentChannel;
@@ -33,12 +35,19 @@
 {
     [super viewDidLoad];
     
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back_icon_regular.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(backButtonClicked:)];
+    self.navigationItem.leftBarButtonItem  = backButton;
+    
+    self.navigationItem.title = self.userChat[@"profile"][@"name"];
+    
     self.pusherClient = [PSCAppDelegate shareDelegate].pusherClient;
     
     // Configure the auth URL for private/presence channels
-    self.pusherClient.authorizationURL = [NSURL URLWithString:@"http://localhost:5000/pusher/auth"]; //@"http://localhost:9292/presence/auth" @"https://api.parse.com/1/functions/auth"
+    self.pusherClient.authorizationURL = [NSURL URLWithString:@"http://192.168.2.29:5000/pusher/auth"];
     
-    [self subscribeToPresenceChannel:@"demo"];
+    self.currentUser = [PFUser currentUser];
+    
+    [self subscribeToPresenceChannel];
 }
 
 #pragma mark - Presence channel events
@@ -60,16 +69,57 @@
 
 #pragma mark - Actions
 
+- (void)backButtonClicked:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (IBAction)btnSendMessage:(id)sender
 {
-    if (self.sendMessageTextField.text.length > 0) {
-        [self.currentChannel triggerEventNamed:@"new-message" data:@{@"text": self.sendMessageTextField.text}];
+    if (self.sendMessageTextField.text.length > 0){
+        
+        // Only trigger a client event once a subscription has been successfully registered with Pusher
+        [self.currentChannel triggerEventNamed:kEventNameNewMessage data:@{@"text": self.sendMessageTextField.text}];
+        
+        self.receiveMessageLabel.text = self.sendMessageTextField.text;
+        
+        self.sendMessageTextField.text = @"";
     }
 }
 
-- (void)subscribeToPresenceChannel:(NSString *)channelName
+- (void)subscribeToPresenceChannel
 {
-    self.currentChannel = [self.pusherClient subscribeToPresenceChannelNamed:channelName delegate:self];
+    // Generate a unique channel
+    NSString *channelName = [self generateUniqueChannelName];
+    
+    // Check If client subcribed
+    PTPusherChannel *presenceChannel = [self.pusherClient channelNamed:[NSString stringWithFormat:@"presence-%@", channelName]];
+    if (!presenceChannel) {
+        
+        self.currentChannel = [self.pusherClient subscribeToPresenceChannelNamed:channelName delegate:self];
+        
+        [self.currentChannel bindToEventNamed:kEventNameNewMessage handleWithBlock:^(PTPusherEvent *channelEvent){
+            // channelEvent.data is a NSDictianary of the JSON object received
+            NSString *message = [channelEvent.data objectForKey:@"text"];
+            
+            self.receiveMessageLabel.text = message;
+            
+            // TODOME: If User is not in chat screen ---> Show notifications to Tab "Messages"
+        }];
+    }
+}
+
+- (NSString *)generateUniqueChannelName
+{
+    NSString *channelName = nil;
+    if ([self.currentUser.objectId compare:self.userChat.objectId options:NSCaseInsensitiveSearch] == NSOrderedAscending){
+        channelName = [NSString stringWithFormat:@"%@-%@", self.currentUser.objectId, self.userChat.objectId];
+    }
+    else{
+        channelName = [NSString stringWithFormat:@"%@-%@", self.userChat.objectId, self.currentUser.objectId];
+    }
+    
+    return channelName;
 }
 
 - (void)didReceiveMemoryWarning

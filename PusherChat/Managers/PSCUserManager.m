@@ -51,6 +51,7 @@
     }
     
     self.currentUser.access_token = user.sessionToken;
+    self.currentUser.objectId = user.objectId;
     
     // TODOME: Save User using NSUserDefaults
 }

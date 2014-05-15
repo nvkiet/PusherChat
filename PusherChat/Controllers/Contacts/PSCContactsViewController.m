@@ -80,7 +80,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    PFUser *user = [self.dataArray objectAtIndex:indexPath.row];
+    
     PSCChatViewController *chatVC = [[PSCChatViewController alloc] initWithNibName:NSStringFromClass([PSCChatViewController class]) bundle:nil];
+    chatVC.userChat = user;
+    
     [self.navigationController pushViewController:chatVC animated:YES];
 }
 

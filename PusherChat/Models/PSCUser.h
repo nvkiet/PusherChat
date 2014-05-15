@@ -24,4 +24,8 @@
 @property (nonatomic, strong) NSNumber * phone;
 @property (nonatomic, strong) NSString * profile_image_picture;
 
+// Parse Info
+@property (nonatomic, strong) NSString *objectId;
+
+
 @end

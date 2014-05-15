@@ -54,6 +54,8 @@
 		92B1C3661920644500897029 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B1C3481920644500897029 /* UIKit.framework */; };
 		92B1C36E1920644500897029 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 92B1C36C1920644500897029 /* InfoPlist.strings */; };
 		92B1C3701920644500897029 /* PusherChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B1C36F1920644500897029 /* PusherChatTests.m */; };
+		92BCB9081924AC58000E2F9E /* back_icon_regular.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BCB9061924AC58000E2F9E /* back_icon_regular.png */; };
+		92BCB9091924AC58000E2F9E /* back_icon_regular@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BCB9071924AC58000E2F9E /* back_icon_regular@2x.png */; };
 		92D2562E1922993D0003347D /* UIImage+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D2562D1922993D0003347D /* UIImage+Utils.m */; };
 /* End PBXBuildFile section */
 
@@ -128,6 +130,8 @@
 		92B1C36B1920644500897029 /* PusherChatTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PusherChatTests-Info.plist"; sourceTree = "<group>"; };
 		92B1C36D1920644500897029 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		92B1C36F1920644500897029 /* PusherChatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PusherChatTests.m; sourceTree = "<group>"; };
+		92BCB9061924AC58000E2F9E /* back_icon_regular.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_icon_regular.png; sourceTree = "<group>"; };
+		92BCB9071924AC58000E2F9E /* back_icon_regular@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_icon_regular@2x.png"; sourceTree = "<group>"; };
 		92D2562C1922993D0003347D /* UIImage+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Utils.h"; sourceTree = "<group>"; };
 		92D2562D1922993D0003347D /* UIImage+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Utils.m"; sourceTree = "<group>"; };
 		BF9434D7FA854FCD81932877 /* Pods-PusherChat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PusherChat.xcconfig"; path = "Pods/Pods-PusherChat.xcconfig"; sourceTree = "<group>"; };
@@ -197,10 +201,10 @@
 		92685E2B1921CC7900C1CBEF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				92BCB9051924AC4F000E2F9E /* Navigation Bar */,
 				92685E2C1921CC8E00C1CBEF /* Login */,
 				92685E4E1921E12100C1CBEF /* More */,
 				92D25610192292820003347D /* Tabbar */,
-				9287F32019230C3E002DE925 /* Navigation Bar */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -281,13 +285,6 @@
 				92685E5819222B8600C1CBEF /* PSCContactCell.xib */,
 			);
 			path = UITableViewCells;
-			sourceTree = "<group>";
-		};
-		9287F32019230C3E002DE925 /* Navigation Bar */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Navigation Bar";
 			sourceTree = "<group>";
 		};
 		928F18371921186E00A05BF5 /* Chat */ = {
@@ -389,6 +386,15 @@
 				92685E481921DBA800C1CBEF /* More */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		92BCB9051924AC4F000E2F9E /* Navigation Bar */ = {
+			isa = PBXGroup;
+			children = (
+				92BCB9061924AC58000E2F9E /* back_icon_regular.png */,
+				92BCB9071924AC58000E2F9E /* back_icon_regular@2x.png */,
+			);
+			path = "Navigation Bar";
 			sourceTree = "<group>";
 		};
 		92D25610192292820003347D /* Tabbar */ = {
@@ -520,6 +526,8 @@
 				9287F341192335AC002DE925 /* tab_icon_more_selected@2x.png in Resources */,
 				92685E4D1921DBB400C1CBEF /* PSCMoreViewController.xib in Resources */,
 				9287F339192335AC002DE925 /* tab_icon_contacts_selected@2x.png in Resources */,
+				92BCB9091924AC58000E2F9E /* back_icon_regular@2x.png in Resources */,
+				92BCB9081924AC58000E2F9E /* back_icon_regular.png in Resources */,
 				92685E341921CCA400C1CBEF /* bt_facebook_onpress@2x.png in Resources */,
 				9287F33D192335AC002DE925 /* tab_icon_messages_selected@2x.png in Resources */,
 				9287F33B192335AC002DE925 /* tab_icon_messages_idle@2x.png in Resources */,

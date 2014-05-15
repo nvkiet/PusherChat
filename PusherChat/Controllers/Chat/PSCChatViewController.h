@@ -10,6 +10,9 @@
 
 @interface PSCChatViewController : UIViewController
 
-- (void)subscribeToPresenceChannel:(NSString *)channelName;
+@property (nonatomic, strong) PFUser *userChat;
+@property (nonatomic, strong) PFUser *currentUser;
+
+- (void)subscribeToPresenceChannel;
 
 @end
