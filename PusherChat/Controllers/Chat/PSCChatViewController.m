@@ -83,6 +83,13 @@ NSString *const kEventNameNewMessage = @"client-chat";
         
         self.receiveMessageLabel.text = self.sendMessageTextField.text;
         
+        // Create our Installation query
+        PFQuery *pushQuery = [PFInstallation query];
+        [pushQuery whereKey:@"deviceType" equalTo:@"ios"];
+        
+        // Send push notification to query
+        [PFPush sendPushMessageToQueryInBackground:pushQuery withMessage:self.sendMessageTextField.text];
+        
         self.sendMessageTextField.text = @"";
     }
 }

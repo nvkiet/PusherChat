@@ -36,6 +36,9 @@
     
     self.pusherClient = [PTPusher pusherWithKey:PUSHER_API_KEY delegate:self encrypted:YES];
     
+    // Register for push notifications
+    [application registerForRemoteNotificationTypes: UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound];
+    
     [self setupAppearance];
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -106,6 +109,19 @@
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
 }
 
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
+{
+    // Store the deviceToken in the current installation and save it to Parse.
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation setDeviceTokenFromData:newDeviceToken];
+    [currentInstallation saveInBackground];
+}
+
+// Parse will create a modal alert and display the push notification's content.
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    [PFPush handlePush:userInfo];
+}
 
 #pragma mark - Reachability
 
