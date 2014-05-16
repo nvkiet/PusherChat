@@ -98,7 +98,7 @@
     // Set Tabbar Text Color
     [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName:[UIColor grayColor]} forState:UIControlStateSelected];
     
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:127/255.0 green:43/255.0 blue:157/255.0 alpha:1.0f]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor navBGKColor]];
     
     [[UINavigationBar appearance] setTitleTextAttributes: @{ NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont fontWithName: FONT_HELVETICAL_REGULAR size:17.0f]}];
     
