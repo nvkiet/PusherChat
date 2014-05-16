@@ -45,6 +45,9 @@ NSString *const kEventNameNewMessage = @"client-chat";
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back_icon_regular.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(backButtonClicked:)];
     self.navigationItem.leftBarButtonItem  = backButton;
     
@@ -53,7 +56,7 @@ NSString *const kEventNameNewMessage = @"client-chat";
     self.pusherClient = [PSCAppDelegate shareDelegate].pusherClient;
     
     // Configure the auth URL for private/presence channels
-    self.pusherClient.authorizationURL = [NSURL URLWithString:@"http://192.168.2.5:5000/pusher/auth"];
+    self.pusherClient.authorizationURL = [NSURL URLWithString:@"http://192.168.1.109:5000/pusher/auth"];
     
     self.currentUser = [PFUser currentUser];
     
@@ -229,22 +232,22 @@ NSString *const kEventNameNewMessage = @"client-chat";
     // Generate a unique channel
     NSString *channelName = [self generateUniqueChannelName];
     
-    // Check If client subcribed
-    PTPusherChannel *presenceChannel = [self.pusherClient channelNamed:[NSString stringWithFormat:@"presence-%@", channelName]];
-    if (!presenceChannel) {
+//    // Check If client subcribed
+//    PTPusherChannel *presenceChannel = [self.pusherClient channelNamed:[NSString stringWithFormat:@"presence-%@", channelName]];
+//    if (!presenceChannel) {
+//        
+//    }
+    self.currentChannel = [self.pusherClient subscribeToPresenceChannelNamed:channelName delegate:self];
+    
+    [self.currentChannel bindToEventNamed:kEventNameNewMessage handleWithBlock:^(PTPusherEvent *channelEvent){
+        // channelEvent.data is a NSDictianary of the JSON object received
+        NSString *message = [channelEvent.data objectForKey:@"text"];
         
-        self.currentChannel = [self.pusherClient subscribeToPresenceChannelNamed:channelName delegate:self];
+        PSCBubbleData *bubbleData = [[PSCBubbleData alloc] initWithText:message type:BubbleTypeSomeoneElse];
+        [self addNewRowWithBubbleData:bubbleData];
         
-        [self.currentChannel bindToEventNamed:kEventNameNewMessage handleWithBlock:^(PTPusherEvent *channelEvent){
-            // channelEvent.data is a NSDictianary of the JSON object received
-            NSString *message = [channelEvent.data objectForKey:@"text"];
-            
-            PSCBubbleData *bubbleData = [[PSCBubbleData alloc] initWithText:message type:BubbleTypeSomeoneElse];
-            [self addNewRowWithBubbleData:bubbleData];
-            
-            // TODOME: If User is not in chat screen ---> Show notifications to Tab "Messages"
-        }];
-    }
+        // TODOME: If User is not in chat screen ---> Show notifications to Tab "Messages"
+    }];
 }
 
 - (NSString *)generateUniqueChannelName
