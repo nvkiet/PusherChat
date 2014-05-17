@@ -109,7 +109,7 @@ NSString *const kEventNameNewMessage = @"client-chat";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PSCBubbleData *bubbleData = [self.bubblesdataArray objectAtIndex:indexPath.row];
-    return MAX(bubbleData.insets.top + bubbleData.view.frame.size.height + bubbleData.insets.bottom, 0);
+    return bubbleData.insets.top + bubbleData.view.frame.size.height + bubbleData.insets.bottom + 10;
 }
 
 #pragma mark - Keyboard events

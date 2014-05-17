@@ -55,19 +55,19 @@
     CGFloat width = data.view.frame.size.width;
     CGFloat height = data.view.frame.size.height;
     
-    CGFloat x = (type == BubbleTypeSomeoneElse) ? 0 : self.frame.size.width - width - data.insets.left - data.insets.right;
+    CGFloat x = (type == BubbleTypeSomeoneElse) ? 5 : self.frame.size.width - width - data.insets.left - data.insets.right - 5;
     CGFloat y = 0;
     
     [self.customView removeFromSuperview];
     self.customView = data.view;
-    self.customView.frame = CGRectMake(x + data.insets.left, y + data.insets.top, width, height);
+    self.customView.frame = CGRectMake(x + data.insets.left - (type == BubbleTypeSomeoneElse ? 2 : 0), y + data.insets.top, width, height); 
     [self.contentView addSubview:self.customView];
     
     if (type == BubbleTypeSomeoneElse){
-        self.bubbleImageView.image = [[UIImage imageNamed:@"bubbleSomeone.png"] stretchableImageWithLeftCapWidth:21 topCapHeight:14];
+        self.bubbleImageView.image = [[UIImage imageNamed:@"ChatBubble_received.png"] stretchableImageWithLeftCapWidth:21 topCapHeight:14];
     }
     else{
-        self.bubbleImageView.image = [[UIImage imageNamed:@"bubbleMine.png"] stretchableImageWithLeftCapWidth:15 topCapHeight:14];
+        self.bubbleImageView.image = [[UIImage imageNamed:@"ChatBubble_send.png"] stretchableImageWithLeftCapWidth:15 topCapHeight:14];
     }
     
     self.bubbleImageView.frame = CGRectMake(x, y, width + data.insets.left + data.insets.right, height + data.insets.top + data.insets.bottom);

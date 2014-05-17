@@ -8,8 +8,8 @@
 
 #import "PSCBubbleData.h"
 
-const UIEdgeInsets textInsetsMine = {5, 10, 11, 17};
-const UIEdgeInsets textInsetsSomeone = {5, 15, 11, 10};
+const UIEdgeInsets textInsetsMine = {5, 10, 7, 17}; //{5, 10, 11, 17};
+const UIEdgeInsets textInsetsSomeone = {5, 15, 7, 10}; //{5, 15, 11, 10};
 
 @implementation PSCBubbleData
 
