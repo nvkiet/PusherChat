@@ -24,7 +24,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="rTo-D4-jHl">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="457"/>
                     <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
@@ -33,11 +33,11 @@
                     </connections>
                 </tableView>
                 <view contentMode="scaleToFill" id="5jX-xz-7Yz">
-                    <rect key="frame" x="0.0" y="456" width="320" height="48"/>
+                    <rect key="frame" x="0.0" y="456" width="320" height="74"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="aUv-jh-dnY">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message" minimumFontSize="17" id="Ynz-6A-IP2">
@@ -58,6 +58,7 @@
                             </connections>
                         </button>
                     </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

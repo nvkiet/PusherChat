@@ -119,7 +119,7 @@ NSString *const kEventNameNewMessage = @"client-chat";
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     
-    NSValue* value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSValue *value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
     NSTimeInterval duration = 0;
     [value getValue:&duration];
     
