@@ -23,4 +23,6 @@
 - (void)showHomeScreen;
 - (void)logOut;
 
+- (void)addBadgeValueToMessagesTab: (NSString *)badgeValue;
+
 @end

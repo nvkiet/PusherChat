@@ -53,6 +53,8 @@
     
     [self.pusherClient connect];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveEventNotification:) name:PTPusherEventReceivedNotification object:self.pusherClient];
+    
     return YES;
 }
 
@@ -83,7 +85,7 @@
     self.tabbarController.viewControllers = @ [ messagesNC, contactsNC, moreNC];
     
     self.messagesVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Messages" image:[UIImage imageRenderingModeAlwaysOrigininalWithName:@"tab_icon_messages_idle.png"] selectedImage:[UIImage imageRenderingModeAlwaysOrigininalWithName:@"tab_icon_messages_selected.png"]];
-
+    
     self.contactsVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Contacts" image:[UIImage imageRenderingModeAlwaysOrigininalWithName:@"tab_icon_contacts_idle.png"] selectedImage:[UIImage imageRenderingModeAlwaysOrigininalWithName:@"tab_icon_contacts_selected.png"]];
 
     self.moreVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"More" image:[UIImage
@@ -91,6 +93,20 @@
         imageRenderingModeAlwaysOrigininalWithName:@"tab_icon_more_selected.png"]];
     
     [self.splashVC presentViewController: self.tabbarController animated:NO completion:nil];
+}
+
+#pragma mark - Methods
+
+- (void)didReceiveEventNotification:(NSNotification *)notification
+{
+    PTPusherEvent *channelEvent = [notification.userInfo objectForKey:PTPusherEventUserInfoKey];
+
+    NSLog(@"[pusher-Event name: %@ Channel name: %@ Event data: %@]", channelEvent.name, channelEvent.channel, channelEvent.data);
+}
+
+- (void)addBadgeValueToMessagesTab: (NSString *)badgeValue
+{
+    self.messagesVC.tabBarItem.badgeValue = badgeValue;
 }
 
 - (void)setupAppearance
