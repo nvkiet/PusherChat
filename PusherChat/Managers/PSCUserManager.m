@@ -53,6 +53,13 @@
     self.currentUser.access_token = user.sessionToken;
     self.currentUser.objectId = user.objectId;
     
+    // Set UserId, User need login before we request notification access
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    if (currentInstallation) {
+        [currentInstallation setObject:user.objectId forKey:@"UserId"];
+        [currentInstallation saveInBackground];
+    }
+    
     // TODOME: Save User using NSUserDefaults
 }
 

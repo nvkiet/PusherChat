@@ -54,12 +54,10 @@ NSString *const kEventNameNewMessage = @"client-chat";
     self.navigationItem.title = self.userChat[@"profile"][@"name"];
     
     self.pusherClient = [PSCAppDelegate shareDelegate].pusherClient;
-    
-    // Configure the auth URL for private/presence channels
-    self.pusherClient.authorizationURL = [NSURL URLWithString:@"http://192.168.1.109:5000/pusher/auth"];
+    self.currentChannel = [PSCAppDelegate shareDelegate].currentChannel;
     
     self.currentUser = [PFUser currentUser];
-    
+
     [self subscribeToPresenceChannel];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardWillShowNotification object:nil];
@@ -207,11 +205,36 @@ NSString *const kEventNameNewMessage = @"client-chat";
         PSCBubbleData *bubbleData = [[PSCBubbleData alloc] initWithText:self.messageTextField.text type:BubbleTypeMine];
         [self addNewRowWithBubbleData:bubbleData];
         
+        // Push notification to user chat
+        [self sendRequestChatWithMessage:self.messageTextField.text];
+        
         self.messageTextField.text = @"";
     }
 }
 
 #pragma mark - Methods
+
+- (void)sendRequestChatWithMessage:(NSString *)message
+{
+    // Create our Installation query
+    PFQuery *pushQuery = [PFInstallation query];
+    [pushQuery whereKey:@"UserId" equalTo:self.userChat.objectId];
+    
+    NSString *alertTitle = [NSString stringWithFormat:@"%@: %@", self.userChat[@"profile"][@"name"], message];
+    
+    PFPush *push = [PFPush push];
+    [push setData:@{@"aps":@{@"alert": alertTitle, @"sound": @"default"}, @"UserId": self.currentUser.objectId}];
+    [push setQuery:pushQuery];
+    
+    [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+             NSLog(@"[pusher] push successfully!]");
+        }
+        else{
+            NSLog(@"[pusher] push has some problems: %@]", [error localizedDescription]);
+        }
+    }];
+}
 
 - (void)addNewRowWithBubbleData:(PSCBubbleData *)bubbleData
 {
@@ -232,11 +255,6 @@ NSString *const kEventNameNewMessage = @"client-chat";
     // Generate a unique channel
     NSString *channelName = [self generateUniqueChannelName];
     
-//    // Check If client subcribed
-//    PTPusherChannel *presenceChannel = [self.pusherClient channelNamed:[NSString stringWithFormat:@"presence-%@", channelName]];
-//    if (!presenceChannel) {
-//        
-//    }
     self.currentChannel = [self.pusherClient subscribeToPresenceChannelNamed:channelName delegate:self];
     
     [self.currentChannel bindToEventNamed:kEventNameNewMessage handleWithBlock:^(PTPusherEvent *channelEvent){
@@ -247,6 +265,7 @@ NSString *const kEventNameNewMessage = @"client-chat";
         [self addNewRowWithBubbleData:bubbleData];
         
         // TODOME: If User is not in chat screen ---> Show notifications to Tab "Messages"
+        [[PSCAppDelegate shareDelegate] addBadgeValueToMessagesTab:message];
     }];
 }
 

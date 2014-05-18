@@ -34,7 +34,13 @@
     
     [PFFacebookUtils initializeFacebook];
     
+    // Init Pusher client
     self.pusherClient = [PTPusher pusherWithKey:PUSHER_API_KEY delegate:self encrypted:YES];
+    
+    // Configure the auth URL for private/presence channels
+    self.pusherClient.authorizationURL = [NSURL URLWithString:@"http://192.168.1.109:5000/pusher/auth"];
+    
+    [self.pusherClient connect];
     
     // Register for push notifications
     [application registerForRemoteNotificationTypes: UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound];
@@ -51,9 +57,10 @@
     
     [self.window makeKeyAndVisible];
     
-    [self.pusherClient connect];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveEventNotification:) name:PTPusherEventReceivedNotification object:self.pusherClient];
+    
+    // Remove badge value on App's icon
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     
     return YES;
 }
@@ -101,7 +108,7 @@
 {
     PTPusherEvent *channelEvent = [notification.userInfo objectForKey:PTPusherEventUserInfoKey];
 
-    NSLog(@"[pusher-Event name: %@ Channel name: %@ Event data: %@]", channelEvent.name, channelEvent.channel, channelEvent.data);
+    NSLog(@"[pusher] Event name: %@ Channel name: %@ Event data: %@]", channelEvent.name, channelEvent.channel, channelEvent.data);
 }
 
 - (void)addBadgeValueToMessagesTab: (NSString *)badgeValue
@@ -125,6 +132,8 @@
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
 }
 
+#pragma  mark - Notificaitons
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
 {
     // Store the deviceToken in the current installation and save it to Parse.
@@ -137,6 +146,16 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     [PFPush handlePush:userInfo];
+    
+    NSString *message = userInfo[@"aps"][@"alert"];
+    NSString *userId = userInfo[@"UserId"];
+    
+    // TODOME:
+    // Generate a unique presence channel name
+    // Subcribe to presence chanel to chat
+    // Bind to chat event message
+    
+    NSLog(@"[parse] Messsage: %@  UserId: %@", message, userId);
 }
 
 #pragma mark - Reachability
