@@ -15,9 +15,13 @@
 #define FONT_HELVETICAL_REGULAR  @"HelveticaNeue"
 #define FONT_HELVETICAL_LIGHT  @"HelveticaNeue-Light"
 
+
+extern NSString *const kObjectId;
+
 #pragma mark - Message Class
 
 extern NSString *const kMessageClassKey;
-extern NSString *const kMessageUserIdSendKey;
-extern NSString *const kMessageUserIDReceiveKey;
+extern NSString *const kMessageUserSendKey;
+extern NSString *const kMessageUserReceiveKey;
 extern NSString *const kMessageContentKey;
+extern NSString *const kMessageCreatedAtKey;

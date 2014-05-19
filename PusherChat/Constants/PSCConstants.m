@@ -8,13 +8,17 @@
 
 #import "PSCConstants.h"
 
+
+NSString *const kObjectId = @"objectId";
+
 #pragma mark - Message Class
 
 // Class key
 NSString *const kMessageClassKey = @"Message";
 
 // Field keys
-NSString *const kMessageUserIdSendKey = @"UserId_Send";
-NSString *const kMessageUserIDReceiveKey = @"UserId_Receive";
+NSString *const kMessageUserSendKey = @"UserSend";
+NSString *const kMessageUserReceiveKey = @"UserReceive";
 NSString *const kMessageContentKey = @"Content";
+NSString *const kMessageCreatedAtKey = @"createdAt";
 
