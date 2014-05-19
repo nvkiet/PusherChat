@@ -205,8 +205,23 @@ NSString *const kEventNameNewMessage = @"client-chat";
         PSCBubbleData *bubbleData = [[PSCBubbleData alloc] initWithText:self.messageTextField.text type:BubbleTypeMine];
         [self addNewRowWithBubbleData:bubbleData];
         
+        // Save message chat to history on Parse
+        PFObject *messageChat = [PFObject objectWithClassName:kMessageClassKey];
+        [messageChat setObject:self.currentUser.objectId forKey:kMessageUserIdSendKey];
+        [messageChat setObject:self.userChat.objectId forKey:kMessageUserIDReceiveKey];
+        [messageChat setObject:self.messageTextField.text forKey:kMessageContentKey];
+        
+        [messageChat saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+               NSLog(@"[parse] Save message chat successfully!");
+            }
+            else{
+               NSLog(@"[parse] Couldn't save your message chat.");
+            }
+        }];
+        
         // Push notification to user chat
-        [self sendRequestChatWithMessage:self.messageTextField.text];
+        // [self sendRequestChatWithMessage:self.messageTextField.text];
         
         self.messageTextField.text = @"";
     }
