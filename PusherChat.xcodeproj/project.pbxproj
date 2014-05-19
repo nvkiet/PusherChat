@@ -52,6 +52,7 @@
 		9287F341192335AC002DE925 /* tab_icon_more_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9287F335192335AC002DE925 /* tab_icon_more_selected@2x.png */; };
 		928F183B1921188700A05BF5 /* PSCChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 928F18391921188700A05BF5 /* PSCChatViewController.m */; };
 		928F183C1921188700A05BF5 /* PSCChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 928F183A1921188700A05BF5 /* PSCChatViewController.xib */; };
+		92AD6E581929A4E700F88C78 /* PSCConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AD6E571929A4E700F88C78 /* PSCConstants.m */; };
 		92AEDF93192772BE00CD0EC6 /* ChatBubble_received.png in Resources */ = {isa = PBXBuildFile; fileRef = 92AEDF8F192772BE00CD0EC6 /* ChatBubble_received.png */; };
 		92AEDF94192772BE00CD0EC6 /* ChatBubble_received@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92AEDF90192772BE00CD0EC6 /* ChatBubble_received@2x.png */; };
 		92AEDF95192772BE00CD0EC6 /* ChatBubble_send.png in Resources */ = {isa = PBXBuildFile; fileRef = 92AEDF91192772BE00CD0EC6 /* ChatBubble_send.png */; };
@@ -142,6 +143,8 @@
 		928F18381921188700A05BF5 /* PSCChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCChatViewController.h; sourceTree = "<group>"; };
 		928F18391921188700A05BF5 /* PSCChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCChatViewController.m; sourceTree = "<group>"; };
 		928F183A1921188700A05BF5 /* PSCChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCChatViewController.xib; sourceTree = "<group>"; };
+		92AD6E561929A4E700F88C78 /* PSCConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCConstants.h; sourceTree = "<group>"; };
+		92AD6E571929A4E700F88C78 /* PSCConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCConstants.m; sourceTree = "<group>"; };
 		92AEDF8F192772BE00CD0EC6 /* ChatBubble_received.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChatBubble_received.png; sourceTree = "<group>"; };
 		92AEDF90192772BE00CD0EC6 /* ChatBubble_received@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ChatBubble_received@2x.png"; sourceTree = "<group>"; };
 		92AEDF91192772BE00CD0EC6 /* ChatBubble_send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChatBubble_send.png; sourceTree = "<group>"; };
@@ -361,6 +364,15 @@
 			path = Chat;
 			sourceTree = "<group>";
 		};
+		92AD6E4919299B4900F88C78 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				92AD6E561929A4E700F88C78 /* PSCConstants.h */,
+				92AD6E571929A4E700F88C78 /* PSCConstants.m */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
 		92B1C3381920644500897029 = {
 			isa = PBXGroup;
 			children = (
@@ -403,6 +415,7 @@
 				92B1C37A19206B5D00897029 /* Controllers */,
 				92685E1C1921C37300C1CBEF /* Managers */,
 				92D2562B192298B60003347D /* Categories */,
+				92AD6E4919299B4900F88C78 /* Constants */,
 				92685E2A1921CC7900C1CBEF /* Resources */,
 				92B1C35C1920644500897029 /* Images.xcassets */,
 				92B1C34B1920644500897029 /* Supporting Files */,
@@ -663,6 +676,7 @@
 				92685E4C1921DBB400C1CBEF /* PSCMoreViewController.m in Sources */,
 				92685E5919222B8600C1CBEF /* PSCContactCell.m in Sources */,
 				923035031925CF6100520457 /* UIColor+Utils.m in Sources */,
+				92AD6E581929A4E700F88C78 /* PSCConstants.m in Sources */,
 				92685E451921DB3B00C1CBEF /* PSCContactsViewController.m in Sources */,
 				92D2562E1922993D0003347D /* UIImage+Utils.m in Sources */,
 				92685E231921C77B00C1CBEF /* PSCUser.m in Sources */,

@@ -38,7 +38,7 @@
     self.pusherClient = [PTPusher pusherWithKey:PUSHER_API_KEY delegate:self encrypted:YES];
     
     // Configure the auth URL for private/presence channels
-    self.pusherClient.authorizationURL = [NSURL URLWithString:@"http://192.168.1.109:5000/pusher/auth"];
+    self.pusherClient.authorizationURL = [NSURL URLWithString:@"http://192.168.2.53:5000/pusher/auth"]; // http://192.168.1.109:5000/pusher/auth
     
     [self.pusherClient connect];
     

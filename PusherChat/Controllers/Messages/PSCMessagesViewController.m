@@ -11,7 +11,7 @@
 #import "PSCChatViewController.h"
 
 @interface PSCMessagesViewController ()<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic, strong) NSArray *messagesDataArray;
+@property (nonatomic, strong) NSMutableArray *messagesDataArray;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end
@@ -50,7 +50,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10; // self.messagesDataArray.count;
+    return self.messagesDataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -61,6 +61,9 @@
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:self options:nil] firstObject];
     }
+    
+    PFObject *messageChat = [self.messagesDataArray objectAtIndex:indexPath.row];
+    [cell configureDataWithModel:messageChat];
     
     return cell;
 }
@@ -82,14 +85,24 @@
 
 - (void)refreshData
 {
-    // FIXME: Use constant string
-    PFQuery *query = [PFQuery queryWithClassName:@"Message"];
-    [query whereKey:@"UserId_Receive" equalTo:[PFUser currentUser].objectId];
-    [query addDescendingOrder:@"createAt"];
+    self.messagesDataArray = [NSMutableArray new];
+    
+    PFQuery *query = [PFQuery queryWithClassName:kMessageClassKey];
+    [query whereKey:kMessageUserSendKey equalTo:[PFUser currentUser]]; //kMessageUserIDReceiveKey
+    [query addDescendingOrder:kMessageCreatedAtKey];
+    [query includeKey:kMessageUserSendKey];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            self.messagesDataArray = objects;
+            // Get the last message
+            NSArray *arrUserSends = [objects valueForKey:kMessageUserSendKey];
+            NSSet *uniqueUserIdSendSet = [NSSet setWithArray:[arrUserSends valueForKey:kObjectId]];
+            NSArray *uniqueUserIdSendArray = [uniqueUserIdSendSet allObjects];
+            
+            for (NSString *userIdSend in uniqueUserIdSendArray) {
+                PFObject *messageChat = [self getMessageChatInArray:objects withUserIdSend:userIdSend];
+                [self.messagesDataArray addObject:messageChat];
+            }
             
             [self.tableView reloadData];
         }
@@ -97,6 +110,19 @@
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
+}
+
+- (PFObject *)getMessageChatInArray:(NSArray *)objects withUserIdSend:(NSString *)theUserIdSend
+{
+    for (PFObject *object in objects) {
+        PFObject *tmpUser = object[kMessageUserSendKey];
+        NSString *userIdSend = tmpUser.objectId;
+        
+        if ([userIdSend isEqualToString:theUserIdSend]) {
+            return object;
+        }
+    }
+    return nil;
 }
 
 - (void)didReceiveMemoryWarning
