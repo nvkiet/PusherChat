@@ -77,7 +77,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    PFObject *messageChat = [self.messagesDataArray objectAtIndex:indexPath.row];
+    
     PSCChatViewController *chatVC = [[PSCChatViewController alloc] initWithNibName:NSStringFromClass([PSCChatViewController class]) bundle:nil];
+    chatVC.userChat = messageChat[kMessageUserSendKey];
+    
     [self.navigationController pushViewController:chatVC animated:YES];
 }
 
@@ -88,7 +92,7 @@
     self.messagesDataArray = [NSMutableArray new];
     
     PFQuery *query = [PFQuery queryWithClassName:kMessageClassKey];
-    [query whereKey:kMessageUserSendKey equalTo:[PFUser currentUser]]; //kMessageUserIDReceiveKey
+    [query whereKey:kMessageUserReceiveKey equalTo:[PFUser currentUser]]; 
     [query addDescendingOrder:kMessageCreatedAtKey];
     [query includeKey:kMessageUserSendKey];
     
