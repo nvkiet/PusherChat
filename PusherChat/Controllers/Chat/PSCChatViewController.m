@@ -207,8 +207,8 @@ NSString *const kEventNameNewMessage = @"client-chat";
         
         // Save message chat to history on Parse
         PFObject *messageChat = [PFObject objectWithClassName:kMessageClassKey];
-        [messageChat setObject:self.currentUser.objectId forKey:kMessageUserIdSendKey];
-        [messageChat setObject:self.userChat.objectId forKey:kMessageUserIDReceiveKey];
+        [messageChat setObject:self.currentUser forKey:kMessageUserSendKey];
+        [messageChat setObject:self.userChat forKey:kMessageUserReceiveKey];
         [messageChat setObject:self.messageTextField.text forKey:kMessageContentKey];
         
         [messageChat saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
