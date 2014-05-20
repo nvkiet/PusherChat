@@ -15,6 +15,15 @@
 #define FONT_HELVETICAL_REGULAR  @"HelveticaNeue"
 #define FONT_HELVETICAL_LIGHT  @"HelveticaNeue-Light"
 
+#pragma mark - Notifications
+
+extern NSString *const kNotificationAppWillEnterForeground;
+
+#pragma mark - Event Message
+
+extern NSString *const kEventNameNewMessage;
+
+#pragma mark - Default Class
 
 extern NSString *const kObjectId;
 

@@ -9,6 +9,18 @@
 #import "PSCConstants.h"
 
 
+
+#pragma mark - Notifications
+
+NSString *const kNotificationAppWillEnterForeground = @"AppWillEnterForeground";
+
+
+#pragma mark - Event Message
+
+NSString *const kEventNameNewMessage = @"client-chat";
+
+#pragma mark - Default Class
+
 NSString *const kObjectId = @"objectId";
 
 #pragma mark - Message Class

@@ -11,11 +11,8 @@
 #import "PSCBubbleCell.h"
 #import "PSCBubbleData.h"
 
-NSString *const kEventNameNewMessage = @"client-chat";
-
 @interface PSCChatViewController ()<PTPusherPresenceChannelDelegate, UITableViewDataSource, UITableViewDelegate>
-@property (nonatomic, strong) PTPusher *pusherClient;
-@property (nonatomic, strong) PTPusherPresenceChannel *currentChannel;
+@property (nonatomic, strong) PFUser *currentUser;
 
 @property (weak, nonatomic) IBOutlet UITextField *messageTextField;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -49,10 +46,7 @@ NSString *const kEventNameNewMessage = @"client-chat";
     self.tableView.dataSource = self;
     
     // Subscribe presence channel
-    self.pusherClient = [PSCAppDelegate shareDelegate].pusherClient;
-    self.currentChannel = [PSCAppDelegate shareDelegate].currentChannel;
     self.currentUser = [PFUser currentUser];
-    [self subscribeToPresenceChannel];
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back_icon_regular.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(backButtonClicked:)];
     self.navigationItem.leftBarButtonItem  = backButton;
@@ -74,6 +68,16 @@ NSString *const kEventNameNewMessage = @"client-chat";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.bubblesdataArray = [[NSMutableArray alloc] init];
+    
+    //  Observer the App's State
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:kNotificationAppWillEnterForeground object:nil];
+    
+    [self refreshData];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Table view data source
@@ -198,10 +202,10 @@ NSString *const kEventNameNewMessage = @"client-chat";
         
         [self.sendButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         
-        NSLog(@"[pusher] Count channel members: %d", self.currentChannel.members.count);
+        NSLog(@"[pusher] Count channel members: %d", [PSCAppDelegate shareDelegate].currentChannel.members.count);
         
         // Only trigger a client event once a subscription has been successfully registered with Pusher
-        [self.currentChannel triggerEventNamed:kEventNameNewMessage data:@{@"text": self.messageTextField.text}];
+        [[PSCAppDelegate shareDelegate].currentChannel triggerEventNamed:kEventNameNewMessage data:@{@"text": self.messageTextField.text}];
         
         PSCBubbleData *bubbleData = [[PSCBubbleData alloc] initWithText:self.messageTextField.text type:BubbleTypeMine];
         [self addNewRowWithBubbleData:bubbleData];
@@ -222,7 +226,7 @@ NSString *const kEventNameNewMessage = @"client-chat";
         }];
         
         // Push notification to user chat
-        if (self.currentChannel.members.count <= 1) {
+        if ([PSCAppDelegate shareDelegate].currentChannel.members.count <= 1) {
             [self sendRequestChatWithMessage:self.messageTextField.text];
         }
        
@@ -231,6 +235,13 @@ NSString *const kEventNameNewMessage = @"client-chat";
 }
 
 #pragma mark - Methods
+
+- (void)refreshData
+{
+    [self subscribeToPresenceChannel];
+    
+    // TODOME: Load history chat
+}
 
 - (void)sendRequestChatWithMessage:(NSString *)message
 {
@@ -271,11 +282,12 @@ NSString *const kEventNameNewMessage = @"client-chat";
 - (void)subscribeToPresenceChannel
 {
     // Generate a unique channel
-    NSString *channelName = [[PSCAppDelegate shareDelegate] generateUniqueChannelNameWithUserId:self.currentUser.objectId andUserId:self.userChat.objectId];
+    NSString *channelName = [[PSCAppDelegate shareDelegate] generateUniqueChannelNameWithUserId:self.currentUser.objectId
+                                                                                      andUserId:self.userChat.objectId];
     
-    self.currentChannel = [self.pusherClient subscribeToPresenceChannelNamed:channelName delegate:self];
+    [PSCAppDelegate shareDelegate].currentChannel = [[PSCAppDelegate shareDelegate].pusherClient subscribeToPresenceChannelNamed:channelName delegate:self];
     
-    [self.currentChannel bindToEventNamed:kEventNameNewMessage handleWithBlock:^(PTPusherEvent *channelEvent){
+    [[PSCAppDelegate shareDelegate].currentChannel bindToEventNamed:kEventNameNewMessage handleWithBlock:^(PTPusherEvent *channelEvent){
         // channelEvent.data is a NSDictianary of the JSON object received
         NSString *message = [channelEvent.data objectForKey:@"text"];
         
