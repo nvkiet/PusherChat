@@ -10,4 +10,6 @@
 
 @interface PSCMessagesViewController : UIViewController
 
+- (void)refreshData;
+
 @end

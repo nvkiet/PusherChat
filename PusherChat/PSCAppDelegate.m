@@ -33,7 +33,7 @@
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     [PFFacebookUtils initializeFacebook];
-    
+
     // Init Pusher client
     self.pusherClient = [PTPusher pusherWithKey:PUSHER_API_KEY delegate:self encrypted:YES];
     
@@ -148,10 +148,22 @@
     NSString *message = userInfo[@"aps"][@"alert"];
     NSString *userId = userInfo[@"UserId"];
     
-    // TODOME:
-    // Generate a unique presence channel name
-    // Subcribe to presence chanel to chat
-    // Bind to chat event message
+    // FIXME: Repeat code
+    // Generate a unique channel
+    NSString *channelName = [[PSCAppDelegate shareDelegate] generateUniqueChannelNameWithUserId:[PFUser currentUser].objectId andUserId:userId];
+    self.currentChannel = [self.pusherClient subscribeToPresenceChannelNamed:channelName delegate:nil];
+    
+    [self.currentChannel bindToEventNamed:kEventNameNewMessage handleWithBlock:^(PTPusherEvent *channelEvent){
+        NSString *message = [channelEvent.data objectForKey:@"text"];
+        
+        [self.messagesVC refreshData];
+        
+        [self addBadgeValueToMessagesTab:message];
+    }];
+    
+    [self.messagesVC refreshData];
+    
+    [self addBadgeValueToMessagesTab:message];
     
     NSLog(@"[parse] Messsage: %@  UserId: %@", message, userId);
 }
@@ -297,11 +309,15 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    if (self.currentChannel) {
+        [self.currentChannel unsubscribe];
+    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationAppWillEnterForeground object:nil];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
