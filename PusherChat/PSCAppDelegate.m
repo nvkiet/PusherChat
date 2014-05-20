@@ -145,8 +145,6 @@
 // Parse will create a modal alert and display the push notification's content.
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    [PFPush handlePush:userInfo];
-    
     NSString *message = userInfo[@"aps"][@"alert"];
     NSString *userId = userInfo[@"UserId"];
     
@@ -156,6 +154,21 @@
     // Bind to chat event message
     
     NSLog(@"[parse] Messsage: %@  UserId: %@", message, userId);
+}
+
+#pragma mark - Methods
+
+- (NSString *)generateUniqueChannelNameWithUserId:(NSString*)userId_A andUserId:(NSString *)userId_B
+{
+    NSString *channelName = nil;
+    if ([userId_A compare:userId_B options:NSCaseInsensitiveSearch] == NSOrderedAscending){
+        channelName = [NSString stringWithFormat:@"%@-%@", userId_A, userId_B];
+    }
+    else{
+        channelName = [NSString stringWithFormat:@"%@-%@", userId_B, userId_A];
+    }
+    
+    return channelName;
 }
 
 #pragma mark - Reachability

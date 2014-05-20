@@ -26,4 +26,6 @@
 
 - (void)addBadgeValueToMessagesTab: (NSString *)badgeValue;
 
+- (NSString *)generateUniqueChannelNameWithUserId:(NSString*)userId_A andUserId:(NSString *)userId_B;
+
 @end
