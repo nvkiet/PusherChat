@@ -38,7 +38,7 @@
     self.pusherClient = [PTPusher pusherWithKey:PUSHER_API_KEY delegate:self encrypted:YES];
     
     // Configure the auth URL for private/presence channels
-    self.pusherClient.authorizationURL = [NSURL URLWithString:@"http://192.168.2.53:5000/pusher/auth"]; // http://192.168.1.109:5000/pusher/auth
+    self.pusherClient.authorizationURL = [NSURL URLWithString:@"http://192.168.2.26:5000/pusher/auth"]; // http://192.168.1.109:5000/pusher/auth
     
     [self.pusherClient connect];
     
@@ -61,6 +61,8 @@
     
     // Remove badge value on App's icon
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    
+    self.isChatScreenVisible = NO;
     
     return YES;
 }
@@ -154,7 +156,7 @@
     self.currentChannel = [self.pusherClient subscribeToPresenceChannelNamed:channelName delegate:nil];
     
     [self.currentChannel bindToEventNamed:kEventNameNewMessage handleWithBlock:^(PTPusherEvent *channelEvent){
-        NSString *message = [channelEvent.data objectForKey:@"text"];
+        NSString *message = [channelEvent.data objectForKey:kMessageContentKey];
         
         [self.messagesVC refreshData];
         

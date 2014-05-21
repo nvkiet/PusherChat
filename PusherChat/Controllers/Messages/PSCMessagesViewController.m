@@ -41,6 +41,16 @@
     [self refreshData];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNewMessageCommingWithChannelData:) name:kNotificationNewMessageComming object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -86,6 +96,37 @@
 }
 
 #pragma mark - Methods
+
+- (void)updateNewMessageCommingWithChannelData:(NSNotification*)aUserInfo
+{
+    NSDictionary *channelData = aUserInfo.userInfo;
+    
+    NSString *userId = channelData[kObjectId];
+    NSString *message = channelData[kMessageContentKey];
+    // FIXME: Coundn't update time received message chat
+    NSDate *timeReceived = channelData[kMessageCreatedAtKey];
+    
+    // Find User Cell to udate new message
+    int row = -1;
+    for (int i = 0 ; i< self.messagesDataArray.count;  i++) {
+        PFObject *messageChat =  [self.messagesDataArray objectAtIndex:i];
+        PFObject *userSend = messageChat[kMessageUserSendKey];
+        NSString *userSendId = userSend.objectId;
+        
+        if ([userSendId isEqualToString:userId]) {
+            messageChat[kMessageContentKey] = message;
+            self.messagesDataArray[i] = messageChat;
+            row = i;
+            break;
+        }
+    }
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    
+    [self.tableView beginUpdates];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView endUpdates];
+}
 
 - (void)refreshData
 {

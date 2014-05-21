@@ -18,6 +18,7 @@
 #pragma mark - Notifications
 
 extern NSString *const kNotificationAppWillEnterForeground;
+extern NSString *const kNotificationNewMessageComming;
 
 #pragma mark - Event Message
 

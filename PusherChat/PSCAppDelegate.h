@@ -17,6 +17,8 @@
 
 @property (strong, nonatomic) PTPusher *pusherClient;
 @property (nonatomic, strong) PTPusherPresenceChannel *currentChannel;
+@property (nonatomic) BOOL isChatScreenVisible;
+
 
 + (PSCAppDelegate *)shareDelegate;
 

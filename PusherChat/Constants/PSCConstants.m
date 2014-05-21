@@ -13,7 +13,7 @@
 #pragma mark - Notifications
 
 NSString *const kNotificationAppWillEnterForeground = @"AppWillEnterForeground";
-
+NSString *const kNotificationNewMessageComming = @"NewMessageComming";
 
 #pragma mark - Event Message
 

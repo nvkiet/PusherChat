@@ -11,6 +11,7 @@
 #import "PSCBubbleCell.h"
 #import "PSCBubbleData.h"
 
+
 @interface PSCChatViewController ()<PTPusherPresenceChannelDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) PFUser *currentUser;
 
@@ -73,11 +74,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:kNotificationAppWillEnterForeground object:nil];
     
     [self refreshData];
+    
+    // User is in chat screen
+    [PSCAppDelegate shareDelegate].isChatScreenVisible = YES;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    // User is not in chat screen
+    [PSCAppDelegate shareDelegate].isChatScreenVisible = NO;
 }
 
 #pragma mark - Table view data source
@@ -112,48 +119,6 @@
     PSCBubbleData *bubbleData = [self.bubblesdataArray objectAtIndex:indexPath.row];
     return bubbleData.insets.top + bubbleData.view.frame.size.height + bubbleData.insets.bottom + 10;
 }
-
-#pragma mark - Keyboard events
-
-- (void)keyboardWasShown:(NSNotification*)aNotification
-{
-    NSDictionary* info = [aNotification userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    
-    NSValue *value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSTimeInterval duration = 0;
-    [value getValue:&duration];
-    
-    [UIView animateWithDuration:duration animations:^{
-        CGRect frame = self.textInputView.frame;
-        frame.origin.y -= kbSize.height;
-        self.textInputView.frame = frame;
-        
-        frame = self.tableView.frame;
-        frame.size.height -= kbSize.height;
-        self.tableView.frame = frame;
-    }];
-    
-    [self scrollBubbleViewToBottomAnimated:YES];
-}
-
-- (void)keyboardWillBeHidden:(NSNotification*)aNotification
-{
-    NSDictionary* info = [aNotification userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    
-    [UIView animateWithDuration:0.2f animations:^{
-        
-        CGRect frame = self.textInputView.frame;
-        frame.origin.y += kbSize.height;
-        self.textInputView.frame = frame;
-        
-        frame = self.tableView.frame;
-        frame.size.height += kbSize.height;
-        self.tableView.frame = frame;
-    }];
-}
-
 
 #pragma mark - didTapOnTableView
 
@@ -202,10 +167,10 @@
         
         [self.sendButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         
-        NSLog(@"[pusher] Count channel members: %d", [PSCAppDelegate shareDelegate].currentChannel.members.count);
+        NSLog(@"[pusher] Count channel members: %ld", (long)[PSCAppDelegate shareDelegate].currentChannel.members.count);
         
         // Only trigger a client event once a subscription has been successfully registered with Pusher
-        [[PSCAppDelegate shareDelegate].currentChannel triggerEventNamed:kEventNameNewMessage data:@{@"text": self.messageTextField.text}];
+        [[PSCAppDelegate shareDelegate].currentChannel triggerEventNamed:kEventNameNewMessage data:@{kObjectId: self.currentUser.objectId, kMessageContentKey: self.messageTextField.text}];
         
         PSCBubbleData *bubbleData = [[PSCBubbleData alloc] initWithText:self.messageTextField.text type:BubbleTypeMine];
         [self addNewRowWithBubbleData:bubbleData];
@@ -257,7 +222,7 @@
     
     [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
-             NSLog(@"[pusher] push successfully!]");
+             NSLog(@"[pusher] push successfully!");
         }
         else{
             NSLog(@"[pusher] push has some problems: %@]", [error localizedDescription]);
@@ -288,14 +253,19 @@
     [PSCAppDelegate shareDelegate].currentChannel = [[PSCAppDelegate shareDelegate].pusherClient subscribeToPresenceChannelNamed:channelName delegate:self];
     
     [[PSCAppDelegate shareDelegate].currentChannel bindToEventNamed:kEventNameNewMessage handleWithBlock:^(PTPusherEvent *channelEvent){
-        // channelEvent.data is a NSDictianary of the JSON object received
-        NSString *message = [channelEvent.data objectForKey:@"text"];
+        
+        NSString *userId = channelEvent.data[kObjectId];
+        NSString *message = channelEvent.data[kMessageContentKey];
+        NSDate *timeReceived = channelEvent.timeReceived;
         
         PSCBubbleData *bubbleData = [[PSCBubbleData alloc] initWithText:message type:BubbleTypeSomeoneElse];
         [self addNewRowWithBubbleData:bubbleData];
         
-        // TODOME: If User is not in chat screen ---> Show notifications to Tab "Messages"
-        [[PSCAppDelegate shareDelegate] addBadgeValueToMessagesTab:message];
+        // If User is not in chat screen ---> Show notifications to Tab "Messages" and update Message Screen
+        if(![PSCAppDelegate shareDelegate].isChatScreenVisible) {
+            [[PSCAppDelegate shareDelegate] addBadgeValueToMessagesTab:message];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNewMessageComming object:nil userInfo:@{kObjectId: userId, kMessageContentKey:message, kMessageCreatedAtKey: timeReceived}];
+        }
     }];
 }
 
@@ -308,6 +278,48 @@
     	[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:lastRowIdx inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:animated];
     }
 }
+
+#pragma mark - Keyboard events
+
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    NSValue *value = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval duration = 0;
+    [value getValue:&duration];
+    
+    [UIView animateWithDuration:duration animations:^{
+        CGRect frame = self.textInputView.frame;
+        frame.origin.y -= kbSize.height;
+        self.textInputView.frame = frame;
+        
+        frame = self.tableView.frame;
+        frame.size.height -= kbSize.height;
+        self.tableView.frame = frame;
+    }];
+    
+    [self scrollBubbleViewToBottomAnimated:YES];
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    [UIView animateWithDuration:0.2f animations:^{
+        
+        CGRect frame = self.textInputView.frame;
+        frame.origin.y += kbSize.height;
+        self.textInputView.frame = frame;
+        
+        frame = self.tableView.frame;
+        frame.size.height += kbSize.height;
+        self.tableView.frame = frame;
+    }];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
