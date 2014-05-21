@@ -43,6 +43,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    
    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNewMessageCommingWithChannelData:) name:kNotificationNewMessageComming object:nil];
 }
 
@@ -72,9 +73,11 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:self options:nil] firstObject];
     }
     
-    PFObject *messageChat = [self.messagesDataArray objectAtIndex:indexPath.row];
-    [cell configureDataWithModel:messageChat];
-    
+    if (indexPath.row >= 0 && indexPath.row < self.messagesDataArray.count) {
+        PFObject *messageChat = [self.messagesDataArray objectAtIndex:indexPath.row];
+        [cell configureDataWithModel:messageChat];
+    }
+   
     return cell;
 }
 
@@ -87,12 +90,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PFObject *messageChat = [self.messagesDataArray objectAtIndex:indexPath.row];
-    
-    PSCChatViewController *chatVC = [[PSCChatViewController alloc] initWithNibName:NSStringFromClass([PSCChatViewController class]) bundle:nil];
-    chatVC.userChat = messageChat[kMessageUserSendKey];
-    
-    [self.navigationController pushViewController:chatVC animated:YES];
+     if (indexPath.row >= 0 && indexPath.row < self.messagesDataArray.count) {
+         PFObject *messageChat = [self.messagesDataArray objectAtIndex:indexPath.row];
+         
+         PSCChatViewController *chatVC = [[PSCChatViewController alloc] initWithNibName:NSStringFromClass([PSCChatViewController class]) bundle:nil];
+         chatVC.userChat = messageChat[kMessageUserSendKey];
+         
+         [self.navigationController pushViewController:chatVC animated:YES];
+     }
 }
 
 #pragma mark - Methods
