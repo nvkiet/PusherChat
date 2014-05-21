@@ -133,6 +133,9 @@
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         [self.tableView endUpdates];
     }
+    else{
+        [self refreshData];
+    }
 }
 
 - (void)refreshData
