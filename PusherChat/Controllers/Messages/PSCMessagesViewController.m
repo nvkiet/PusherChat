@@ -121,11 +121,13 @@
         }
     }
     
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
-    
-    [self.tableView beginUpdates];
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    [self.tableView endUpdates];
+    if (row >= 0) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+        
+        [self.tableView beginUpdates];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView endUpdates];
+    }
 }
 
 - (void)refreshData
