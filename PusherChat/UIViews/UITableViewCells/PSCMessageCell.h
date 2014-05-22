@@ -10,6 +10,7 @@
 
 @interface PSCMessageCell : UITableViewCell
 
+
 - (void)configureDataWithModel: (id)model;
 
 @end

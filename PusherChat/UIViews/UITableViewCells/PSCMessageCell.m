@@ -39,13 +39,18 @@
     NSDate *createdAtDate = messageChat.createdAt;
     self.dateLabel.text = [self convertDateToStringWithDate:createdAtDate];
     
-    PFUser *userSend = messageChat[kMessageUserSendKey];
+    PFUser *currentUser = [PFUser currentUser];
+    PFUser *userChat = messageChat[kMessageUserSendKey];
+    
+    if ([userChat.objectId isEqualToString:currentUser.objectId]) {
+        userChat = messageChat[kMessageUserReceiveKey];
+    }
     
     // FIXME: Repeat source and use constants string
-    self.nameLabel.text = userSend[@"profile"][@"name"];
+    self.nameLabel.text = userChat[@"profile"][@"name"];
     
-    if (userSend[@"profile"][@"pictureURL"]) {
-        NSURL *pictureURL = [NSURL URLWithString:userSend[@"profile"][@"pictureURL"]];
+    if (userChat[@"profile"][@"pictureURL"]) {
+        NSURL *pictureURL = [NSURL URLWithString:userChat[@"profile"][@"pictureURL"]];
         [self.avatarImageView setImageWithURL:pictureURL placeholderImage:[UIImage imageNamed:@"anonymousUser.png"]];
         
         self.avatarImageView.layer.cornerRadius = 20.0;
