@@ -259,6 +259,10 @@
 
 - (void)subscribeToPresenceChannel
 {
+    // Unsubcribe all channel before subcribing to this presence channel
+    if ([PSCAppDelegate shareDelegate].currentChannel)
+       [[PSCAppDelegate shareDelegate].currentChannel unsubscribe];
+    
     // Generate a unique channel
     NSString *channelName = [[PSCAppDelegate shareDelegate] generateUniqueChannelNameWithUserId:self.currentUser.objectId
                                                                                       andUserId:self.userChat.objectId];

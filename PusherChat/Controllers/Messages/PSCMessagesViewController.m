@@ -176,9 +176,9 @@
             if (objects.count > 0) {
                 [self.messagesDataArray addObject:objects[0]];
                 
-                for (int i = 1; i < self.messagesDataArray.count; i++) {
+                for (int i = 1; i < objects.count; i++) {
                     
-                    PFObject *messageChat = [self.messagesDataArray objectAtIndex:i];
+                    PFObject *messageChat = [objects objectAtIndex:i];
                     
                     if (![self isExistWithMessageChat:messageChat]){
                         [self.messagesDataArray addObject:messageChat];
