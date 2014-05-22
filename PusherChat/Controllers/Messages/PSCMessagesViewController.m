@@ -95,9 +95,16 @@
      if (indexPath.row >= 0 && indexPath.row < self.messagesDataArray.count) {
          PFObject *messageChat = [self.messagesDataArray objectAtIndex:indexPath.row];
          
-         PSCChatViewController *chatVC = [[PSCChatViewController alloc] initWithNibName:NSStringFromClass([PSCChatViewController class]) bundle:nil];
-         chatVC.userChat = messageChat[kMessageUserSendKey];
+         // Get the last User Chat
+         PFUser *currentUser = [PFUser currentUser];
+         PFUser *userChat = messageChat[kMessageUserSendKey];
          
+         if ([userChat.objectId isEqualToString:currentUser.objectId]) {
+             userChat = messageChat[kMessageUserReceiveKey];
+         }
+         
+         PSCChatViewController *chatVC = [[PSCChatViewController alloc] initWithNibName:NSStringFromClass([PSCChatViewController class]) bundle:nil];
+         chatVC.userChat = userChat;
          chatVC.delegate = self;
          
          [self.navigationController pushViewController:chatVC animated:YES];
