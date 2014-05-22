@@ -33,4 +33,6 @@ NSString *const kMessageUserSendKey = @"UserSend";
 NSString *const kMessageUserReceiveKey = @"UserReceive";
 NSString *const kMessageContentKey = @"Content";
 NSString *const kMessageCreatedAtKey = @"createdAt";
+NSString *const kMessageUserSendIdKey = @"UserSendId";
+NSString *const kMessageUserReceiveIdKey = @"UserReceiveId";
 
