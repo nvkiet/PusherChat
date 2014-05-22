@@ -47,8 +47,6 @@
    [[NSNotificationCenter defaultCenter] addObserver:self
                                          selector:@selector(updateNewMessageCommingWithChannelData:)
                                          name:kNotificationNewMessageComming object:nil];
-    
-    [self refreshData];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -155,24 +153,33 @@
 {
     self.messagesDataArray = [NSMutableArray new];
     
-    PFQuery *query = [PFQuery queryWithClassName:kMessageClassKey];
-    [query whereKey:kMessageUserReceiveKey equalTo:[PFUser currentUser]]; 
+    PFUser *currentUser = [PFUser currentUser];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%@ = '%@' OR %@ = '%@'",
+                                                               kMessageUserSendIdKey, currentUser.objectId,
+                                                               kMessageUserReceiveIdKey, currentUser.objectId]];
+    
+    PFQuery *query = [PFQuery queryWithClassName:kMessageClassKey predicate:predicate];
     [query addDescendingOrder:kMessageCreatedAtKey];
     [query includeKey:kMessageUserSendKey];
+    [query includeKey:kMessageUserReceiveKey];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            // Get the last message
-            NSArray *arrUserSends = [objects valueForKey:kMessageUserSendKey];
-            NSSet *uniqueUserIdSendSet = [NSSet setWithArray:[arrUserSends valueForKey:kObjectId]];
-            NSArray *uniqueUserIdSendArray = [uniqueUserIdSendSet allObjects];
-            
-            for (NSString *userIdSend in uniqueUserIdSendArray) {
-                PFObject *messageChat = [self getMessageChatInArray:objects withUserIdSend:userIdSend];
-                [self.messagesDataArray addObject:messageChat];
+            if (objects.count > 0) {
+                [self.messagesDataArray addObject:objects[0]];
+                
+                for (int i = 1; i < self.messagesDataArray.count; i++) {
+                    
+                    PFObject *messageChat = [self.messagesDataArray objectAtIndex:i];
+                    
+                    if (![self isExistWithMessageChat:messageChat]){
+                        [self.messagesDataArray addObject:messageChat];
+                    }
+                }
+                
+                [self.tableView reloadData];
             }
-            
-            [self.tableView reloadData];
         }
         else {
             NSLog(@"Error: %@ %@", error, [error userInfo]);
@@ -180,17 +187,25 @@
     }];
 }
 
-- (PFObject *)getMessageChatInArray:(NSArray *)objects withUserIdSend:(NSString *)theUserIdSend
+- (BOOL)isExistWithMessageChat:(PFObject *)object
 {
-    for (PFObject *object in objects) {
-        PFObject *tmpUser = object[kMessageUserSendKey];
-        NSString *userIdSend = tmpUser.objectId;
+    BOOL result = FALSE;
+    
+    NSString *userIdSend_B = object[kMessageUserSendIdKey];
+    NSString *userIdReceive_B = object[kMessageUserReceiveIdKey];
+    
+    for (PFObject *messageChat in self.messagesDataArray) {
         
-        if ([userIdSend isEqualToString:theUserIdSend]) {
-            return object;
+        NSString *userIdSend_A = messageChat[kMessageUserSendIdKey];
+        NSString *userIdReceive_A = messageChat[kMessageUserReceiveIdKey];
+        
+        if (([userIdSend_B isEqualToString:userIdSend_A] && [userIdReceive_B isEqualToString:userIdReceive_A]) ||
+           ([userIdSend_B isEqualToString:userIdReceive_A] && [userIdReceive_B isEqualToString:userIdSend_A]))  {
+            result = YES;
+            break;
         }
     }
-    return nil;
+    return result;
 }
 
 - (void)didReceiveMemoryWarning
