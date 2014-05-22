@@ -23,6 +23,7 @@
 
 
 @property (nonatomic, strong) NSMutableArray * bubblesdataArray;
+@property (nonatomic) BOOL hasSentMsgg;
 @end
 
 @implementation PSCChatViewController
@@ -158,12 +159,21 @@
 
 - (void)backButtonClicked:(id)sender
 {
+    if (self.hasSentMsgg) {
+        if ([self.delegate respondsToSelector:@selector(chatViewControllerRefreshData:)]){
+            [self.delegate chatViewControllerRefreshData:self];
+        }
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)btnSendMessage:(id)sender
 {
     if (self.messageTextField.text.length > 0){
+        
+        // Has sent message to User Chat
+        self.hasSentMsgg = YES;
         
         [self.sendButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         
@@ -177,6 +187,9 @@
         
         // Save message chat to history on Parse
         PFObject *messageChat = [PFObject objectWithClassName:kMessageClassKey];
+        
+        [messageChat setObject:self.currentUser.objectId forKey:kMessageUserSendIdKey];
+        [messageChat setObject:self.userChat.objectId forKey:kMessageUserReceiveIdKey];
         [messageChat setObject:self.currentUser forKey:kMessageUserSendKey];
         [messageChat setObject:self.userChat forKey:kMessageUserReceiveKey];
         [messageChat setObject:self.messageTextField.text forKey:kMessageContentKey];

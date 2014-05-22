@@ -10,7 +10,7 @@
 #import "PSCMessageCell.h"
 #import "PSCChatViewController.h"
 
-@interface PSCMessagesViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface PSCMessagesViewController ()<UITableViewDelegate, UITableViewDataSource, PSCChatVCDelegate>
 @property (nonatomic, strong) NSMutableArray *messagesDataArray;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -41,10 +41,14 @@
     [self refreshData];
 }
 
+
 - (void)viewWillAppear:(BOOL)animated
 {
+   [[NSNotificationCenter defaultCenter] addObserver:self
+                                         selector:@selector(updateNewMessageCommingWithChannelData:)
+                                         name:kNotificationNewMessageComming object:nil];
     
-   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNewMessageCommingWithChannelData:) name:kNotificationNewMessageComming object:nil];
+    [self refreshData];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -96,8 +100,17 @@
          PSCChatViewController *chatVC = [[PSCChatViewController alloc] initWithNibName:NSStringFromClass([PSCChatViewController class]) bundle:nil];
          chatVC.userChat = messageChat[kMessageUserSendKey];
          
+         chatVC.delegate = self;
+         
          [self.navigationController pushViewController:chatVC animated:YES];
      }
+}
+
+#pragma mark - ChatVCDelegate
+
+- (void)chatViewControllerRefreshData:(PSCChatViewController *)chatVC
+{
+    [self refreshData];
 }
 
 #pragma mark - Methods
