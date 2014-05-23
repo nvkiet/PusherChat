@@ -13,7 +13,9 @@
 
 
 @interface PSCChatViewController ()<PTPusherPresenceChannelDelegate, UITableViewDataSource, UITableViewDelegate>
+
 @property (nonatomic, strong) PFUser *currentUser;
+@property (nonatomic, strong) PTPusherPresenceChannel *currentChannel;
 
 @property (weak, nonatomic) IBOutlet UITextField *messageTextField;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -177,10 +179,11 @@
         
         [self.sendButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         
-        NSLog(@"[pusher] Count channel members: %ld", (long)[PSCAppDelegate shareDelegate].currentChannel.members.count);
+        NSLog(@"[pusher] Count channel members: %ld", (long)self.currentChannel.members.count);
         
         // Only trigger a client event once a subscription has been successfully registered with Pusher
-        [[PSCAppDelegate shareDelegate].currentChannel triggerEventNamed:kEventNameNewMessage data:@{kObjectId: self.currentUser.objectId, kMessageContentKey: self.messageTextField.text}];
+        [self.currentChannel triggerEventNamed:kEventNameNewMessage data:@{kObjectId: self.currentUser.objectId,
+                                                                           kMessageContentKey: self.messageTextField.text}];
         
         PSCBubbleData *bubbleData = [[PSCBubbleData alloc] initWithText:self.messageTextField.text type:BubbleTypeMine];
         [self addNewRowWithBubbleData:bubbleData];
@@ -204,7 +207,7 @@
         }];
         
         // Push notification to user chat
-        if ([PSCAppDelegate shareDelegate].currentChannel.members.count <= 1) {
+        if (self.currentChannel.members.count <= 1) {
             [self sendRequestChatWithMessage:self.messageTextField.text];
         }
        
@@ -259,17 +262,12 @@
 
 - (void)subscribeToPresenceChannel
 {
-    // Unsubcribe all channel before subcribing to this presence channel
-    if ([PSCAppDelegate shareDelegate].currentChannel)
-       [[PSCAppDelegate shareDelegate].currentChannel unsubscribe];
-    
     // Generate a unique channel
     NSString *channelName = [[PSCAppDelegate shareDelegate] generateUniqueChannelNameWithUserId:self.currentUser.objectId
                                                                                       andUserId:self.userChat.objectId];
     
-    [PSCAppDelegate shareDelegate].currentChannel = [[PSCAppDelegate shareDelegate].pusherClient subscribeToPresenceChannelNamed:channelName delegate:self];
-    
-    [[PSCAppDelegate shareDelegate].currentChannel bindToEventNamed:kEventNameNewMessage handleWithBlock:^(PTPusherEvent *channelEvent){
+    self.currentChannel = [[PSCAppDelegate shareDelegate].pusherClient subscribeToPresenceChannelNamed:channelName delegate:self];
+    [self.currentChannel bindToEventNamed:kEventNameNewMessage handleWithBlock:^(PTPusherEvent *channelEvent){
         
         NSString *userId = channelEvent.data[kObjectId];
         NSString *message = channelEvent.data[kMessageContentKey];
@@ -281,7 +279,10 @@
         // If User is not in chat screen ---> Show notifications to Tab "Messages" and update Message Screen
         if(![PSCAppDelegate shareDelegate].isChatScreenVisible) {
             [[PSCAppDelegate shareDelegate] addBadgeValueToMessagesTab:message];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNewMessageComming object:nil userInfo:@{kObjectId: userId, kMessageContentKey:message, kMessageCreatedAtKey: timeReceived}];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNewMessageComming
+                                                                object:nil
+                                                                 userInfo:@{kObjectId: userId, kMessageContentKey:message,
+                                                                            kMessageCreatedAtKey: timeReceived}];
         }
     }];
 }

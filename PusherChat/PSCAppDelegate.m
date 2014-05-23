@@ -152,7 +152,7 @@
     
     // FIXME: Repeat code
     // Generate a unique channel
-    NSString *channelName = [[PSCAppDelegate shareDelegate] generateUniqueChannelNameWithUserId:[PFUser currentUser].objectId andUserId:userId];
+    NSString *channelName = [self generateUniqueChannelNameWithUserId:[PFUser currentUser].objectId andUserId:userId];
     self.currentChannel = [self.pusherClient subscribeToPresenceChannelNamed:channelName delegate:nil];
     
     [self.currentChannel bindToEventNamed:kEventNameNewMessage handleWithBlock:^(PTPusherEvent *channelEvent){
