@@ -110,13 +110,6 @@
      }
 }
 
-#pragma mark - ChatVCDelegate
-
-- (void)chatViewControllerRefreshData:(PSCChatViewController *)chatVC
-{
-    [self refreshData];
-}
-
 #pragma mark - Methods
 
 - (void)updateNewMessageCommingWithChannelData:(NSNotification*)aUserInfo
