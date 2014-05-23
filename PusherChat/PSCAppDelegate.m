@@ -153,19 +153,43 @@
     // FIXME: Repeat code
     // Generate a unique channel
     NSString *channelName = [self generateUniqueChannelNameWithUserId:[PFUser currentUser].objectId andUserId:userId];
-    self.currentChannel = [self.pusherClient subscribeToPresenceChannelNamed:channelName delegate:nil];
     
-    [self.currentChannel bindToEventNamed:kEventNameNewMessage handleWithBlock:^(PTPusherEvent *channelEvent){
+    PTPusherPresenceChannel *presenceChannel = nil;
+    
+    // Check channel exist or not
+    PSCChannel *channel = [[PSCChannelManager shareInstance] getChannelByName:channelName];
+    if (!channel) {
+        presenceChannel = [self.pusherClient subscribeToPresenceChannelNamed:channelName delegate:nil];
+        
+        // Add channel to manager
+        NSMutableArray *usersArray = [NSMutableArray new];
+        [usersArray addObject:[PFUser currentUser]];
+        
+        PSCChannel *channel = [[PSCChannel alloc] initChannelWithPresenceChannel:presenceChannel
+                                                                     andUserName:channelName
+                                                                   anhUsersArray:usersArray];
+        [[PSCChannelManager shareInstance] addNewChannel:channel];
+    }
+    else{
+        presenceChannel = channel.presenceChannel;
+        
+        // Unbind prev event
+        [presenceChannel removeAllBindings];
+    }
+    
+    [presenceChannel bindToEventNamed:kEventNameNewMessage handleWithBlock:^(PTPusherEvent *channelEvent){
         NSString *message = [channelEvent.data objectForKey:kMessageContentKey];
         
-        [self.messagesVC refreshData];
-        
         [self addBadgeValueToMessagesTab:message];
+        
+        // TODOME: Update 1 one messsage cell intead of
+        [self.messagesVC refreshData];
     }];
     
-    [self.messagesVC refreshData];
-    
     [self addBadgeValueToMessagesTab:message];
+    
+    // TODOME: Update 1 one messsage cell intead of
+    [self.messagesVC refreshData];
     
     NSLog(@"[parse] Messsage: %@  UserId: %@", message, userId);
 }
@@ -312,7 +336,7 @@
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     if (self.pusherClient) {
-        [self.currentChannel unsubscribe];
+        [[PSCChannelManager shareInstance] unsubscribeAllChannels];
     }
 }
 

@@ -39,6 +39,7 @@
 		927258CF192917200089FB7E /* PSCMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 927258CD192917200089FB7E /* PSCMessageCell.m */; };
 		927258D0192917200089FB7E /* PSCMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 927258CE192917200089FB7E /* PSCMessageCell.xib */; };
 		9284A096192EF200005A1FF6 /* PSCChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9284A095192EF200005A1FF6 /* PSCChannel.m */; };
+		9284A099192EF36B005A1FF6 /* PSCChannelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9284A098192EF36B005A1FF6 /* PSCChannelManager.m */; };
 		9287F336192335AC002DE925 /* tab_icon_contacts_idle.png in Resources */ = {isa = PBXBuildFile; fileRef = 9287F32A192335AC002DE925 /* tab_icon_contacts_idle.png */; };
 		9287F337192335AC002DE925 /* tab_icon_contacts_idle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9287F32B192335AC002DE925 /* tab_icon_contacts_idle@2x.png */; };
 		9287F338192335AC002DE925 /* tab_icon_contacts_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 9287F32C192335AC002DE925 /* tab_icon_contacts_selected.png */; };
@@ -131,6 +132,8 @@
 		927258CE192917200089FB7E /* PSCMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCMessageCell.xib; sourceTree = "<group>"; };
 		9284A094192EF200005A1FF6 /* PSCChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCChannel.h; sourceTree = "<group>"; };
 		9284A095192EF200005A1FF6 /* PSCChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCChannel.m; sourceTree = "<group>"; };
+		9284A097192EF36B005A1FF6 /* PSCChannelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCChannelManager.h; sourceTree = "<group>"; };
+		9284A098192EF36B005A1FF6 /* PSCChannelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCChannelManager.m; sourceTree = "<group>"; };
 		9287F32A192335AC002DE925 /* tab_icon_contacts_idle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_icon_contacts_idle.png; sourceTree = "<group>"; };
 		9287F32B192335AC002DE925 /* tab_icon_contacts_idle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_icon_contacts_idle@2x.png"; sourceTree = "<group>"; };
 		9287F32C192335AC002DE925 /* tab_icon_contacts_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_icon_contacts_selected.png; sourceTree = "<group>"; };
@@ -232,6 +235,8 @@
 			children = (
 				92685E1D1921C38100C1CBEF /* PSCUserManager.h */,
 				92685E1E1921C38100C1CBEF /* PSCUserManager.m */,
+				9284A097192EF36B005A1FF6 /* PSCChannelManager.h */,
+				9284A098192EF36B005A1FF6 /* PSCChannelManager.m */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -688,6 +693,7 @@
 				927258CF192917200089FB7E /* PSCMessageCell.m in Sources */,
 				928F183B1921188700A05BF5 /* PSCChatViewController.m in Sources */,
 				92B1C3511920644500897029 /* main.m in Sources */,
+				9284A099192EF36B005A1FF6 /* PSCChannelManager.m in Sources */,
 				92685E3F1921DA8300C1CBEF /* PSCMessagesViewController.m in Sources */,
 				92685E281921CAB300C1CBEF /* PSCLoginViewController.m in Sources */,
 				9284A096192EF200005A1FF6 /* PSCChannel.m in Sources */,

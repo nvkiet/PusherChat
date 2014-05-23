@@ -6,9 +6,6 @@
 
 #import <Availability.h>
 
-// Models
-#import "PSCUser.h"
-
 // Verdors
 #import <Pusher/Pusher.h>
 #import <Pusher/PTPusherChannel.h>
@@ -18,11 +15,16 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SVProgressHUD/SVProgressHUD.h>
 
+// Models
+#import "PSCUser.h"
+#import "PSCChannel.h"
+
 // Constants
 #import "PSCConstants.h"
 
 // Managers
 #import "PSCUserManager.h"
+#import "PSCChannelManager.h"
 
 // Categories
 #import "UIImage+Utils.h"
