@@ -147,54 +147,93 @@
 // Parse will create a modal alert and display the push notification's content.
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    NSString *message = userInfo[@"aps"][@"alert"];
-    NSString *userId = userInfo[@"UserId"];
+    NSString *message = nil;
+    NSString *userId = nil;
+    
+    if (userInfo[@"aps"][@"alert"]) {
+        message = userInfo[@"aps"][@"alert"];
+    }
+    
+    if (userInfo[@"UserId"]) {
+        userId = userInfo[@"UserId"];
+    }
     
     // FIXME: Repeat code
-    // Generate a unique channel
-    NSString *channelName = [self generateUniqueChannelNameWithUserId:[PFUser currentUser].objectId andUserId:userId];
-    
-    PTPusherPresenceChannel *presenceChannel = nil;
-    
-    // Check channel exist or not
-    PSCChannel *channel = [[PSCChannelManager shareInstance] getChannelByName:channelName];
-    if (!channel) {
-        presenceChannel = [self.pusherClient subscribeToPresenceChannelNamed:channelName delegate:nil];
+    if (userId) {
+        // Generate a unique channel
+        NSString *channelName = [self generateUniqueChannelNameWithUserId:[PFUser currentUser].objectId andUserId:userId];
         
-        // Add channel to manager
-        NSMutableArray *usersArray = [NSMutableArray new];
-        [usersArray addObject:[PFUser currentUser]];
+        PTPusherPresenceChannel *presenceChannel = nil;
         
-        PSCChannel *channel = [[PSCChannel alloc] initChannelWithPresenceChannel:presenceChannel
-                                                                     andUserName:channelName
-                                                                   anhUsersArray:usersArray];
-        [[PSCChannelManager shareInstance] addNewChannel:channel];
+        // Check channel exist or not
+        PSCChannel *channel = [[PSCChannelManager shareInstance] getChannelByName:channelName];
+        if (!channel) {
+            presenceChannel = [self.pusherClient subscribeToPresenceChannelNamed:channelName delegate:nil];
+            
+            // Add channel to manager
+            NSMutableArray *usersArray = [NSMutableArray new];
+            [usersArray addObject:[PFUser currentUser]];
+            
+            PSCChannel *channel = [[PSCChannel alloc] initChannelWithPresenceChannel:presenceChannel
+                                                                         andUserName:channelName
+                                                                       anhUsersArray:usersArray];
+            [[PSCChannelManager shareInstance] addNewChannel:channel];
+        }
+        else{
+            presenceChannel = channel.presenceChannel;
+            
+            // Unbind prev event
+            [presenceChannel removeAllBindings];
+        }
+        
+        [presenceChannel bindToEventNamed:kEventNameNewMessage handleWithBlock:^(PTPusherEvent *channelEvent){
+            
+            NSString *userSendId = channelEvent.data[kObjectId];
+            NSString *message = channelEvent.data[kMessageContentKey];
+            NSDate *timeReceived = channelEvent.timeReceived;
+            
+            [self addBadgeValueToMessagesTab:message];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNewMessageComming
+                                                                object:nil
+                                                              userInfo:@{kObjectId:userSendId,
+                                                                         kMessageContentKey:message,
+                                                                         kMessageCreatedAtKey:timeReceived}];
+        }];
+        
+        [self updateMessageCellWithNotification:userInfo];
+        
+        NSLog(@"[parse] Messsage: %@  UserId: %@", message, userId);
     }
-    else{
-        presenceChannel = channel.presenceChannel;
-        
-        // Unbind prev event
-        [presenceChannel removeAllBindings];
-    }
-    
-    [presenceChannel bindToEventNamed:kEventNameNewMessage handleWithBlock:^(PTPusherEvent *channelEvent){
-        NSString *message = [channelEvent.data objectForKey:kMessageContentKey];
-        
-        [self addBadgeValueToMessagesTab:message];
-        
-        // TODOME: Update 1 one messsage cell intead of
-        [self.messagesVC refreshData];
-    }];
-    
-    [self addBadgeValueToMessagesTab:message];
-    
-    // TODOME: Update 1 one messsage cell intead of
-    [self.messagesVC refreshData];
-    
-    NSLog(@"[parse] Messsage: %@  UserId: %@", message, userId);
 }
 
 #pragma mark - Methods
+
+- (void)updateMessageCellWithNotification:(NSDictionary *)userInfo
+{
+    NSString *alertString = nil;
+    NSString *userId = nil;
+    NSString *message = nil;
+    
+    if (userInfo[@"aps"][@"alert"]) {
+        alertString = userInfo[@"aps"][@"alert"];
+        NSRange range = [alertString rangeOfString:@":" options:NSLiteralSearch range:NSMakeRange(0, alertString.length)];
+        message = [alertString substringFromIndex:range.location + 2];
+    }
+    
+    if (userInfo[@"UserId"]) {
+        userId = userInfo[@"UserId"];
+        NSString *createAt = userInfo[kMessageCreatedAtKey];
+        
+        [self addBadgeValueToMessagesTab:message];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNewMessageComming
+                                                            object:nil
+                                                          userInfo:@{kObjectId: userId,
+                                                                     kMessageContentKey:message,
+                                                                     kMessageCreatedAtKey:createAt}];
+    }
+}
 
 - (NSString *)generateUniqueChannelNameWithUserId:(NSString*)userId_A andUserId:(NSString *)userId_B
 {

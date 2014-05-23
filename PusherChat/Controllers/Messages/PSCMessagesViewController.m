@@ -127,7 +127,7 @@
     NSString *userId = channelData[kObjectId];
     NSString *message = channelData[kMessageContentKey];
     // FIXME: Coundn't update time received message chat
-    NSDate *timeReceived = channelData[kMessageCreatedAtKey];
+    NSString *createAt = channelData[kMessageCreatedAtKey];
     
     // Find User Cell to udate new message
     int row = -1;

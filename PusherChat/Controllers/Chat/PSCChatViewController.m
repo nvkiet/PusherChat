@@ -232,8 +232,13 @@
     
     NSString *alertTitle = [NSString stringWithFormat:@"%@: %@", self.userChat[@"profile"][@"name"], message];
     
+    // Convert NSDate to NSString
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
+    NSString *createAt = [formatter stringFromDate:[NSDate date]];
+    
     PFPush *push = [PFPush push];
-    [push setData:@{@"aps":@{@"alert": alertTitle, @"sound": @"default"}, @"UserId": self.currentUser.objectId}];
+    [push setData:@{@"aps":@{@"alert": alertTitle, @"sound": @"default"}, @"UserId": self.currentUser.objectId, kMessageCreatedAtKey:createAt}];
     [push setQuery:pushQuery];
     
     [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -303,8 +308,9 @@
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNewMessageComming
                                                                 object:nil
-                                                                 userInfo:@{kObjectId: userId, kMessageContentKey:message,
-                                                                            kMessageCreatedAtKey: timeReceived}];
+                                                                 userInfo:@{kObjectId:userId,
+                                                                            kMessageContentKey:message,
+                                                                            kMessageCreatedAtKey:timeReceived}];
         }
     }];
 }
