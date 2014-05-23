@@ -265,8 +265,29 @@
     // Generate a unique channel
     NSString *channelName = [[PSCAppDelegate shareDelegate] generateUniqueChannelNameWithUserId:self.currentUser.objectId
                                                                                       andUserId:self.userChat.objectId];
+    // Check channel exist or not
+    PSCChannel *channel = [[PSCChannelManager shareInstance] getChannelByName:channelName];
+    if (!channel) {
+        self.currentChannel = [[PSCAppDelegate shareDelegate].pusherClient subscribeToPresenceChannelNamed:channelName delegate:self];
+        
+        // Add channel to manager
+        NSMutableArray *usersArray = [NSMutableArray new];
+        [usersArray addObject:self.currentUser];
+        [usersArray addObject:self.userChat];
+        
+        PSCChannel *channel = [[PSCChannel alloc] initChannelWithPresenceChannel:self.currentChannel
+                                                                     andUserName:channelName
+                                                                   anhUsersArray:usersArray];
+        [[PSCChannelManager shareInstance] addNewChannel:channel];
+    }
+    else{
+        self.currentChannel = channel.presenceChannel;
+        
+        // Unbind prev event
+        [self.currentChannel removeAllBindings];
+    }
     
-    self.currentChannel = [[PSCAppDelegate shareDelegate].pusherClient subscribeToPresenceChannelNamed:channelName delegate:self];
+    // Bind to event to receive data
     [self.currentChannel bindToEventNamed:kEventNameNewMessage handleWithBlock:^(PTPusherEvent *channelEvent){
         
         NSString *userId = channelEvent.data[kObjectId];
@@ -279,6 +300,7 @@
         // If User is not in chat screen ---> Show notifications to Tab "Messages" and update Message Screen
         if(![PSCAppDelegate shareDelegate].isChatScreenVisible) {
             [[PSCAppDelegate shareDelegate] addBadgeValueToMessagesTab:message];
+            
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNewMessageComming
                                                                 object:nil
                                                                  userInfo:@{kObjectId: userId, kMessageContentKey:message,
