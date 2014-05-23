@@ -10,16 +10,9 @@
 
 @class PSCChatViewController;
 
-@protocol PSCChatVCDelegate <NSObject>
-
-- (void)chatViewControllerRefreshData:(PSCChatViewController *)chatVC;
-
-@end
-
 @interface PSCChatViewController : UIViewController
 
 @property (nonatomic, strong) PFUser *userChat;
-@property (nonatomic, weak) id<PSCChatVCDelegate>delegate;
 
 - (void)subscribeToPresenceChannel;
 

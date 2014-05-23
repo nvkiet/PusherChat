@@ -10,7 +10,7 @@
 
 @implementation PSCChannel
 
-- (PSCChannel *)initChannelWithPresenceChannel:(PTPusherPresenceChannel *)thePresenceChannel andUserName:(NSString *)theChannelName anhUsersArray: (NSMutableArray *)theUsersArray
+- (PSCChannel *)initWithPresenceChannel:(PTPusherPresenceChannel *)thePresenceChannel andUserName:(NSString *)theChannelName anhUsersArray: (NSMutableArray *)theUsersArray
 {
     self = [super init];
     if (self) {

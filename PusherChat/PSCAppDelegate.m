@@ -174,7 +174,7 @@
             NSMutableArray *usersArray = [NSMutableArray new];
             [usersArray addObject:[PFUser currentUser]];
             
-            PSCChannel *channel = [[PSCChannel alloc] initChannelWithPresenceChannel:presenceChannel
+            PSCChannel *channel = [[PSCChannel alloc] initWithPresenceChannel:presenceChannel
                                                                          andUserName:channelName
                                                                        anhUsersArray:usersArray];
             [[PSCChannelManager shareInstance] addNewChannel:channel];

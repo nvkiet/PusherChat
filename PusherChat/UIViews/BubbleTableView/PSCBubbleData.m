@@ -13,7 +13,7 @@ const UIEdgeInsets textInsetsSomeone = {5, 15, 7, 10}; //{5, 15, 11, 10};
 
 @implementation PSCBubbleData
 
-- (id)initWithText:(NSString *)text type:(NSBubbleType)type
+- (id)initWithText:(NSString *)text createAt:(NSDate *)createAt type:(NSBubbleType)type
 {
     self = [super init];
     if (self)
@@ -31,6 +31,9 @@ const UIEdgeInsets textInsetsSomeone = {5, 15, 7, 10}; //{5, 15, 11, 10};
         self.insets = (type == BubbleTypeMine ? textInsetsMine : textInsetsSomeone);
         self.view = label;
         self.type = type;
+        
+        self.content = text;
+        self.createAt = createAt;
     }
     return self;
 }

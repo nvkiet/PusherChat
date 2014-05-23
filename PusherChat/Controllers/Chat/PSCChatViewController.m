@@ -162,8 +162,16 @@
 - (void)backButtonClicked:(id)sender
 {
     if (self.hasSentMsgg) {
-        if ([self.delegate respondsToSelector:@selector(chatViewControllerRefreshData:)]){
-            [self.delegate chatViewControllerRefreshData:self];
+        
+        PSCBubbleData *lastMessage = [self.bubblesdataArray lastObject];
+        
+        if (lastMessage) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNewMessageComming
+                                                                object:nil
+                                                              userInfo:@{kObjectId:self.userChat.objectId,
+                                                                         kMessageContentKey:lastMessage.content,
+                                                                         kMessageCreatedAtKey:lastMessage.createAt}];
+ 
         }
     }
     
@@ -182,10 +190,12 @@
         NSLog(@"[pusher] Count channel members: %ld", (long)self.currentChannel.members.count);
         
         // Only trigger a client event once a subscription has been successfully registered with Pusher
-        [self.currentChannel triggerEventNamed:kEventNameNewMessage data:@{kObjectId: self.currentUser.objectId,
-                                                                           kMessageContentKey: self.messageTextField.text}];
+        [self.currentChannel triggerEventNamed:kEventNameNewMessage data:@{kObjectId:self.currentUser.objectId,
+                                                                           kMessageContentKey:self.messageTextField.text}];
         
-        PSCBubbleData *bubbleData = [[PSCBubbleData alloc] initWithText:self.messageTextField.text type:BubbleTypeMine];
+        PSCBubbleData *bubbleData = [[PSCBubbleData alloc] initWithText:self.messageTextField.text
+                                                               createAt:[NSDate date]
+                                                                   type:BubbleTypeMine];
         [self addNewRowWithBubbleData:bubbleData];
         
         // Save message chat to history on Parse
@@ -280,7 +290,7 @@
         [usersArray addObject:self.currentUser];
         [usersArray addObject:self.userChat];
         
-        PSCChannel *channel = [[PSCChannel alloc] initChannelWithPresenceChannel:self.currentChannel
+        PSCChannel *channel = [[PSCChannel alloc] initWithPresenceChannel:self.currentChannel
                                                                      andUserName:channelName
                                                                    anhUsersArray:usersArray];
         [[PSCChannelManager shareInstance] addNewChannel:channel];
@@ -299,7 +309,9 @@
         NSString *message = channelEvent.data[kMessageContentKey];
         NSDate *timeReceived = channelEvent.timeReceived;
         
-        PSCBubbleData *bubbleData = [[PSCBubbleData alloc] initWithText:message type:BubbleTypeSomeoneElse];
+        PSCBubbleData *bubbleData = [[PSCBubbleData alloc] initWithText:message
+                                                               createAt:timeReceived
+                                                                   type:BubbleTypeSomeoneElse];
         [self addNewRowWithBubbleData:bubbleData];
         
         // If User is not in chat screen ---> Show notifications to Tab "Messages" and update Message Screen

@@ -10,7 +10,7 @@
 #import "PSCMessageCell.h"
 #import "PSCChatViewController.h"
 
-@interface PSCMessagesViewController ()<UITableViewDelegate, UITableViewDataSource, PSCChatVCDelegate>
+@interface PSCMessagesViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *messagesDataArray;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -51,7 +51,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    // [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Table view data source
@@ -105,7 +105,6 @@
          
          PSCChatViewController *chatVC = [[PSCChatViewController alloc] initWithNibName:NSStringFromClass([PSCChatViewController class]) bundle:nil];
          chatVC.userChat = userChat;
-         chatVC.delegate = self;
          
          [self.navigationController pushViewController:chatVC animated:YES];
      }
@@ -133,10 +132,12 @@
     int row = -1;
     for (int i = 0 ; i< self.messagesDataArray.count;  i++) {
         PFObject *messageChat =  [self.messagesDataArray objectAtIndex:i];
-        PFObject *userSend = messageChat[kMessageUserSendKey];
-        NSString *userSendId = userSend.objectId;
         
-        if ([userSendId isEqualToString:userId]) {
+        NSString *userSendId = messageChat[kMessageUserSendIdKey];
+        NSString *userReceiveId = messageChat[kMessageUserReceiveIdKey];
+        
+        if ([userSendId isEqualToString:userId] || [userReceiveId isEqualToString:userId]) {
+            // TODOME: Update all fields in Message class
             messageChat[kMessageContentKey] = message;
             self.messagesDataArray[i] = messageChat;
             row = i;
@@ -146,7 +147,6 @@
     
     if (row >= 0) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
-        
         [self.tableView beginUpdates];
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         [self.tableView endUpdates];
