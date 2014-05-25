@@ -20,8 +20,8 @@ typedef enum NSBubbleType
 @property (nonatomic, strong) UIView *view;
 @property (nonatomic) UIEdgeInsets insets;
 @property (nonatomic,strong) NSString *content;
-@property (nonatomic, strong) NSDate *createAt;
+@property (nonatomic, strong) NSDate *timeCreated;
 
-- (id)initWithText:(NSString *)text createAt:(NSDate *)createAt type:(NSBubbleType)type;
+- (id)initWithText:(NSString *)text timeCreated:(NSDate *)createAt type:(NSBubbleType)type;
 
 @end
