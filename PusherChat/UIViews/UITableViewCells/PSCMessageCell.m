@@ -64,12 +64,36 @@
 - (NSString *)stringFromDate:(NSDate *)date
  {
      if (date) {
-         // TODOME: format date like: 12:31 pm, Yesterday, 9/5/14
+         // TODOME: format date like: 12:31 pm, Yesterday, Thursday, 9/5/14
          NSCalendar* calendar = [NSCalendar currentCalendar];
-         NSDateComponents* components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:date];
+         NSDateComponents* components = [calendar components:NSYearCalendarUnit| NSMonthCalendarUnit| NSDayCalendarUnit fromDate:date];
          
-         return [NSString stringWithFormat:@"%d/%d/%d", [components day], [components month], [components year]];
+         NSDate * nowDate = [NSDate date];
+         int differenceInDays = [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:date] -
+         [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:nowDate];
+         
+         NSString *dayString = nil;
+         
+         if (differenceInDays == 0) {
+             NSDateFormatter *timeFormatter = [[NSDateFormatter alloc]init];
+             [timeFormatter setDateFormat:@"HH:mm a"];
+             [timeFormatter setTimeStyle:NSDateFormatterShortStyle];
+             dayString = [timeFormatter stringFromDate:date];
+         }
+         else if (differenceInDays == -1){
+             dayString = @"Yesterday";
+         }
+         else if (differenceInDays < -1 && differenceInDays >= -6){
+             NSDateFormatter *dayFormat = [ [NSDateFormatter alloc] init];
+             [dayFormat setDateFormat:@"EEEE"];
+             dayString = [[NSString alloc] initWithFormat:@"%@",[dayFormat stringFromDate:nowDate]];
+         }
+         else{
+             dayString = [NSString stringWithFormat:@"%d/%d/%d", [components day], [components month], [components year]];
+         }
+         return dayString;
      }
+         
      return @"";
 }
 @end
