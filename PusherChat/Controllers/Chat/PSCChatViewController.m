@@ -164,13 +164,14 @@
     if (self.hasSentMsgg) {
         
         PSCBubbleData *lastMessage = [self.bubblesdataArray lastObject];
+        NSString *timeCreatedString = [NSDateFormatter stringWithDefaultFormatFromDate:lastMessage.timeCreated];
         
         if (lastMessage) {
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNewMessageComming
                                                                 object:nil
                                                               userInfo:@{kObjectId:self.userChat.objectId,
                                                                          kMessageContentKey:lastMessage.content,
-                                                                         kMessageCreatedAtKey:lastMessage.createAt}];
+                                                                         kMessageTimeCreatedKey:timeCreatedString}];
  
         }
     }
@@ -189,12 +190,14 @@
         
         NSLog(@"[pusher] Count channel members: %ld", (long)self.currentChannel.members.count);
         
+        NSDate *nowDate = [NSDate date];
         // Only trigger a client event once a subscription has been successfully registered with Pusher
         [self.currentChannel triggerEventNamed:kEventNameNewMessage data:@{kObjectId:self.currentUser.objectId,
-                                                                           kMessageContentKey:self.messageTextField.text}];
+                                                                           kMessageContentKey:self.messageTextField.text,
+                                                                           kMessageTimeCreatedKey:[self converDateToStringWithDate:nowDate]}];
         
         PSCBubbleData *bubbleData = [[PSCBubbleData alloc] initWithText:self.messageTextField.text
-                                                               createAt:[NSDate date]
+                                                               timeCreated:nowDate
                                                                    type:BubbleTypeMine];
         [self addNewRowWithBubbleData:bubbleData];
         
@@ -206,6 +209,7 @@
         [messageChat setObject:self.currentUser forKey:kMessageUserSendKey];
         [messageChat setObject:self.userChat forKey:kMessageUserReceiveKey];
         [messageChat setObject:self.messageTextField.text forKey:kMessageContentKey];
+        [messageChat setObject:nowDate forKey:kMessageTimeCreatedKey];
         
         [messageChat saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
@@ -243,12 +247,10 @@
     NSString *alertTitle = [NSString stringWithFormat:@"%@: %@", self.userChat[@"profile"][@"name"], message];
     
     // Convert NSDate to NSString
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
-    NSString *createAt = [formatter stringFromDate:[NSDate date]];
+    NSString *timeCreated = [self converDateToStringWithDate:[NSDate date]];
     
     PFPush *push = [PFPush push];
-    [push setData:@{@"aps":@{@"alert": alertTitle, @"sound": @"default"}, @"UserId": self.currentUser.objectId, kMessageCreatedAtKey:createAt}];
+    [push setData:@{@"aps":@{@"alert": alertTitle, @"sound": @"default"}, @"UserId": self.currentUser.objectId, kMessageTimeCreatedKey:timeCreated}];
     [push setQuery:pushQuery];
     
     [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -259,6 +261,15 @@
             NSLog(@"[pusher] push has some problems: %@]", [error localizedDescription]);
         }
     }];
+}
+
+- (NSString *)converDateToStringWithDate:(NSDate *)date
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
+    NSString *dateString = [formatter stringFromDate:date];
+    
+    return dateString;
 }
 
 - (void)addNewRowWithBubbleData:(PSCBubbleData *)bubbleData
@@ -305,24 +316,27 @@
     // Bind to event to receive data
     [self.currentChannel bindToEventNamed:kEventNameNewMessage handleWithBlock:^(PTPusherEvent *channelEvent){
         
-        NSString *userId = channelEvent.data[kObjectId];
-        NSString *message = channelEvent.data[kMessageContentKey];
-        NSDate *timeReceived = channelEvent.timeReceived;
+        self.hasSentMsgg = YES;
         
-        PSCBubbleData *bubbleData = [[PSCBubbleData alloc] initWithText:message
-                                                               createAt:timeReceived
+        NSString *userSendIdString = channelEvent.data[kObjectId];
+        NSString *messageString = channelEvent.data[kMessageContentKey];
+        NSString *timeCreatedString = channelEvent.data[kMessageTimeCreatedKey];
+        NSDate *timeCreatedDate = [NSDateFormatter dateWithDefaultFormatFromString:timeCreatedString];
+        
+        PSCBubbleData *bubbleData = [[PSCBubbleData alloc] initWithText:messageString
+                                                               timeCreated:timeCreatedDate
                                                                    type:BubbleTypeSomeoneElse];
         [self addNewRowWithBubbleData:bubbleData];
         
         // If User is not in chat screen ---> Show notifications to Tab "Messages" and update Message Screen
         if(![PSCAppDelegate shareDelegate].isChatScreenVisible) {
-            [[PSCAppDelegate shareDelegate] addBadgeValueToMessagesTab:message];
+            [[PSCAppDelegate shareDelegate] addBadgeValueToMessagesTab:messageString];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNewMessageComming
                                                                 object:nil
-                                                                 userInfo:@{kObjectId:userId,
-                                                                            kMessageContentKey:message,
-                                                                            kMessageCreatedAtKey:timeReceived}];
+                                                                 userInfo:@{kObjectId:userSendIdString,
+                                                                            kMessageContentKey:messageString,
+                                                                            kMessageTimeCreatedKey:timeCreatedString}];
         }
     }];
 }
