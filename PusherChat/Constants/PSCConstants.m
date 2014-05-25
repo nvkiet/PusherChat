@@ -8,31 +8,29 @@
 
 #import "PSCConstants.h"
 
-
-
 #pragma mark - Notifications
 
-NSString *const kNotificationAppWillEnterForeground = @"AppWillEnterForeground";
-NSString *const kNotificationNewMessageComming = @"NewMessageComming";
+NSString * const kNotificationAppWillEnterForeground = @"AppWillEnterForeground";
+NSString * const kNotificationNewMessageComming = @"NewMessageComming";
 
 #pragma mark - Event Message
 
-NSString *const kEventNameNewMessage = @"client-chat";
+NSString * const kEventNameNewMessage = @"client-chat";
 
 #pragma mark - Default Class
 
-NSString *const kObjectId = @"objectId";
+NSString * const kObjectId = @"objectId";
 
 #pragma mark - Message Class
 
 // Class key
-NSString *const kMessageClassKey = @"Message";
+NSString * const kMessageClassKey = @"Message";
 
 // Field keys
-NSString *const kMessageUserSendKey = @"UserSend";
-NSString *const kMessageUserReceiveKey = @"UserReceive";
-NSString *const kMessageContentKey = @"Content";
-NSString *const kMessageTimeCreatedKey = @"TimeCreated";
-NSString *const kMessageUserSendIdKey = @"UserSendId";
-NSString *const kMessageUserReceiveIdKey = @"UserReceiveId";
+NSString * const kMessageUserSendKey      = @"UserSend";
+NSString * const kMessageUserReceiveKey   = @"UserReceive";
+NSString * const kMessageContentKey       = @"Content";
+NSString * const kMessageTimeCreatedKey   = @"TimeCreated";
+NSString * const kMessageUserSendIdKey    = @"UserSendId";
+NSString * const kMessageUserReceiveIdKey = @"UserReceiveId";
 

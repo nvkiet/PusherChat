@@ -17,23 +17,23 @@
 
 #pragma mark - Notifications
 
-extern NSString *const kNotificationAppWillEnterForeground;
-extern NSString *const kNotificationNewMessageComming;
+extern NSString * const kNotificationAppWillEnterForeground;
+extern NSString * const kNotificationNewMessageComming;
 
 #pragma mark - Event Message
 
-extern NSString *const kEventNameNewMessage;
+extern NSString * const kEventNameNewMessage;
 
 #pragma mark - Default Class
 
-extern NSString *const kObjectId;
+extern NSString * const kObjectId;
 
 #pragma mark - Message Class
 
-extern NSString *const kMessageClassKey;
-extern NSString *const kMessageUserSendKey;
-extern NSString *const kMessageUserReceiveKey;
-extern NSString *const kMessageContentKey;
-extern NSString *const kMessageTimeCreatedKey;
-extern NSString *const kMessageUserSendIdKey;
-extern NSString *const kMessageUserReceiveIdKey;
+extern NSString * const kMessageClassKey;
+extern NSString * const kMessageUserSendKey;
+extern NSString * const kMessageUserReceiveKey;
+extern NSString * const kMessageContentKey;
+extern NSString * const kMessageTimeCreatedKey;
+extern NSString * const kMessageUserSendIdKey;
+extern NSString * const kMessageUserReceiveIdKey;
