@@ -141,14 +141,30 @@
     }
     
     if (row >= 0) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
-        [self.tableView beginUpdates];
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        [self.tableView endUpdates];
+        NSIndexPath *sourceIndexPath = [NSIndexPath indexPathForRow:row inSection:0];
+        NSIndexPath *destinationIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        
+        if (row > 0) {
+            // Move cell to the Top
+            PFObject *messageChatObject = [self.messagesDataArray objectAtIndex:row];
+            
+            [self.messagesDataArray removeObjectAtIndex:row];
+            [self.messagesDataArray insertObject:messageChatObject atIndex:0];
+            
+            [self.tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+        }
+        [self reloadRowsAtIndexPaths:@[destinationIndexPath]];
     }
     else{
         [self refreshData];
     }
+}
+
+- (void)reloadRowsAtIndexPaths:(NSArray *)indexPaths
+{
+    [self.tableView beginUpdates];
+    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView endUpdates];
 }
 
 - (void)refreshData
