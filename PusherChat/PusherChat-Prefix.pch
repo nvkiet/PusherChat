@@ -29,7 +29,7 @@
 // Categories
 #import "UIImage+Utils.h"
 #import "UIColor+Utils.h"
-
+#import "NSDateFormatter+Additions.h"
 
 #ifndef __IPHONE_5_0
 #warning "This project uses features only available in iOS SDK 5.0 and later."

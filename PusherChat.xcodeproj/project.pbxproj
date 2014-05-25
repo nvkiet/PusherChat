@@ -16,6 +16,7 @@
 		923035091925F62B00520457 /* defaultBackground@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 923035061925F62B00520457 /* defaultBackground@2x.jpg */; };
 		9230350D1925FB8900520457 /* PSCBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9230350C1925FB8900520457 /* PSCBubbleCell.m */; };
 		92303518192603EC00520457 /* PSCBubbleData.m in Sources */ = {isa = PBXBuildFile; fileRef = 92303517192603EC00520457 /* PSCBubbleData.m */; };
+		925E1C1119319CBD001940B6 /* NSDateFormatter+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 925E1C1019319CBD001940B6 /* NSDateFormatter+Additions.m */; };
 		92685E1F1921C38100C1CBEF /* PSCUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 92685E1E1921C38100C1CBEF /* PSCUserManager.m */; };
 		92685E231921C77B00C1CBEF /* PSCUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 92685E221921C77B00C1CBEF /* PSCUser.m */; };
 		92685E281921CAB300C1CBEF /* PSCLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92685E261921CAB300C1CBEF /* PSCLoginViewController.m */; };
@@ -64,7 +65,6 @@
 		92B1C3491920644500897029 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B1C3481920644500897029 /* UIKit.framework */; };
 		92B1C34F1920644500897029 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 92B1C34D1920644500897029 /* InfoPlist.strings */; };
 		92B1C3511920644500897029 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B1C3501920644500897029 /* main.m */; };
-		92B1C3551920644500897029 /* PSCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B1C3541920644500897029 /* PSCAppDelegate.m */; };
 		92B1C35D1920644500897029 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92B1C35C1920644500897029 /* Images.xcassets */; };
 		92B1C3641920644500897029 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B1C3631920644500897029 /* XCTest.framework */; };
 		92B1C3651920644500897029 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B1C3441920644500897029 /* Foundation.framework */; };
@@ -73,6 +73,7 @@
 		92B1C3701920644500897029 /* PusherChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B1C36F1920644500897029 /* PusherChatTests.m */; };
 		92BCB9081924AC58000E2F9E /* back_icon_regular.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BCB9061924AC58000E2F9E /* back_icon_regular.png */; };
 		92BCB9091924AC58000E2F9E /* back_icon_regular@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BCB9071924AC58000E2F9E /* back_icon_regular@2x.png */; };
+		92C67577192FB9400014087B /* PSCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C67576192FB9400014087B /* PSCAppDelegate.m */; };
 		92D2562E1922993D0003347D /* UIImage+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D2562D1922993D0003347D /* UIImage+Utils.m */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +100,8 @@
 		9230350C1925FB8900520457 /* PSCBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCBubbleCell.m; sourceTree = "<group>"; };
 		92303516192603EC00520457 /* PSCBubbleData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCBubbleData.h; sourceTree = "<group>"; };
 		92303517192603EC00520457 /* PSCBubbleData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCBubbleData.m; sourceTree = "<group>"; };
+		925E1C0F19319CBD001940B6 /* NSDateFormatter+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Additions.h"; sourceTree = "<group>"; };
+		925E1C1019319CBD001940B6 /* NSDateFormatter+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Additions.m"; sourceTree = "<group>"; };
 		92685E1D1921C38100C1CBEF /* PSCUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCUserManager.h; sourceTree = "<group>"; };
 		92685E1E1921C38100C1CBEF /* PSCUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCUserManager.m; sourceTree = "<group>"; };
 		92685E211921C77B00C1CBEF /* PSCUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCUser.h; sourceTree = "<group>"; };
@@ -164,7 +167,6 @@
 		92B1C3501920644500897029 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		92B1C3521920644500897029 /* PusherChat-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PusherChat-Prefix.pch"; sourceTree = "<group>"; };
 		92B1C3531920644500897029 /* PSCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSCAppDelegate.h; sourceTree = "<group>"; };
-		92B1C3541920644500897029 /* PSCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSCAppDelegate.m; sourceTree = "<group>"; };
 		92B1C35C1920644500897029 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		92B1C3621920644500897029 /* PusherChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PusherChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		92B1C3631920644500897029 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -173,6 +175,7 @@
 		92B1C36F1920644500897029 /* PusherChatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PusherChatTests.m; sourceTree = "<group>"; };
 		92BCB9061924AC58000E2F9E /* back_icon_regular.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_icon_regular.png; sourceTree = "<group>"; };
 		92BCB9071924AC58000E2F9E /* back_icon_regular@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_icon_regular@2x.png"; sourceTree = "<group>"; };
+		92C67576192FB9400014087B /* PSCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCAppDelegate.m; sourceTree = "<group>"; };
 		92D2562C1922993D0003347D /* UIImage+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Utils.h"; sourceTree = "<group>"; };
 		92D2562D1922993D0003347D /* UIImage+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Utils.m"; sourceTree = "<group>"; };
 		BF9434D7FA854FCD81932877 /* Pods-PusherChat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PusherChat.xcconfig"; path = "Pods/Pods-PusherChat.xcconfig"; sourceTree = "<group>"; };
@@ -419,7 +422,7 @@
 			isa = PBXGroup;
 			children = (
 				92B1C3531920644500897029 /* PSCAppDelegate.h */,
-				92B1C3541920644500897029 /* PSCAppDelegate.m */,
+				92C67576192FB9400014087B /* PSCAppDelegate.m */,
 				92685E201921C76200C1CBEF /* Models */,
 				92685E5419222ACB00C1CBEF /* UIViews */,
 				92B1C37A19206B5D00897029 /* Controllers */,
@@ -510,6 +513,8 @@
 				92D2562D1922993D0003347D /* UIImage+Utils.m */,
 				923035011925CF6100520457 /* UIColor+Utils.h */,
 				923035021925CF6100520457 /* UIColor+Utils.m */,
+				925E1C0F19319CBD001940B6 /* NSDateFormatter+Additions.h */,
+				925E1C1019319CBD001940B6 /* NSDateFormatter+Additions.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -690,6 +695,8 @@
 				92685E451921DB3B00C1CBEF /* PSCContactsViewController.m in Sources */,
 				92D2562E1922993D0003347D /* UIImage+Utils.m in Sources */,
 				92685E231921C77B00C1CBEF /* PSCUser.m in Sources */,
+				925E1C1119319CBD001940B6 /* NSDateFormatter+Additions.m in Sources */,
+				92C67577192FB9400014087B /* PSCAppDelegate.m in Sources */,
 				927258CF192917200089FB7E /* PSCMessageCell.m in Sources */,
 				928F183B1921188700A05BF5 /* PSCChatViewController.m in Sources */,
 				92B1C3511920644500897029 /* main.m in Sources */,
@@ -699,7 +706,6 @@
 				9284A096192EF200005A1FF6 /* PSCChannel.m in Sources */,
 				92303518192603EC00520457 /* PSCBubbleData.m in Sources */,
 				92685E391921CF9A00C1CBEF /* PSCSplashViewController.m in Sources */,
-				92B1C3551920644500897029 /* PSCAppDelegate.m in Sources */,
 				9230350D1925FB8900520457 /* PSCBubbleCell.m in Sources */,
 				92685E1F1921C38100C1CBEF /* PSCUserManager.m in Sources */,
 			);

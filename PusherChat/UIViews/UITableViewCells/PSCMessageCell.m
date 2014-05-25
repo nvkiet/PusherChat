@@ -36,9 +36,12 @@
     
     self.contentLabel.text = messageChat[kMessageContentKey];
     
-    NSDate *createdAtDate = messageChat.createdAt;
-    self.dateLabel.text = [self convertDateToStringWithDate:createdAtDate];
-    
+    self.dateLabel.text = @"";
+    NSDate *timeCreatedDate = messageChat[kMessageTimeCreatedKey];
+    if (timeCreatedDate) {
+        self.dateLabel.text = [self stringFromDate:timeCreatedDate];
+    }
+
     PFUser *currentUser = [PFUser currentUser];
     PFUser *userChat = messageChat[kMessageUserSendKey];
     
@@ -58,12 +61,15 @@
     }
 }
 
-- (NSString *)convertDateToStringWithDate:(NSDate *)date
+- (NSString *)stringFromDate:(NSDate *)date
  {
-    // TODOME: format date like: 12:31 pm, Yesterday, 9/5/14
-    NSCalendar* calendar = [NSCalendar currentCalendar];
-    NSDateComponents* components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:date];
-    
-    return [NSString stringWithFormat:@"%d/%d/%d", [components day], [components month], [components year]];
+     if (date) {
+         // TODOME: format date like: 12:31 pm, Yesterday, 9/5/14
+         NSCalendar* calendar = [NSCalendar currentCalendar];
+         NSDateComponents* components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:date];
+         
+         return [NSString stringWithFormat:@"%d/%d/%d", [components day], [components month], [components year]];
+     }
+     return @"";
 }
 @end

@@ -38,7 +38,7 @@
     self.pusherClient = [PTPusher pusherWithKey:PUSHER_API_KEY delegate:self encrypted:YES];
     
     // Configure the auth URL for private/presence channels
-    self.pusherClient.authorizationURL = [NSURL URLWithString:@"http://192.168.2.6:5000/pusher/auth"]; // http://192.168.1.109:5000/pusher/auth
+    self.pusherClient.authorizationURL = [NSURL URLWithString:@"http://192.168.1.109:5000/pusher/auth"]; // http://192.168.1.109:5000/pusher/auth
     
     [self.pusherClient connect];
     
@@ -188,17 +188,17 @@
         
         [presenceChannel bindToEventNamed:kEventNameNewMessage handleWithBlock:^(PTPusherEvent *channelEvent){
             
-            NSString *userSendId = channelEvent.data[kObjectId];
-            NSString *message = channelEvent.data[kMessageContentKey];
-            NSDate *timeReceived = channelEvent.timeReceived;
+            NSString *userSendIdString = channelEvent.data[kObjectId];
+            NSString *messageString = channelEvent.data[kMessageContentKey];
+            NSString *timeCreatedString = channelEvent.data[kMessageTimeCreatedKey];
             
-            [self addBadgeValueToMessagesTab:message];
+            [self addBadgeValueToMessagesTab:messageString];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNewMessageComming
                                                                 object:nil
-                                                              userInfo:@{kObjectId:userSendId,
-                                                                         kMessageContentKey:message,
-                                                                         kMessageCreatedAtKey:timeReceived}];
+                                                              userInfo:@{kObjectId:userSendIdString,
+                                                                         kMessageContentKey:messageString,
+                                                                         kMessageTimeCreatedKey:timeCreatedString}];
         }];
         
         [self updateMessageCellWithNotification:userInfo];
@@ -212,26 +212,26 @@
 - (void)updateMessageCellWithNotification:(NSDictionary *)userInfo
 {
     NSString *alertString = nil;
-    NSString *userId = nil;
-    NSString *message = nil;
+    NSString *userIdString = nil;
+    NSString *messageString = nil;
     
     if (userInfo[@"aps"][@"alert"]) {
         alertString = userInfo[@"aps"][@"alert"];
         NSRange range = [alertString rangeOfString:@":" options:NSLiteralSearch range:NSMakeRange(0, alertString.length)];
-        message = [alertString substringFromIndex:range.location + 2];
+        messageString = [alertString substringFromIndex:range.location + 2];
     }
     
     if (userInfo[@"UserId"]) {
-        userId = userInfo[@"UserId"];
-        NSString *createAt = userInfo[kMessageCreatedAtKey];
+        userIdString = userInfo[@"UserId"];
+        NSString *timeCreatedString = userInfo[kMessageTimeCreatedKey];
         
-        [self addBadgeValueToMessagesTab:message];
+        [self addBadgeValueToMessagesTab:messageString];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNewMessageComming
                                                             object:nil
-                                                          userInfo:@{kObjectId: userId,
-                                                                     kMessageContentKey:message,
-                                                                     kMessageCreatedAtKey:createAt}];
+                                                          userInfo:@{kObjectId: userIdString,
+                                                                     kMessageContentKey:messageString,
+                                                                     kMessageTimeCreatedKey:timeCreatedString}];
     }
 }
 

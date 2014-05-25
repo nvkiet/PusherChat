@@ -112,26 +112,28 @@
 
 #pragma mark - Methods
 
+// Update one message cell when new message commming
 - (void)updateNewMessageCommingWithChannelData:(NSNotification*)aUserInfo
 {
     NSDictionary *channelData = aUserInfo.userInfo;
     
-    NSString *userId = channelData[kObjectId];
-    NSString *message = channelData[kMessageContentKey];
-    // FIXME: Coundn't update time received message chat
-    NSString *createAt = channelData[kMessageCreatedAtKey];
+    NSString *userSendIdString = channelData[kObjectId];
+    NSString *contentString = channelData[kMessageContentKey];
+    NSString *timeCreatedString = channelData[kMessageTimeCreatedKey];
+    NSDate *timeCreatedDate = [NSDateFormatter dateWithDefaultFormatFromString:timeCreatedString];
     
     // Find User Cell to udate new message
     int row = -1;
     for (int i = 0 ; i< self.messagesDataArray.count;  i++) {
         PFObject *messageChat =  [self.messagesDataArray objectAtIndex:i];
         
-        NSString *userSendId = messageChat[kMessageUserSendIdKey];
-        NSString *userReceiveId = messageChat[kMessageUserReceiveIdKey];
+        NSString *tmpUserSendId = messageChat[kMessageUserSendIdKey];
+        NSString *tmpUserReceiveId = messageChat[kMessageUserReceiveIdKey];
         
-        if ([userSendId isEqualToString:userId] || [userReceiveId isEqualToString:userId]) {
+        if ([tmpUserSendId isEqualToString:userSendIdString] || [tmpUserReceiveId isEqualToString:userSendIdString]) {
             // TODOME: Update all fields in Message class
-            messageChat[kMessageContentKey] = message;
+            messageChat[kMessageContentKey] = contentString;
+            messageChat[kMessageTimeCreatedKey] = timeCreatedDate;
             self.messagesDataArray[i] = messageChat;
             row = i;
             break;
@@ -160,7 +162,7 @@
                                                                kMessageUserReceiveIdKey, currentUser.objectId]];
     
     PFQuery *query = [PFQuery queryWithClassName:kMessageClassKey predicate:predicate];
-    [query addDescendingOrder:kMessageCreatedAtKey];
+    [query addDescendingOrder:kMessageTimeCreatedKey];
     [query includeKey:kMessageUserSendKey];
     [query includeKey:kMessageUserReceiveKey];
     
@@ -168,16 +170,12 @@
         if (!error) {
             if (objects.count > 0) {
                 [self.messagesDataArray addObject:objects[0]];
-                
                 for (int i = 1; i < objects.count; i++) {
-                    
                     PFObject *messageChat = [objects objectAtIndex:i];
-                    
                     if (![self isExistWithMessageChat:messageChat]){
                         [self.messagesDataArray addObject:messageChat];
                     }
                 }
-                
                 [self.tableView reloadData];
             }
         }

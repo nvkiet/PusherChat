@@ -34,6 +34,6 @@ extern NSString *const kMessageClassKey;
 extern NSString *const kMessageUserSendKey;
 extern NSString *const kMessageUserReceiveKey;
 extern NSString *const kMessageContentKey;
-extern NSString *const kMessageCreatedAtKey;
+extern NSString *const kMessageTimeCreatedKey;
 extern NSString *const kMessageUserSendIdKey;
 extern NSString *const kMessageUserReceiveIdKey;
