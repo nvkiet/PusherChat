@@ -69,8 +69,9 @@
          NSDateComponents* components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:date];
          
          NSDate * nowDate = [NSDate date];
-         int differenceInDays = [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:date] -
-                                [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:nowDate];
+         int differenceInDays =
+             [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[NSDateFormatter dateWithDefaultFormatFromDate:date]] -
+             [calendar ordinalityOfUnit:NSDayCalendarUnit inUnit:NSEraCalendarUnit forDate:[NSDateFormatter dateWithDefaultFormatFromDate:nowDate]];
          
          NSString *dayString = nil;
          if (differenceInDays == 0) {
@@ -85,7 +86,7 @@
          else if (differenceInDays < -1 && differenceInDays >= -6){
              NSDateFormatter *dayFormat = [[NSDateFormatter alloc] init];
              [dayFormat setDateFormat:@"EEEE"];
-             dayString = [[NSString alloc] initWithFormat:@"%@",[dayFormat stringFromDate:nowDate]];
+             dayString = [[NSString alloc] initWithFormat:@"%@",[dayFormat stringFromDate:date]];
          }
          else{
              dayString = [NSString stringWithFormat:@"%d/%d/%d",[components day],[components month],[components year]];

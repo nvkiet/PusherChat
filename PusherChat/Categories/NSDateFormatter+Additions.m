@@ -33,4 +33,14 @@
     return @"";
 }
 
++ (NSDate *)dateWithDefaultFormatFromDate:(NSDate *)date
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    
+    NSDate *resultDate = [dateFormatter dateFromString:[dateFormatter stringFromDate:date]];
+    
+    return resultDate;
+}
+
 @end
