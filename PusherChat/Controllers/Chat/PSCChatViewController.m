@@ -71,8 +71,6 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    self.bubblesdataArray = [[NSMutableArray alloc] init];
-    
     //  Observer the App's State
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:kNotificationAppWillEnterForeground object:nil];
     
@@ -235,7 +233,43 @@
 {
     [self subscribeToPresenceChannel];
     
-    // TODOME: Load history chat
+    self.bubblesdataArray = [[NSMutableArray alloc] init];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"(%@ = '%@' OR %@ = '%@') AND (%@ = '%@' OR %@ = '%@')",
+                                                               kMessageUserSendIdKey, self.currentUser.objectId,
+                                                               kMessageUserReceiveIdKey, self.currentUser.objectId,
+                                                               kMessageUserSendIdKey, self.userChat.objectId,
+                                                               kMessageUserReceiveIdKey, self.userChat.objectId]];
+    
+    PFQuery *query = [PFQuery queryWithClassName:kMessageClassKey predicate:predicate];
+    [query addAscendingOrder:kMessageTimeCreatedKey];
+    [query setCachePolicy:kPFCachePolicyCacheThenNetwork];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            if (objects.count > 0) {
+                for (PFObject *messageChatObject in objects) {
+                    
+                    NSBubbleType type = BubbleTypeSomeoneElse;
+                    NSString *userIdSendString = messageChatObject[kMessageUserSendIdKey];
+                    // Check if current user is a sender
+                    if ([self.currentUser.objectId isEqualToString:userIdSendString]) {
+                        type = BubbleTypeMine;
+                    }
+                    
+                    PSCBubbleData *bubbleData = [[PSCBubbleData alloc] initWithText:messageChatObject[kMessageContentKey]
+                                                                        timeCreated:messageChatObject[kMessageTimeCreatedKey]
+                                                                               type:type];
+                    [self.bubblesdataArray addObject:bubbleData];
+                }
+                [self.tableView reloadData];
+                [self scrollBubbleViewToBottomAnimated:NO];
+            }
+        }
+        else {
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
 }
 
 - (void)sendRequestChatWithMessage:(NSString *)message
