@@ -108,6 +108,9 @@
          chatVC.userChat = userChat;
          
          [self.navigationController pushViewController:chatVC animated:YES];
+         
+         // Deselect on cell
+         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
      }
 }
 
