@@ -38,6 +38,8 @@
     
     self.navigationItem.title = @"Messages";
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:kNotificationAppWillEnterForeground object:nil];
+    
     [self refreshData];
 }
 
