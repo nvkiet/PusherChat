@@ -194,7 +194,7 @@
         // Only trigger a client event once a subscription has been successfully registered with Pusher
         [self.currentChannel triggerEventNamed:kEventNameNewMessage data:@{kObjectId:self.currentUser.objectId,
                                                                            kMessageContentKey:self.messageTextField.text,
-                                                                           kMessageTimeCreatedKey:[self converDateToStringWithDate:nowDate]}];
+                                                                           kMessageTimeCreatedKey:[NSDateFormatter stringWithDefaultFormatFromDate:nowDate]}];
         
         PSCBubbleData *bubbleData = [[PSCBubbleData alloc] initWithText:self.messageTextField.text
                                                                timeCreated:nowDate
@@ -247,7 +247,7 @@
     NSString *alertTitle = [NSString stringWithFormat:@"%@: %@", self.userChat[@"profile"][@"name"], message];
     
     // Convert NSDate to NSString
-    NSString *timeCreated = [self converDateToStringWithDate:[NSDate date]];
+    NSString *timeCreated = [NSDateFormatter stringWithDefaultFormatFromDate:[NSDate date]];
     
     PFPush *push = [PFPush push];
     [push setData:@{@"aps":@{@"alert": alertTitle, @"sound": @"default"}, @"UserId": self.currentUser.objectId, kMessageTimeCreatedKey:timeCreated}];
@@ -261,15 +261,6 @@
             NSLog(@"[pusher] push has some problems: %@]", [error localizedDescription]);
         }
     }];
-}
-
-- (NSString *)converDateToStringWithDate:(NSDate *)date
-{
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
-    NSString *dateString = [formatter stringFromDate:date];
-    
-    return dateString;
 }
 
 - (void)addNewRowWithBubbleData:(PSCBubbleData *)bubbleData
