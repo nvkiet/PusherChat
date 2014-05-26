@@ -13,7 +13,7 @@
 
 @interface PSCContactsViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) NSArray *dataArray;
+@property (nonatomic, strong) NSArray *contactsDataArray;
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @end
@@ -53,7 +53,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-   return self.dataArray.count;
+   return self.contactsDataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -65,7 +65,7 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:self options:nil] firstObject];
     }
     
-    PFUser *user = [self.dataArray objectAtIndex:indexPath.row];
+    PFUser *user = [self.contactsDataArray objectAtIndex:indexPath.row];
     [cell configureDataWithModel:user];
     
     return cell;
@@ -80,7 +80,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PFUser *user = [self.dataArray objectAtIndex:indexPath.row];
+    PFUser *user = [self.contactsDataArray objectAtIndex:indexPath.row];
     
     PSCChatViewController *chatVC = [[PSCChatViewController alloc] initWithNibName:NSStringFromClass([PSCChatViewController class]) bundle:nil];
     chatVC.userChat = user;
@@ -94,10 +94,11 @@
 {
     PFQuery *query = [PFQuery queryWithClassName:@"_User"];
     [query whereKey:@"username" notEqualTo:[PFUser currentUser].username];
+    [query setCachePolicy:kPFCachePolicyCacheThenNetwork];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            self.dataArray = objects;
+            self.contactsDataArray = objects;
             
             [self.tableView reloadData];
             

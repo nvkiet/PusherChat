@@ -233,8 +233,6 @@
 {
     [self subscribeToPresenceChannel];
     
-    self.bubblesdataArray = [[NSMutableArray alloc] init];
-    
     NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"(%@ = '%@' OR %@ = '%@') AND (%@ = '%@' OR %@ = '%@')",
                                                                kMessageUserSendIdKey, self.currentUser.objectId,
                                                                kMessageUserReceiveIdKey, self.currentUser.objectId,
@@ -247,6 +245,7 @@
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
+            self.bubblesdataArray = [[NSMutableArray alloc] init];
             if (objects.count > 0) {
                 for (PFObject *messageChatObject in objects) {
                     

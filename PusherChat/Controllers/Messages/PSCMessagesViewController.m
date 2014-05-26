@@ -170,8 +170,6 @@
 
 - (void)refreshData
 {
-    self.messagesDataArray = [NSMutableArray new];
-    
     PFUser *currentUser = [PFUser currentUser];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"%@ = '%@' OR %@ = '%@'",
@@ -182,9 +180,11 @@
     [query addDescendingOrder:kMessageTimeCreatedKey];
     [query includeKey:kMessageUserSendKey];
     [query includeKey:kMessageUserReceiveKey];
+    [query setCachePolicy:kPFCachePolicyCacheThenNetwork];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
+            self.messagesDataArray = [NSMutableArray new];
             if (objects.count > 0) {
                 [self.messagesDataArray addObject:objects[0]];
                 for (int i = 1; i < objects.count; i++) {
