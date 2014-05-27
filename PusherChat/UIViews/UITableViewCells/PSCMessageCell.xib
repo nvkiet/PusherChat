@@ -17,7 +17,7 @@
                         <rect key="frame" x="12" y="11" width="48" height="48"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jRw-Qk-LOt">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jRw-Qk-LOt">
                         <rect key="frame" x="76" y="28" width="175" height="36"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -32,16 +32,21 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Mus-uC-plX">
-                        <rect key="frame" x="244" y="9" width="65" height="21"/>
+                        <rect key="frame" x="244" y="11" width="65" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.34870534724805491" green="0.0" blue="0.34978874362244894" alpha="0.81000000000000005" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="conversationsListCellBadge.png" id="iBW-NK-bb6">
+                        <rect key="frame" x="292" y="32" width="15" height="15"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="avatarImageView" destination="drb-k3-PaY" id="Ixd-Eo-yHg"/>
+                <outlet property="badgeImageView" destination="iBW-NK-bb6" id="d9L-KY-9CH"/>
                 <outlet property="contentLabel" destination="jRw-Qk-LOt" id="WKm-8B-pKb"/>
                 <outlet property="dateLabel" destination="Mus-uC-plX" id="uwM-Tv-X5y"/>
                 <outlet property="nameLabel" destination="R1D-aj-jI1" id="yAB-Oc-OYs"/>
@@ -50,5 +55,6 @@
     </objects>
     <resources>
         <image name="anonymousUser.png" width="69" height="69"/>
+        <image name="conversationsListCellBadge.png" width="22" height="19"/>
     </resources>
 </document>

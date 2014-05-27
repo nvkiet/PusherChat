@@ -109,8 +109,10 @@
         cell = [[PSCBubbleCell alloc] init];
     }
     
-    PSCBubbleData *bubbleData = [self.bubblesdataArray objectAtIndex:indexPath.row];
-    [cell configureDataWithModel:bubbleData];
+    if (indexPath.row >= 0 && indexPath.row < self.bubblesdataArray.count) {
+        PSCBubbleData *bubbleData = [self.bubblesdataArray objectAtIndex:indexPath.row];
+        [cell configureDataWithModel:bubbleData];
+    }
     
     return cell;
 }
@@ -165,11 +167,14 @@
         NSString *timeCreatedString = [NSDateFormatter stringWithDefaultFormatFromDate:lastMessage.timeCreated];
         
         if (lastMessage) {
+            NSString *userIdSendString = (lastMessage.type == BubbleTypeMine ? self.currentUser.objectId : self.userChat.objectId);
+            
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNewMessageComming
                                                                 object:nil
-                                                              userInfo:@{kObjectId:self.userChat.objectId,
+                                                              userInfo:@{kObjectId:userIdSendString,
                                                                          kMessageContentKey:lastMessage.content,
-                                                                         kMessageTimeCreatedKey:timeCreatedString}];
+                                                                         kMessageTimeCreatedKey:timeCreatedString,
+                                                                         kMessageStatusKey:[NSNumber numberWithBool:YES]}];
  
         }
     }
@@ -186,16 +191,21 @@
         
         [self.sendButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         
-        NSLog(@"[pusher] Count channel members: %ld", (long)self.currentChannel.members.count);
-        
         NSDate *nowDate = [NSDate date];
-        // Only trigger a client event once a subscription has been successfully registered with Pusher
-        [self.currentChannel triggerEventNamed:kEventNameNewMessage data:@{kObjectId:self.currentUser.objectId,
-                                                                           kMessageContentKey:self.messageTextField.text,
-                                                                           kMessageTimeCreatedKey:[NSDateFormatter stringWithDefaultFormatFromDate:nowDate]}];
+        
+        // Push notification to user chat
+        if (self.currentChannel.members.count <= 1) {
+            [self sendRequestChatWithMessage:self.messageTextField.text];
+        }
+        else{
+            // Only trigger a client event once a subscription has been successfully registered with Pusher
+            [self.currentChannel triggerEventNamed:kEventNameNewMessage data:@{kObjectId:self.currentUser.objectId,
+                                                                               kMessageContentKey:self.messageTextField.text,
+                                                                               kMessageTimeCreatedKey:[NSDateFormatter stringWithDefaultFormatFromDate:nowDate]}];
+        }
         
         PSCBubbleData *bubbleData = [[PSCBubbleData alloc] initWithText:self.messageTextField.text
-                                                               timeCreated:nowDate
+                                                            timeCreated:nowDate
                                                                    type:BubbleTypeMine];
         [self addNewRowWithBubbleData:bubbleData];
         
@@ -208,6 +218,7 @@
         [messageChat setObject:self.userChat forKey:kMessageUserReceiveKey];
         [messageChat setObject:self.messageTextField.text forKey:kMessageContentKey];
         [messageChat setObject:nowDate forKey:kMessageTimeCreatedKey];
+        [messageChat setObject:[NSNumber numberWithBool:NO] forKey:kMessageStatusKey];
         
         [messageChat saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
@@ -218,12 +229,9 @@
             }
         }];
         
-        // Push notification to user chat
-        if (self.currentChannel.members.count <= 1) {
-            [self sendRequestChatWithMessage:self.messageTextField.text];
-        }
-       
         self.messageTextField.text = @"";
+        
+        NSLog(@"[pusher] Count channel members: %ld", (long)self.currentChannel.members.count);
     }
 }
 
@@ -354,13 +362,15 @@
         
         // If User is not in chat screen ---> Show notifications to Tab "Messages" and update Message Screen
         if(![PSCAppDelegate shareDelegate].isChatScreenVisible) {
+            
             [[PSCAppDelegate shareDelegate] addBadgeValueToMessagesTab:messageString];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNewMessageComming
                                                                 object:nil
                                                                  userInfo:@{kObjectId:userSendIdString,
                                                                             kMessageContentKey:messageString,
-                                                                            kMessageTimeCreatedKey:timeCreatedString}];
+                                                                            kMessageTimeCreatedKey:timeCreatedString,
+                                                                            kMessageStatusKey:[NSNumber numberWithBool:NO]}];
         }
     }];
 }

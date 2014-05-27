@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *badgeImageView;
 @end
 
 @implementation PSCMessageCell
@@ -45,8 +46,18 @@
     PFUser *currentUser = [PFUser currentUser];
     PFUser *userChat = messageChat[kMessageUserSendKey];
     
+    // Check Who send message
     if ([userChat.objectId isEqualToString:currentUser.objectId]) {
         userChat = messageChat[kMessageUserReceiveKey];
+    }
+    else{
+        NSNumber *readNumber = messageChat[kMessageStatusKey];
+        if ([readNumber boolValue]) {
+            self.badgeImageView.hidden = YES;
+        }
+        else{
+            self.badgeImageView.hidden = NO;
+        }
     }
     
     // FIXME: Repeat source and use constants string

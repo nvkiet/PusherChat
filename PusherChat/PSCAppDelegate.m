@@ -38,7 +38,7 @@
     self.pusherClient = [PTPusher pusherWithKey:PUSHER_API_KEY delegate:self encrypted:YES];
     
     // Configure the auth URL for private/presence channels
-    self.pusherClient.authorizationURL = [NSURL URLWithString:@"http://192.168.2.6:5000/pusher/auth"]; // http://192.168.1.109:5000/pusher/auth
+    self.pusherClient.authorizationURL = [NSURL URLWithString:@"http://192.168.2.12:5000/pusher/auth"]; // http://192.168.1.109:5000/pusher/auth
     
     [self.pusherClient connect];
     
@@ -115,7 +115,12 @@
 
 - (void)addBadgeValueToMessagesTab: (NSString *)badgeValue
 {
-    self.messagesVC.tabBarItem.badgeValue = badgeValue;
+    self.messagesVC.tabBarItem.badgeValue = @"N";
+}
+
+- (void)removeBadgeValueToMessagesTab
+{
+    self.messagesVC.tabBarItem.badgeValue = nil;
 }
 
 - (void)setupAppearance
@@ -198,7 +203,8 @@
                                                                 object:nil
                                                               userInfo:@{kObjectId:userSendIdString,
                                                                          kMessageContentKey:messageString,
-                                                                         kMessageTimeCreatedKey:timeCreatedString}];
+                                                                         kMessageTimeCreatedKey:timeCreatedString,
+                                                                         kMessageStatusKey:[NSNumber numberWithBool:NO]}];
         }];
         
         [self updateMessageCellWithNotification:userInfo];
@@ -229,9 +235,10 @@
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNewMessageComming
                                                             object:nil
-                                                          userInfo:@{kObjectId: userIdString,
+                                                          userInfo:@{kObjectId:userIdString,
                                                                      kMessageContentKey:messageString,
-                                                                     kMessageTimeCreatedKey:timeCreatedString}];
+                                                                     kMessageTimeCreatedKey:timeCreatedString,
+                                                                     kMessageStatusKey:[NSNumber numberWithBool:NO]}];
     }
 }
 

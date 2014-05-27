@@ -16,6 +16,8 @@
 		923035091925F62B00520457 /* defaultBackground@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 923035061925F62B00520457 /* defaultBackground@2x.jpg */; };
 		9230350D1925FB8900520457 /* PSCBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9230350C1925FB8900520457 /* PSCBubbleCell.m */; };
 		92303518192603EC00520457 /* PSCBubbleData.m in Sources */ = {isa = PBXBuildFile; fileRef = 92303517192603EC00520457 /* PSCBubbleData.m */; };
+		9231624D193342080056BDF0 /* conversationsListCellBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = 9231624B193342080056BDF0 /* conversationsListCellBadge.png */; };
+		9231624E193342080056BDF0 /* conversationsListCellBadge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9231624C193342080056BDF0 /* conversationsListCellBadge@2x.png */; };
 		925E1C1119319CBD001940B6 /* NSDateFormatter+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 925E1C1019319CBD001940B6 /* NSDateFormatter+Additions.m */; };
 		92685E1F1921C38100C1CBEF /* PSCUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 92685E1E1921C38100C1CBEF /* PSCUserManager.m */; };
 		92685E231921C77B00C1CBEF /* PSCUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 92685E221921C77B00C1CBEF /* PSCUser.m */; };
@@ -100,6 +102,8 @@
 		9230350C1925FB8900520457 /* PSCBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCBubbleCell.m; sourceTree = "<group>"; };
 		92303516192603EC00520457 /* PSCBubbleData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCBubbleData.h; sourceTree = "<group>"; };
 		92303517192603EC00520457 /* PSCBubbleData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCBubbleData.m; sourceTree = "<group>"; };
+		9231624B193342080056BDF0 /* conversationsListCellBadge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = conversationsListCellBadge.png; sourceTree = "<group>"; };
+		9231624C193342080056BDF0 /* conversationsListCellBadge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "conversationsListCellBadge@2x.png"; sourceTree = "<group>"; };
 		925E1C0F19319CBD001940B6 /* NSDateFormatter+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Additions.h"; sourceTree = "<group>"; };
 		925E1C1019319CBD001940B6 /* NSDateFormatter+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Additions.m"; sourceTree = "<group>"; };
 		92685E1D1921C38100C1CBEF /* PSCUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCUserManager.h; sourceTree = "<group>"; };
@@ -233,6 +237,15 @@
 			path = BubbleTableView;
 			sourceTree = "<group>";
 		};
+		9231624A193341F90056BDF0 /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				9231624B193342080056BDF0 /* conversationsListCellBadge.png */,
+				9231624C193342080056BDF0 /* conversationsListCellBadge@2x.png */,
+			);
+			path = Messages;
+			sourceTree = "<group>";
+		};
 		92685E1C1921C37300C1CBEF /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +294,7 @@
 				92685E4E1921E12100C1CBEF /* More */,
 				92D25610192292820003347D /* Tabbar */,
 				923034FC1925C9D700520457 /* Chat */,
+				9231624A193341F90056BDF0 /* Messages */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -620,6 +634,8 @@
 				92685E331921CCA400C1CBEF /* bt_facebook_onpress.png in Resources */,
 				92685E511921E13600C1CBEF /* anonymousUser.png in Resources */,
 				923035081925F62B00520457 /* defaultBackground.jpg in Resources */,
+				9231624E193342080056BDF0 /* conversationsListCellBadge@2x.png in Resources */,
+				9231624D193342080056BDF0 /* conversationsListCellBadge.png in Resources */,
 				9287F337192335AC002DE925 /* tab_icon_contacts_idle@2x.png in Resources */,
 				923035071925F62B00520457 /* defaultBackground-568h@2x.jpg in Resources */,
 				92685E321921CCA400C1CBEF /* bt_facebook_normal@2x.png in Resources */,

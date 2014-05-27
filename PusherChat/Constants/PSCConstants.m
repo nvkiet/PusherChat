@@ -33,4 +33,4 @@ NSString * const kMessageContentKey       = @"Content";
 NSString * const kMessageTimeCreatedKey   = @"TimeCreated";
 NSString * const kMessageUserSendIdKey    = @"UserSendId";
 NSString * const kMessageUserReceiveIdKey = @"UserReceiveId";
-
+NSString * const kMessageStatusKey        = @"Status";

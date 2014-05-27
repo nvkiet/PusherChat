@@ -9,6 +9,7 @@
 #import "PSCMessagesViewController.h"
 #import "PSCMessageCell.h"
 #import "PSCChatViewController.h"
+#import "PSCAppDelegate.h"
 
 @interface PSCMessagesViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *messagesDataArray;
@@ -48,11 +49,25 @@
    [[NSNotificationCenter defaultCenter] addObserver:self
                                          selector:@selector(updateNewMessageCommingWithChannelData:)
                                          name:kNotificationNewMessageComming object:nil];
+    
+    [self checkToRemoveBadgeValueOnMessagesTab];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     // [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)checkToRemoveBadgeValueOnMessagesTab
+{
+    for (PFObject *messageChatObject in self.messagesDataArray) {
+        NSNumber *statusNumber = messageChatObject[kMessageStatusKey];
+        if (![statusNumber boolValue]) { // Status is un-read
+            return;
+        }
+    }
+    
+    [[PSCAppDelegate shareDelegate] removeBadgeValueToMessagesTab];
 }
 
 #pragma mark - Table view data source
@@ -100,8 +115,45 @@
          PFUser *currentUser = [PFUser currentUser];
          PFUser *userChat = messageChat[kMessageUserSendKey];
          
+         // Check who send message
          if ([userChat.objectId isEqualToString:currentUser.objectId]) {
              userChat = messageChat[kMessageUserReceiveKey];
+         }
+         else{
+             // Update message chat status
+             NSNumber *statusNumber = messageChat[kMessageStatusKey];
+             if (![statusNumber  boolValue]) { // Status is UnRead
+                 // Update local
+                 messageChat[kMessageStatusKey] = [NSNumber numberWithBool:YES];
+                 NSIndexPath *destinationIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+                 [self reloadRowsAtIndexPaths:@[destinationIndexPath]];
+                 
+                 // Retrieve and Update the last message chat status to Parse
+                 // FIXME: Maybe get the wrong last message object
+                 PFQuery *query = [PFQuery queryWithClassName:kMessageClassKey];
+                 [query whereKey:kMessageContentKey equalTo:messageChat[kMessageContentKey]];
+                 
+                 // Get the first object in result array
+                 [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                     if (!object) {
+                         NSLog(@"[parse] The getFirstObject request failed.");
+                     }
+                     else{
+                         PFObject *lastMessageChat = object;
+                         lastMessageChat[kMessageStatusKey] = [NSNumber numberWithBool:YES];
+                         
+                         [lastMessageChat saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                             if (succeeded) {
+                                 NSLog(@"[parse] Update message chat successfully!");
+                             }
+                             else{
+                                 NSLog(@"[parse] Couldn't update your message chat.");
+                             }
+                         }];
+                         NSLog(@"[parse] Successfully retrieved the object.");
+                     }
+                 }];
+             }
          }
          
          PSCChatViewController *chatVC = [[PSCChatViewController alloc] initWithNibName:NSStringFromClass([PSCChatViewController class]) bundle:nil];
@@ -111,12 +163,12 @@
          
          // Deselect on cell
          [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-     }
+    }
 }
 
 #pragma mark - Methods
 
-// Update one message cell when new message commming
+// Update one message cell when new message commming == Last message chat
 - (void)updateNewMessageCommingWithChannelData:(NSNotification*)aUserInfo
 {
     NSDictionary *channelData = aUserInfo.userInfo;
@@ -126,7 +178,7 @@
     NSString *timeCreatedString = channelData[kMessageTimeCreatedKey];
     NSDate *timeCreatedDate = [NSDateFormatter dateWithDefaultFormatFromString:timeCreatedString];
     
-    // Find User Cell to udate new message
+    // Find User Cell to update new message
     int row = -1;
     for (int i = 0 ; i< self.messagesDataArray.count;  i++) {
         PFObject *messageChat =  [self.messagesDataArray objectAtIndex:i];
@@ -136,8 +188,22 @@
         
         if ([tmpUserSendId isEqualToString:userSendIdString] || [tmpUserReceiveId isEqualToString:userSendIdString]) {
             // TODOME: Update all fields in Message class
+            // FIXME: It's not the last message object
             messageChat[kMessageContentKey] = contentString;
             messageChat[kMessageTimeCreatedKey] = timeCreatedDate;
+            messageChat[kMessageStatusKey] = channelData[kMessageStatusKey];
+            
+            // Change User Send object
+            if (![userSendIdString isEqualToString:tmpUserSendId]) {
+                PFObject *tmpObject = messageChat[kMessageUserSendKey];
+                messageChat[kMessageUserSendKey] = messageChat[kMessageUserReceiveKey];
+                messageChat[kMessageUserReceiveKey] = tmpObject;
+                
+                NSString *tmpString = messageChat[kMessageUserSendIdKey];
+                messageChat[kMessageUserSendIdKey] = messageChat[kMessageUserReceiveIdKey];
+                messageChat[kMessageUserReceiveIdKey] = tmpString;
+            }
+            
             self.messagesDataArray[i] = messageChat;
             row = i;
             break;
@@ -151,7 +217,6 @@
         if (row > 0) {
             // Move cell to the Top
             PFObject *messageChatObject = [self.messagesDataArray objectAtIndex:row];
-            
             [self.messagesDataArray removeObjectAtIndex:row];
             [self.messagesDataArray insertObject:messageChatObject atIndex:0];
             
