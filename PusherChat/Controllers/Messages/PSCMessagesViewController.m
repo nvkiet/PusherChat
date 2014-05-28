@@ -60,10 +60,19 @@
 
 - (void)checkToRemoveBadgeValueOnMessagesTab
 {
+    // Get the last User Chat
+    PFUser *currentUser = [PFUser currentUser];
+    
     for (PFObject *messageChatObject in self.messagesDataArray) {
-        NSNumber *statusNumber = messageChatObject[kMessageStatusKey];
-        if (![statusNumber boolValue]) { // Status is un-read
-            return;
+        PFUser *userChat = messageChatObject[kMessageUserSendKey];
+        
+        // Check who send message
+        if (![userChat.objectId isEqualToString:currentUser.objectId]) {
+            // This User is reveiver
+            NSNumber *statusNumber = messageChatObject[kMessageStatusKey];
+            if (![statusNumber boolValue]) { // Status is un-read
+                return;
+            }
         }
     }
     
@@ -117,16 +126,19 @@
          
          // Check who send message
          if ([userChat.objectId isEqualToString:currentUser.objectId]) {
+             // This User is Sender
              userChat = messageChat[kMessageUserReceiveKey];
          }
          else{
              // Update message chat status
              NSNumber *statusNumber = messageChat[kMessageStatusKey];
              if (![statusNumber  boolValue]) { // Status is UnRead
+                 
                  // Update local
                  messageChat[kMessageStatusKey] = [NSNumber numberWithBool:YES];
                  NSIndexPath *destinationIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
                  [self reloadRowsAtIndexPaths:@[destinationIndexPath]];
+                 self.messagesDataArray[indexPath.row] = messageChat;
                  
                  // Retrieve and Update the last message chat status to Parse
                  // FIXME: Maybe get the wrong last message object
@@ -154,6 +166,7 @@
                      }
                  }];
              }
+ 
          }
          
          PSCChatViewController *chatVC = [[PSCChatViewController alloc] initWithNibName:NSStringFromClass([PSCChatViewController class]) bundle:nil];
@@ -262,6 +275,8 @@
                     }
                 }
                 [self.tableView reloadData];
+                
+                [self checkToRemoveBadgeValueOnMessagesTab];
             }
         }
         else {

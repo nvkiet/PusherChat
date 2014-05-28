@@ -8,6 +8,7 @@
 
 #import "PSCMessageCell.h"
 #import <QuartzCore/QuartzCore.h>
+#import "PSCAppDelegate.h"
 
 @interface PSCMessageCell()
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
@@ -48,6 +49,7 @@
     
     // Check Who send message
     if ([userChat.objectId isEqualToString:currentUser.objectId]) {
+        // This User is Sender
         userChat = messageChat[kMessageUserReceiveKey];
     }
     else{
@@ -57,6 +59,8 @@
         }
         else{
             self.badgeImageView.hidden = NO;
+            
+            [[PSCAppDelegate shareDelegate] addBadgeValueToMessagesTab:@""];
         }
     }
     
