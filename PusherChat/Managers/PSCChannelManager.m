@@ -7,6 +7,7 @@
 //
 
 #import "PSCChannelManager.h"
+#import "PSCAppDelegate.h"
 
 @implementation PSCChannelManager
 
@@ -35,6 +36,25 @@
         NSLog(@"Channel Name: %@", theChannel.channelName);
         [self.channelsArray addObject:theChannel];
     }
+}
+
+- (void)updateWithChannel:(PSCChannel *)theChannel
+{
+    int index = [self indexOfChannelByName:theChannel.channelName];
+    if (index >= 0) {
+        self.channelsArray[index] = theChannel;
+    }
+}
+
+- (int)indexOfChannelByName:(NSString *)theChannelName
+{
+    for (int i = 0; i< self.channelsArray.count; i++) {
+        PSCChannel *channel = [self.channelsArray objectAtIndex:i];
+        if ([channel.channelName isEqualToString: theChannelName]) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 - (PSCChannel *)getChannelByName:(NSString *)theChannelName

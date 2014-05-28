@@ -17,6 +17,8 @@
 
 - (void)addNewChannel:(PSCChannel *)theChannel;
 - (PSCChannel *)getChannelByName:(NSString *)theChannelName;
+- (void)updateWithChannel:(PSCChannel *)theChannel;
 - (void)unsubscribeAllChannels;
+- (int)indexOfChannelByName:(NSString *)theChannelName;
 
 @end

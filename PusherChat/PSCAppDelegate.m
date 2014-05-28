@@ -59,9 +59,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveEventNotification:) name:PTPusherEventReceivedNotification object:self.pusherClient];
     
-    // Remove badge value on App's icon
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    
     self.isChatScreenVisible = NO;
     
     return YES;
@@ -185,6 +182,11 @@
             [[PSCChannelManager shareInstance] addNewChannel:channel];
         }
         else{
+            // TODOME: Check if User is subscribed or Not
+            channel.presenceChannel = [[PSCAppDelegate shareDelegate].pusherClient subscribeToPresenceChannelNamed:channel.channelName delegate:nil];
+            
+            [[PSCChannelManager shareInstance] updateWithChannel:channel];
+            
             presenceChannel = channel.presenceChannel;
             
             // Unbind prev event
@@ -389,13 +391,14 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationAppWillEnterForeground object:nil];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationAppWillEnterForeground object:nil];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

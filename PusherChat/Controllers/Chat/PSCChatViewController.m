@@ -341,6 +341,11 @@
         [[PSCChannelManager shareInstance] addNewChannel:channel];
     }
     else{
+        // TODOME: Check if User is subscribed or Not
+        channel.presenceChannel = [[PSCAppDelegate shareDelegate].pusherClient subscribeToPresenceChannelNamed:channel.channelName delegate:self];
+        
+        [[PSCChannelManager shareInstance] updateWithChannel:channel];
+        
         self.currentChannel = channel.presenceChannel;
         
         // Unbind prev event
