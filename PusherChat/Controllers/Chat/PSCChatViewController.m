@@ -242,11 +242,12 @@
 {
     [self subscribeToPresenceChannel];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"(%@ = '%@' OR %@ = '%@') AND (%@ = '%@' OR %@ = '%@')",
-                                                               kMessageUserSendIdKey, self.currentUser.objectId,
-                                                               kMessageUserReceiveIdKey, self.currentUser.objectId,
-                                                               kMessageUserSendIdKey, self.userChat.objectId,
-                                                               kMessageUserReceiveIdKey, self.userChat.objectId]];
+    NSString *predicateFormatString = [NSString stringWithFormat:@"(%@ = '%@' OR %@ = '%@') AND (%@ = '%@' OR %@ = '%@')",
+                                                                kMessageUserSendIdKey, self.currentUser.objectId,
+                                                                kMessageUserSendIdKey, self.userChat.objectId,
+                                                                kMessageUserReceiveIdKey, self.currentUser.objectId,
+                                                                kMessageUserReceiveIdKey, self.userChat.objectId];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateFormatString];
     
     PFQuery *query = [PFQuery queryWithClassName:kMessageClassKey predicate:predicate];
     [query addAscendingOrder:kMessageTimeCreatedKey];
