@@ -199,6 +199,7 @@
         NSString *tmpUserSendId = messageChat[kMessageUserSendIdKey];
         NSString *tmpUserReceiveId = messageChat[kMessageUserReceiveIdKey];
         
+        // Find user is Chatting
         if ([tmpUserSendId isEqualToString:userSendIdString] || [tmpUserReceiveId isEqualToString:userSendIdString]) {
             // TODOME: Update all fields in Message class
             // FIXME: It's not the last message object
@@ -206,15 +207,24 @@
             messageChat[kMessageTimeCreatedKey] = timeCreatedDate;
             messageChat[kMessageStatusKey] = channelData[kMessageStatusKey];
             
-            // Change User Send object
-            if (![userSendIdString isEqualToString:tmpUserSendId]) {
-                PFObject *tmpObject = messageChat[kMessageUserSendKey];
-                messageChat[kMessageUserSendKey] = messageChat[kMessageUserReceiveKey];
-                messageChat[kMessageUserReceiveKey] = tmpObject;
-                
-                NSString *tmpString = messageChat[kMessageUserSendIdKey];
-                messageChat[kMessageUserSendIdKey] = messageChat[kMessageUserReceiveIdKey];
-                messageChat[kMessageUserReceiveIdKey] = tmpString;
+            BOOL isLastMessageObject = NO;
+            
+            // Check UserChat is Sender or receiver
+            NSNumber *isSenderNumber = channelData[kIsSender];
+            if (isSenderNumber) {
+                if (![isSenderNumber boolValue]) { // Userchat is receiver
+                    if (![userSendIdString isEqualToString:tmpUserReceiveId]) {
+                        // Permutatation
+                        messageChat = [self permutateSenderToReceiver:messageChat];
+                        
+                        isLastMessageObject = YES;
+                    }
+                }
+            }
+            
+            // UserChat is Sender
+            if (![userSendIdString isEqualToString:tmpUserSendId] && !isLastMessageObject) {
+                messageChat = [self permutateSenderToReceiver:messageChat];
             }
             
             self.messagesDataArray[i] = messageChat;
@@ -240,6 +250,20 @@
     else{
         [self refreshData];
     }
+}
+
+// Do permutatation
+- (PFObject *)permutateSenderToReceiver:(PFObject *)messageChatObject
+{
+    PFObject *tmpObject = messageChatObject[kMessageUserSendKey];
+    messageChatObject[kMessageUserSendKey] = messageChatObject[kMessageUserReceiveKey];
+    messageChatObject[kMessageUserReceiveKey] = tmpObject;
+    
+    NSString *tmpString = messageChatObject[kMessageUserSendIdKey];
+    messageChatObject[kMessageUserSendIdKey] = messageChatObject[kMessageUserReceiveIdKey];
+    messageChatObject[kMessageUserReceiveIdKey] = tmpString;
+    
+    return messageChatObject;
 }
 
 - (void)reloadRowsAtIndexPaths:(NSArray *)indexPaths

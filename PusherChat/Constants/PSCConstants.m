@@ -8,6 +8,9 @@
 
 #import "PSCConstants.h"
 
+
+NSString * const kIsSender = @"IsSender";
+
 #pragma mark - Notifications
 
 NSString * const kNotificationAppWillEnterForeground = @"AppWillEnterForeground";

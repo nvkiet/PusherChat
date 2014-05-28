@@ -167,11 +167,12 @@
         NSString *timeCreatedString = [NSDateFormatter stringWithDefaultFormatFromDate:lastMessage.timeCreated];
         
         if (lastMessage) {
-            NSString *userIdSendString = (lastMessage.type == BubbleTypeMine ? self.currentUser.objectId : self.userChat.objectId);
+            BOOL isSender = (lastMessage.type == BubbleTypeMine ? NO : YES);
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationNewMessageComming
                                                                 object:nil
-                                                              userInfo:@{kObjectId:userIdSendString,
+                                                              userInfo:@{kObjectId:self.userChat.objectId,
+                                                                         kIsSender:[NSNumber numberWithBool:isSender],
                                                                          kMessageContentKey:lastMessage.content,
                                                                          kMessageTimeCreatedKey:timeCreatedString,
                                                                          kMessageStatusKey:[NSNumber numberWithBool:YES]}];
