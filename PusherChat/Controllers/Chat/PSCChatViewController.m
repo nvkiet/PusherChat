@@ -287,7 +287,13 @@
     PFQuery *pushQuery = [PFInstallation query];
     [pushQuery whereKey:@"UserId" equalTo:self.userChat.objectId];
     
-    NSString *alertTitle = [NSString stringWithFormat:@"%@: %@", self.userChat[@"profile"][@"name"], message];
+    NSString *alertTitle = nil;
+    if (self.currentUser[@"profile"][@"name"]) {
+        alertTitle = [NSString stringWithFormat:@"%@: %@", self.currentUser[@"profile"][@"name"], message];
+    }
+    else{
+        alertTitle = [NSString stringWithFormat:@"Anonymous: %@", message];
+    }
     
     // Convert NSDate to NSString
     NSString *timeCreated = [NSDateFormatter stringWithDefaultFormatFromDate:[NSDate date]];
