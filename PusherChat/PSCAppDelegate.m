@@ -240,7 +240,8 @@
                                                           userInfo:@{kObjectId:userIdString,
                                                                      kMessageContentKey:messageString,
                                                                      kMessageTimeCreatedKey:timeCreatedString,
-                                                                     kMessageStatusKey:[NSNumber numberWithBool:NO]}];
+                                                                     kMessageStatusKey:[NSNumber numberWithBool:NO],
+                                                                     kMessageAutoNavigationKey:kMessageAutoNavigationKey}];
     }
 }
 

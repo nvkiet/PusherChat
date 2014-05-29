@@ -246,9 +246,13 @@
             [self.tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
         }
         [self reloadRowsAtIndexPaths:@[destinationIndexPath]];
+        
+        // TODOME: Auto navigate to chat screen If User touchs a notification
     }
     else{
         [self refreshData];
+        
+        // TODOME: Auto navigate to chat screen If User touchs a notification
     }
 }
 

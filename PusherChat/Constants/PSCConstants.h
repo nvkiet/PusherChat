@@ -15,8 +15,10 @@
 #define FONT_HELVETICAL_REGULAR  @"HelveticaNeue"
 #define FONT_HELVETICAL_LIGHT  @"HelveticaNeue-Light"
 
+#pragma mark - Notification fields
 
 extern NSString * const kIsSender;
+extern NSString * const kMessageAutoNavigationKey;
 
 #pragma mark - Notifications
 

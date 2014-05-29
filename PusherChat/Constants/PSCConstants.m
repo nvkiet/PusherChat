@@ -8,8 +8,10 @@
 
 #import "PSCConstants.h"
 
+#pragma mark - Notification fields
 
 NSString * const kIsSender = @"IsSender";
+NSString * const kMessageAutoNavigationKey = @"AutoNavigation";
 
 #pragma mark - Notifications
 
