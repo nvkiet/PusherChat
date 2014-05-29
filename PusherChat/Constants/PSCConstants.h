@@ -15,6 +15,8 @@
 #define FONT_HELVETICAL_REGULAR  @"HelveticaNeue"
 #define FONT_HELVETICAL_LIGHT  @"HelveticaNeue-Light"
 
+extern NSString * const kUserAnonymous;
+
 #pragma mark - Notification fields
 
 extern NSString * const kIsSender;

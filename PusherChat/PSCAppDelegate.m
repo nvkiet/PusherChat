@@ -258,6 +258,18 @@
     return channelName;
 }
 
+- (NSString *)getNameOfUserObject:(PFUser *)userObject
+{
+    NSString *name = nil;
+    if (userObject[@"profile"][@"name"]) {
+        name = userObject[@"profile"][@"name"];
+    }
+    else{
+        name = kUserAnonymous;
+    }
+    return name;
+}
+
 #pragma mark - Reachability
 
 - (void)startReachabilityCheck

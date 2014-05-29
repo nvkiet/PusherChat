@@ -8,6 +8,8 @@
 
 #import "PSCConstants.h"
 
+NSString * const kUserAnonymous = @"Anonymous";
+
 #pragma mark - Notification fields
 
 NSString * const kIsSender = @"IsSender";

@@ -8,6 +8,7 @@
 
 #import "PSCContactCell.h"
 #import <QuartzCore/QuartzCore.h>
+#import "PSCAppDelegate.h"
 
 @interface PSCContactCell()
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
@@ -32,7 +33,7 @@
 {
     PFUser *user = (PFUser *)model;
     
-    self.nameLabel.text = user[@"profile"][@"name"];
+    self.nameLabel.text = [[PSCAppDelegate shareDelegate]getNameOfUserObject:user];
     
     if (user[@"profile"][@"pictureURL"]) {
         NSURL *pictureURL = [NSURL URLWithString:user[@"profile"][@"pictureURL"]];

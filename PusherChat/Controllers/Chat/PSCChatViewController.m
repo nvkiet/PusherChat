@@ -10,7 +10,7 @@
 #import "PSCAppDelegate.h"
 #import "PSCBubbleCell.h"
 #import "PSCBubbleData.h"
-
+#import "PSCAppDelegate.h"
 
 @interface PSCChatViewController ()<PTPusherPresenceChannelDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -55,7 +55,7 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back_icon_regular.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(backButtonClicked:)];
     self.navigationItem.leftBarButtonItem  = backButton;
     
-    self.navigationItem.title = self.userChat[@"profile"][@"name"];
+    self.navigationItem.title = [[PSCAppDelegate shareDelegate] getNameOfUserObject:self.userChat];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
@@ -287,13 +287,8 @@
     PFQuery *pushQuery = [PFInstallation query];
     [pushQuery whereKey:@"UserId" equalTo:self.userChat.objectId];
     
-    NSString *alertTitle = nil;
-    if (self.currentUser[@"profile"][@"name"]) {
-        alertTitle = [NSString stringWithFormat:@"%@: %@", self.currentUser[@"profile"][@"name"], message];
-    }
-    else{
-        alertTitle = [NSString stringWithFormat:@"Anonymous: %@", message];
-    }
+    NSString *name = [[PSCAppDelegate shareDelegate] getNameOfUserObject:self.currentUser];
+    NSString *alertTitle = [NSString stringWithFormat:@"%@: %@", name, message];
     
     // Convert NSDate to NSString
     NSString *timeCreated = [NSDateFormatter stringWithDefaultFormatFromDate:[NSDate date]];

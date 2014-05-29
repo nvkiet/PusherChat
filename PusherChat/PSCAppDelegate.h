@@ -29,5 +29,6 @@
 - (void)removeBadgeValueToMessagesTab;
 
 - (NSString *)generateUniqueChannelNameWithUserId:(NSString*)userId_A andUserId:(NSString *)userId_B;
+- (NSString *)getNameOfUserObject:(PFUser *)userObject;
 
 @end

@@ -65,7 +65,7 @@
     }
     
     // FIXME: Repeat source and use constants string
-    self.nameLabel.text = userChat[@"profile"][@"name"];
+    self.nameLabel.text = [[PSCAppDelegate shareDelegate] getNameOfUserObject:userChat];
     
     if (userChat[@"profile"][@"pictureURL"]) {
         NSURL *pictureURL = [NSURL URLWithString:userChat[@"profile"][@"pictureURL"]];
