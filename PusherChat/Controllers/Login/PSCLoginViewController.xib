@@ -15,6 +15,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_splash.png" id="S4g-f4-H4d">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1bs-Za-bWa">
                     <rect key="frame" x="20" y="278" width="280" height="33"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
@@ -38,6 +42,7 @@
         </view>
     </objects>
     <resources>
+        <image name="background_splash.png" width="320" height="480"/>
         <image name="bt_facebook_normal.png" width="260" height="44"/>
         <image name="bt_facebook_onpress.png" width="260" height="44"/>
     </resources>
