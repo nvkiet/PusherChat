@@ -12,7 +12,9 @@
 #import "PSCAppDelegate.h"
 
 @interface PSCMessagesViewController ()<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic, strong) NSMutableArray *messagesDataArray;
+@property (nonatomic, strong) NSMutableArray *messagesDataArray; // Last messages of UserChat
+@property (nonatomic, strong) NSTimer *myTimer;
+@property (nonatomic, strong) NSMutableArray *resultsDataArray;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end
@@ -86,7 +88,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.messagesDataArray.count;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return [self.resultsDataArray count];
+    }
+    else{
+        return [self.messagesDataArray count];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -98,11 +105,22 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:self options:nil] firstObject];
     }
     
-    if (indexPath.row >= 0 && indexPath.row < self.messagesDataArray.count) {
-        PFObject *messageChat = [self.messagesDataArray objectAtIndex:indexPath.row];
+    PFObject *messageChat = nil;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        if (indexPath.row >= 0 && indexPath.row < [self.resultsDataArray count]) {
+            messageChat =  [self.resultsDataArray objectAtIndex:indexPath.row];
+        }
+    }
+    else{
+        if (indexPath.row >= 0 && indexPath.row < [self.messagesDataArray count]) {
+            messageChat =  [self.messagesDataArray objectAtIndex:indexPath.row];
+        }
+    }
+    
+    if (messageChat) {
         [cell configureDataWithModel:messageChat];
     }
-   
+
     return cell;
 }
 
@@ -115,66 +133,116 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     if (indexPath.row >= 0 && indexPath.row < self.messagesDataArray.count) {
-         PFObject *messageChat = [self.messagesDataArray objectAtIndex:indexPath.row];
-         
-         // Get the last User Chat
-         PFUser *currentUser = [PFUser currentUser];
-         PFUser *userChat = messageChat[kMessageUserSendKey];
-         
-         // Check who send message
-         if ([userChat.objectId isEqualToString:currentUser.objectId]) {
-             // This User is Sender
-             userChat = messageChat[kMessageUserReceiveKey];
-         }
-         else{
-             // Update message chat status
-             NSNumber *statusNumber = messageChat[kMessageStatusKey];
-             if (![statusNumber  boolValue]) { // Status is UnRead
-                 
-                 // Update local
-                 messageChat[kMessageStatusKey] = [NSNumber numberWithBool:YES];
-                 NSIndexPath *destinationIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
-                 [self reloadRowsAtIndexPaths:@[destinationIndexPath]];
-                 self.messagesDataArray[indexPath.row] = messageChat;
-                 
-                 // Retrieve and Update the last message chat status to Parse
-                 // FIXME: Maybe get the wrong last message object
-                 PFQuery *query = [PFQuery queryWithClassName:kMessageClassKey];
-                 [query whereKey:kMessageContentKey equalTo:messageChat[kMessageContentKey]];
-                 
-                 // Get the first object in result array
-                 [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-                     if (!object) {
-                         NSLog(@"[parse] The getFirstObject request failed.");
-                     }
-                     else{
-                         PFObject *lastMessageChat = object;
-                         lastMessageChat[kMessageStatusKey] = [NSNumber numberWithBool:YES];
-                         
-                         [lastMessageChat saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                             if (succeeded) {
-                                 NSLog(@"[parse] Update message chat successfully!");
-                             }
-                             else{
-                                 NSLog(@"[parse] Couldn't update your message chat.");
-                             }
-                         }];
-                         NSLog(@"[parse] Successfully retrieved the object.");
-                     }
-                 }];
-             }
- 
-         }
-         
-         PSCChatViewController *chatVC = [[PSCChatViewController alloc] initWithNibName:NSStringFromClass([PSCChatViewController class]) bundle:nil];
-         chatVC.userChat = userChat;
-         
-         [self.navigationController pushViewController:chatVC animated:YES];
-         
-         // Deselect on cell
-         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    PFObject *messageChat = nil;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        messageChat =  [self.resultsDataArray objectAtIndex:indexPath.row];
     }
+    else{
+        messageChat =  [self.messagesDataArray objectAtIndex:indexPath.row];
+    }
+    
+    if (messageChat){
+     // Get the last User Chat
+     PFUser *currentUser = [PFUser currentUser];
+     PFUser *userChat = messageChat[kMessageUserSendKey];
+     
+     // Check who send message
+     if ([userChat.objectId isEqualToString:currentUser.objectId]) {
+         // This User is Sender
+         userChat = messageChat[kMessageUserReceiveKey];
+     }
+     else{
+         // Update message chat status
+         NSNumber *statusNumber = messageChat[kMessageStatusKey];
+         if (![statusNumber  boolValue]) { // Status is UnRead
+             
+             // Update local
+             messageChat[kMessageStatusKey] = [NSNumber numberWithBool:YES];
+             NSIndexPath *destinationIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+             [self reloadRowsAtIndexPaths:@[destinationIndexPath]];
+             self.messagesDataArray[indexPath.row] = messageChat;
+             
+             // Retrieve and Update the last message chat status to Parse
+             // FIXME: Maybe get the wrong last message object
+             PFQuery *query = [PFQuery queryWithClassName:kMessageClassKey];
+             [query whereKey:kMessageContentKey equalTo:messageChat[kMessageContentKey]];
+             
+             // Get the first object in result array
+             [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                 if (!object) {
+                     NSLog(@"[parse] The getFirstObject request failed.");
+                 }
+                 else{
+                     PFObject *lastMessageChat = object;
+                     lastMessageChat[kMessageStatusKey] = [NSNumber numberWithBool:YES];
+                     
+                     [lastMessageChat saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                         if (succeeded) {
+                             NSLog(@"[parse] Update message chat successfully!");
+                         }
+                         else{
+                             NSLog(@"[parse] Couldn't update your message chat.");
+                         }
+                     }];
+                     NSLog(@"[parse] Successfully retrieved the object.");
+                 }
+             }];
+         }
+
+     }
+     
+     PSCChatViewController *chatVC = [[PSCChatViewController alloc] initWithNibName:NSStringFromClass([PSCChatViewController class]) bundle:nil];
+     chatVC.userChat = userChat;
+     
+     [self.navigationController pushViewController:chatVC animated:YES];
+     
+     // Deselect on cell
+     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+}
+
+#pragma mark - UISearchDisplayController Delegate Methods
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    if (self.myTimer){
+        // Stop a timer before it fires
+        if ([self.myTimer isValid]){
+            [self.myTimer invalidate];
+        }
+        self.myTimer = nil;
+    }
+    self.myTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self
+                                                  selector:@selector(filterContentForSearchText:)
+                                                  userInfo:searchText repeats:NO];
+}
+
+// Search contacts in contacts data array
+- (void)filterContentForSearchText:(NSTimer*)theTimer
+{
+    self.resultsDataArray = [NSMutableArray new];
+    
+    NSString *searchText = [[(NSString*)[theTimer userInfo] lowercaseString] normalizeVietnameseString];
+    
+    PFUser *currentUser = [PFUser currentUser];
+    
+    for (PFObject *messageChatObject in self.messagesDataArray) {
+        
+        PFUser *userChat = messageChatObject[kMessageUserSendKey];
+        // Check Who send message
+        if ([userChat.objectId isEqualToString:currentUser.objectId]) {
+            // This User is Sender
+            userChat = messageChatObject[kMessageUserReceiveKey];
+        }
+
+        NSString *name = [[[[PSCAppDelegate shareDelegate] getNameOfUserObject:userChat] lowercaseString] normalizeVietnameseString];
+        
+        if (!([name rangeOfString:searchText].location == NSNotFound)) {
+            [self.resultsDataArray addObject:messageChatObject];
+        }
+    }
+    
+    [self.searchDisplayController.searchResultsTableView reloadData];
 }
 
 #pragma mark - Methods
