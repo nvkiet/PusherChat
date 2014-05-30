@@ -57,6 +57,7 @@
 		9287F341192335AC002DE925 /* tab_icon_more_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9287F335192335AC002DE925 /* tab_icon_more_selected@2x.png */; };
 		928F183B1921188700A05BF5 /* PSCChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 928F18391921188700A05BF5 /* PSCChatViewController.m */; };
 		928F183C1921188700A05BF5 /* PSCChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 928F183A1921188700A05BF5 /* PSCChatViewController.xib */; };
+		929DCA4E193834ED00D8B388 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 929DCA4D193834ED00D8B388 /* NSString+Utils.m */; };
 		92AD6E581929A4E700F88C78 /* PSCConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AD6E571929A4E700F88C78 /* PSCConstants.m */; };
 		92AEDF93192772BE00CD0EC6 /* ChatBubble_received.png in Resources */ = {isa = PBXBuildFile; fileRef = 92AEDF8F192772BE00CD0EC6 /* ChatBubble_received.png */; };
 		92AEDF94192772BE00CD0EC6 /* ChatBubble_received@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92AEDF90192772BE00CD0EC6 /* ChatBubble_received@2x.png */; };
@@ -156,6 +157,8 @@
 		928F18381921188700A05BF5 /* PSCChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCChatViewController.h; sourceTree = "<group>"; };
 		928F18391921188700A05BF5 /* PSCChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCChatViewController.m; sourceTree = "<group>"; };
 		928F183A1921188700A05BF5 /* PSCChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCChatViewController.xib; sourceTree = "<group>"; };
+		929DCA4C193834ED00D8B388 /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
+		929DCA4D193834ED00D8B388 /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utils.m"; sourceTree = "<group>"; };
 		92AD6E561929A4E700F88C78 /* PSCConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCConstants.h; sourceTree = "<group>"; };
 		92AD6E571929A4E700F88C78 /* PSCConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCConstants.m; sourceTree = "<group>"; };
 		92AEDF8F192772BE00CD0EC6 /* ChatBubble_received.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChatBubble_received.png; sourceTree = "<group>"; };
@@ -529,6 +532,8 @@
 				923035021925CF6100520457 /* UIColor+Utils.m */,
 				925E1C0F19319CBD001940B6 /* NSDateFormatter+Additions.h */,
 				925E1C1019319CBD001940B6 /* NSDateFormatter+Additions.m */,
+				929DCA4C193834ED00D8B388 /* NSString+Utils.h */,
+				929DCA4D193834ED00D8B388 /* NSString+Utils.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -717,6 +722,7 @@
 				928F183B1921188700A05BF5 /* PSCChatViewController.m in Sources */,
 				92B1C3511920644500897029 /* main.m in Sources */,
 				9284A099192EF36B005A1FF6 /* PSCChannelManager.m in Sources */,
+				929DCA4E193834ED00D8B388 /* NSString+Utils.m in Sources */,
 				92685E3F1921DA8300C1CBEF /* PSCMessagesViewController.m in Sources */,
 				92685E281921CAB300C1CBEF /* PSCLoginViewController.m in Sources */,
 				9284A096192EF200005A1FF6 /* PSCChannel.m in Sources */,

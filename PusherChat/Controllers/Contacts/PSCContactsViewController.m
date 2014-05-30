@@ -14,8 +14,10 @@
 @interface PSCContactsViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *contactsDataArray;
+@property (nonatomic, strong) NSMutableArray *resultsDataArray;
+@property (nonatomic, strong) NSTimer *myTimer;
 
-@property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, strong) UIRefreshControl *pullRefreshControl;
 @end
 
 @implementation PSCContactsViewController
@@ -36,10 +38,10 @@
     
     self.navigationItem.title = @"Contacts";
     
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(refreshData) forControlEvents:UIControlEventValueChanged];
+    self.pullRefreshControl = [[UIRefreshControl alloc] init];
+    [self.pullRefreshControl addTarget:self action:@selector(refreshData) forControlEvents:UIControlEventValueChanged];
     
-    [self.tableView addSubview:self.refreshControl];
+    [self.tableView addSubview:self.pullRefreshControl];
     
     [self refreshData];
 }
@@ -53,7 +55,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-   return self.contactsDataArray.count;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return [self.resultsDataArray count];
+    }
+    else{
+         return [self.contactsDataArray count];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -65,7 +72,14 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:self options:nil] firstObject];
     }
     
-    PFUser *user = [self.contactsDataArray objectAtIndex:indexPath.row];
+    PFUser *user = nil;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        user =  [self.resultsDataArray objectAtIndex:indexPath.row];
+    }
+    else{
+        user =  [self.contactsDataArray objectAtIndex:indexPath.row];
+    }
+    
     [cell configureDataWithModel:user];
     
     return cell;
@@ -80,7 +94,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PFUser *user = [self.contactsDataArray objectAtIndex:indexPath.row];
+    PFUser *user = nil;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        user =  [self.resultsDataArray objectAtIndex:indexPath.row];
+    }
+    else{
+        user =  [self.contactsDataArray objectAtIndex:indexPath.row];
+    }
     
     PSCChatViewController *chatVC = [[PSCChatViewController alloc] initWithNibName:NSStringFromClass([PSCChatViewController class]) bundle:nil];
     chatVC.userChat = user;
@@ -89,6 +109,40 @@
     
     // Deselect on cell
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - UISearchDisplayController Delegate Methods
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    if (self.myTimer){
+        // Stop a timer before it fires
+        if ([self.myTimer isValid]){
+            [self.myTimer invalidate];
+        }
+        self.myTimer = nil;
+    }
+    self.myTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self
+                                                  selector:@selector(filterContentForSearchText:)
+                                                  userInfo:searchText repeats:NO];
+}
+
+// Search contacts in contacts data array
+- (void)filterContentForSearchText:(NSTimer*)theTimer
+{
+    self.resultsDataArray = [NSMutableArray new];
+    
+    NSString *searchText = [[(NSString*)[theTimer userInfo] lowercaseString] normalizeVietnameseString];
+
+    for (PFUser *userObject in self.contactsDataArray) {
+        NSString *name = [[[[PSCAppDelegate shareDelegate] getNameOfUserObject:userObject] lowercaseString] normalizeVietnameseString];
+        
+        if (!([name rangeOfString:searchText].location == NSNotFound)) {
+            [self.resultsDataArray addObject:userObject];
+        }
+    }
+    
+    [self.searchDisplayController.searchResultsTableView reloadData];
 }
 
 #pragma mark - Methods
@@ -105,7 +159,7 @@
             
             [self.tableView reloadData];
             
-            [self.refreshControl endRefreshing];
+            [self.pullRefreshControl endRefreshing];
         }
         else {
             NSLog(@"Error: %@ %@", error, [error userInfo]);
