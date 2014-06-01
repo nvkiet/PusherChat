@@ -181,14 +181,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.section) {
-        case 0: //More apps
+        case 0: // More apps
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/artist/kiet-nguyen/id751705948"]];
             break;
-        case 1: //Rating: Need app id
+        case 1: // Rating: Need app id
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=766553064&pageNumber=0&sortOrdering=1&type=Purple+Software"]];
             break;
-        case 2: //Email To FeedBack
-        {
+        case 2: { //Email To FeedBack
             if ([MFMailComposeViewController canSendMail]){
                 MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
                 mailer.mailComposeDelegate = self;
@@ -266,9 +265,19 @@
 {
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]){
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
-        
         [controller setInitialText:kFacebookShareMessage];
+        
         [self presentViewController:controller animated:YES completion:Nil];
+    }
+}
+
+- (IBAction)shareViaTwitterTouched:(id)sender
+{
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]){
+        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+        [controller setInitialText:kFacebookShareMessage];
+        
+        [self presentViewController:controller animated:YES completion:nil];
     }
 }
 
