@@ -184,6 +184,9 @@
         case 0: //More apps
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/artist/kiet-nguyen/id751705948"]];
             break;
+        case 1: //Rating: Need app id
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=766553064&pageNumber=0&sortOrdering=1&type=Purple+Software"]];
+            break;
         default:
             break;
     }
