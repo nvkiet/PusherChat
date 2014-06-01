@@ -9,9 +9,14 @@
 #import "PSCMoreViewController.h"
 #import "PSCAppDelegate.h"
 
-@interface PSCMoreViewController ()<UIAlertViewDelegate>
+@interface PSCMoreViewController ()<UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+
+@property (strong, nonatomic) IBOutlet UITableViewCell *shareCell;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (strong, nonatomic) NSMutableArray *iconsArray;
 @end
 
 @implementation PSCMoreViewController
@@ -29,12 +34,15 @@
 {
     [super viewDidLoad];
     
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    
     self.navigationItem.title = @"More";
     
     UIBarButtonItem *logOutButton = [[UIBarButtonItem alloc] initWithTitle:@"Log out" style:UIBarButtonItemStyleBordered target:self action:@selector(logOutButtonClicked:)];
     self.navigationItem.rightBarButtonItem = logOutButton;
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    [self initListButtonIcons];
     
     if ([PFUser currentUser]) {
         [self updateProfile];
@@ -101,6 +109,79 @@
     }];
 }
 
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 4;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 3) {
+        self.shareCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return self.shareCell;
+    }
+    else{
+        static NSString *CellIdentifier = @"Cell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            cell.textLabel.font =[UIFont boldSystemFontOfSize:14];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.backgroundColor= [UIColor whiteColor];
+        }
+        
+        switch (indexPath.section) {
+            case 0:
+                cell.textLabel.text = @"MORE APPS";
+                break;
+            case 1:
+                cell.textLabel.text = @"LOVE PUSHERCHAT";
+                break;
+            case 2:
+                cell.textLabel.text = @"EMAIL FEEDBACK";
+                break;
+            default:
+                break;
+        }
+        
+        cell.imageView.image= [self.iconsArray objectAtIndex:indexPath.section];
+        
+        return cell;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 3) {
+        return 80;
+    }
+    return 40;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 3) {
+        return @"Share to your friends";
+    }
+    return @"";
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+}
+
+#pragma mark - Actions
+
 - (void)logOutButtonClicked:(id)sender
 {
     [[[UIAlertView alloc] initWithTitle:nil message:@"Are you sure?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Log Out", nil] show];
@@ -119,20 +200,34 @@
 
 #pragma mark - Methods
 
+- (void)initListButtonIcons
+{
+    self.iconsArray = [[NSMutableArray alloc] init];
+    
+    UIImage *image= [UIImage imageNamed:@"more_apps_icon.png"];
+    [self.iconsArray addObject:image];
+    
+    image = [UIImage imageNamed:@"love_icon.png"];
+    [self.iconsArray addObject:image];
+    
+    image = [UIImage imageNamed:@"feedback_icon.png"];
+    [self.iconsArray addObject:image];
+}
+
 - (void)updateProfile
 {
     PFUser *currentUser = [PFUser currentUser];
     
     // TODOME: Update to current User
     
-    self.nameLabel.text = [currentUser objectForKey:@"profile"][@"name"];
+    self.nameLabel.text = [[PSCAppDelegate shareDelegate]getNameOfUserObject:currentUser];
     
     if ([currentUser objectForKey:@"profile"][@"pictureURL"]) {
         NSURL *pictureURL = [NSURL URLWithString:[currentUser objectForKey:@"profile"][@"pictureURL"]];
         
         [self.avatarImageView setImageWithURL:pictureURL placeholderImage:[UIImage imageNamed:@"anonymousUser.png"]];
         
-        self.avatarImageView.layer.cornerRadius = 50;
+        self.avatarImageView.layer.cornerRadius = 45;
         self.avatarImageView.layer.masksToBounds = YES;
     }
 }
