@@ -10,4 +10,7 @@
 
 @interface PSCMoreViewController : UIViewController
 
+
+- (IBAction)shareViaMessageTouched:(id)sender;
+
 @end

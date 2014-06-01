@@ -13,6 +13,7 @@
 #import "PSCMessagesViewController.h"
 #import "PSCContactsViewController.h"
 #import "PSCMoreViewController.h"
+#import <MessageUI/MessageUI.h>
 
 @interface PSCAppDelegate()<PTPusherDelegate>
 @property (nonatomic, strong) PSCSplashViewController *splashVC;
@@ -143,6 +144,10 @@
     NSDictionary *titleAttributes = @{NSForegroundColorAttributeName:[UIColor navBGKColor],
                                       NSShadowAttributeName:shadow};
     [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:titleAttributes forState:UIControlStateNormal];
+    
+    // Disable the custom NavigationBar
+    [[UINavigationBar appearanceWhenContainedIn:[MFMessageComposeViewController class], nil] setBarTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearanceWhenContainedIn:[MFMailComposeViewController class], nil] setBarTintColor:[UIColor whiteColor]];
 }
 
 #pragma  mark - Notificaitons

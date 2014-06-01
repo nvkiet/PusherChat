@@ -10,7 +10,7 @@
 #import "PSCAppDelegate.h"
 #import <MessageUI/MessageUI.h>
 
-@interface PSCMoreViewController ()<UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate>
+@interface PSCMoreViewController ()<UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
@@ -232,7 +232,24 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - Actions
+
+- (IBAction)shareViaMessageTouched:(id)sender
+{
+    MFMessageComposeViewController *messageVC = [[MFMessageComposeViewController alloc] init];
+    if([MFMessageComposeViewController canSendText])
+    {
+        messageVC.body = [NSString stringWithFormat:@"Hey, I started using PusherChat. It's an awesome free app for free text messages! - www.pusherchat.com"];
+        messageVC.messageComposeDelegate = self;
+        
+        [self presentViewController:messageVC animated:YES completion:nil];
+    }
+}
 
 - (void)logOutButtonClicked:(id)sender
 {
@@ -290,5 +307,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end
