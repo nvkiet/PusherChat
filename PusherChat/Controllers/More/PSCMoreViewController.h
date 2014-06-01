@@ -13,5 +13,6 @@
 
 - (IBAction)shareViaMessageTouched:(id)sender;
 - (IBAction)shareViaMailTouched:(id)sender;
+- (IBAction)shareViaFacebookTouched:(id)sender;
 
 @end

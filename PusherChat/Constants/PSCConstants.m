@@ -11,6 +11,10 @@
 int const kMoreScreenTableViewShareSectionRowIndex = 3;
 NSString * const kUserAnonymous = @"Anonymous";
 
+#pragma mark - Share to your friends
+
+NSString * const kFacebookShareMessage = @"I'm using PusherChat to send free messages on my iPhone www.pusherchat.com";
+
 #pragma mark - Notification fields
 
 NSString * const kIsSender = @"IsSender";

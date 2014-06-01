@@ -18,6 +18,10 @@
 extern int const kMoreScreenTableViewShareSectionRowIndex;
 extern NSString * const kUserAnonymous;
 
+#pragma mark - Share to your friends
+
+extern NSString * const kFacebookShareMessage;
+
 #pragma mark - Notification fields
 
 extern NSString * const kIsSender;

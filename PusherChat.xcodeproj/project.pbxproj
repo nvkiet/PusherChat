@@ -95,6 +95,7 @@
 		92BCB9091924AC58000E2F9E /* back_icon_regular@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BCB9071924AC58000E2F9E /* back_icon_regular@2x.png */; };
 		92C67577192FB9400014087B /* PSCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C67576192FB9400014087B /* PSCAppDelegate.m */; };
 		92D2562E1922993D0003347D /* UIImage+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D2562D1922993D0003347D /* UIImage+Utils.m */; };
+		92FC2374193B6897004C72BB /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92FC2373193B6897004C72BB /* Social.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -219,6 +220,7 @@
 		92C67576192FB9400014087B /* PSCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCAppDelegate.m; sourceTree = "<group>"; };
 		92D2562C1922993D0003347D /* UIImage+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Utils.h"; sourceTree = "<group>"; };
 		92D2562D1922993D0003347D /* UIImage+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Utils.m"; sourceTree = "<group>"; };
+		92FC2373193B6897004C72BB /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		BF9434D7FA854FCD81932877 /* Pods-PusherChat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PusherChat.xcconfig"; path = "Pods/Pods-PusherChat.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -227,6 +229,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92FC2374193B6897004C72BB /* Social.framework in Frameworks */,
 				92A361CF193B308E00B4C1F5 /* MessageUI.framework in Frameworks */,
 				92B1C3471920644500897029 /* CoreGraphics.framework in Frameworks */,
 				92B1C3491920644500897029 /* UIKit.framework in Frameworks */,
@@ -477,6 +480,7 @@
 		92B1C3431920644500897029 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				92FC2373193B6897004C72BB /* Social.framework */,
 				92A361CE193B308E00B4C1F5 /* MessageUI.framework */,
 				92B1C3441920644500897029 /* Foundation.framework */,
 				92B1C3461920644500897029 /* CoreGraphics.framework */,

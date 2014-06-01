@@ -9,6 +9,7 @@
 #import "PSCMoreViewController.h"
 #import "PSCAppDelegate.h"
 #import <MessageUI/MessageUI.h>
+#import <Social/Social.h>
 
 @interface PSCMoreViewController ()<UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
@@ -259,7 +260,16 @@
     else{
         [self showAlertErrorCannotSendMail];
     }
+}
 
+- (IBAction)shareViaFacebookTouched:(id)sender
+{
+    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]){
+        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+        
+        [controller setInitialText:kFacebookShareMessage];
+        [self presentViewController:controller animated:YES completion:Nil];
+    }
 }
 
 - (void)logOutButtonClicked:(id)sender

@@ -71,6 +71,9 @@
                         <state key="normal" image="facebook_icon.png">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <connections>
+                            <action selector="shareViaFacebookTouched:" destination="-1" eventType="touchUpInside" id="w2w-rf-Dym"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="FC8-IE-mCQ">
                         <rect key="frame" x="171" y="10" width="54" height="54"/>
