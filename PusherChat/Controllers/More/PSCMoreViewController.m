@@ -8,10 +8,9 @@
 
 #import "PSCMoreViewController.h"
 #import "PSCAppDelegate.h"
+#import <MessageUI/MessageUI.h>
 
-
-
-@interface PSCMoreViewController ()<UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface PSCMoreViewController ()<UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
@@ -187,9 +186,50 @@
         case 1: //Rating: Need app id
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=766553064&pageNumber=0&sortOrdering=1&type=Purple+Software"]];
             break;
+        case 2: //Email To FeedBack
+        {
+            if ([MFMailComposeViewController canSendMail])
+            {
+                MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
+                mailer.mailComposeDelegate = self;
+                [mailer setSubject:@"[PusherChat.iOS] Feedback"];
+                NSArray *toRecipients = [NSArray arrayWithObjects:@"nguyenvankiet.teaching@gmail.com", nil];
+                [mailer setToRecipients:toRecipients];
+                
+                //Set body
+                NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+                NSString *appVersion = infoDictionary[(NSString*)kCFBundleVersionKey];
+                
+                float iOSVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
+                NSString *systemName = [[UIDevice currentDevice] systemName];
+                
+                NSString *emailBody = [NSString stringWithFormat:@"\n\n\n\n=== Application infomation === \n -- (Please do not remove) -- \n PusherChat.iOS.v%@\n%@ %1.3f\n===========================", appVersion, systemName, iOSVersion];
+                [mailer setMessageBody:emailBody isHTML:NO];
+                
+                [self presentViewController:mailer animated:YES completion:nil];
+            }
+            else
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failure"
+                                                                message:@"Email composition failure. Please try again."
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+            }
+            
+            break;
+        }
         default:
             break;
     }
+}
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Actions
