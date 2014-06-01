@@ -99,6 +99,9 @@
 		92FC237B193BAE38004C72BB /* LaunchImage-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92FC2378193BAE38004C72BB /* LaunchImage-568h@2x.png */; };
 		92FC237C193BAE38004C72BB /* LaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 92FC2379193BAE38004C72BB /* LaunchImage.png */; };
 		92FC237D193BAE38004C72BB /* LaunchImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92FC237A193BAE38004C72BB /* LaunchImage@2x.png */; };
+		92FC237F193BB441004C72BB /* AppIcon57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 92FC237E193BB441004C72BB /* AppIcon57x57.png */; };
+		92FC2383193BB46A004C72BB /* AppIcon57x57@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92FC2382193BB46A004C72BB /* AppIcon57x57@2x.png */; };
+		92FC2385193BB46E004C72BB /* AppIcon60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92FC2384193BB46E004C72BB /* AppIcon60x60@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -227,6 +230,9 @@
 		92FC2378193BAE38004C72BB /* LaunchImage-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage-568h@2x.png"; sourceTree = "<group>"; };
 		92FC2379193BAE38004C72BB /* LaunchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage.png; sourceTree = "<group>"; };
 		92FC237A193BAE38004C72BB /* LaunchImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage@2x.png"; sourceTree = "<group>"; };
+		92FC237E193BB441004C72BB /* AppIcon57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon57x57.png; sourceTree = "<group>"; };
+		92FC2382193BB46A004C72BB /* AppIcon57x57@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon57x57@2x.png"; sourceTree = "<group>"; };
+		92FC2384193BB46E004C72BB /* AppIcon60x60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon60x60@2x.png"; sourceTree = "<group>"; };
 		BF9434D7FA854FCD81932877 /* Pods-PusherChat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PusherChat.xcconfig"; path = "Pods/Pods-PusherChat.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -604,6 +610,9 @@
 		92FC2377193BAE1D004C72BB /* App Icons & Launch Images */ = {
 			isa = PBXGroup;
 			children = (
+				92FC2384193BB46E004C72BB /* AppIcon60x60@2x.png */,
+				92FC2382193BB46A004C72BB /* AppIcon57x57@2x.png */,
+				92FC237E193BB441004C72BB /* AppIcon57x57.png */,
 				92FC2378193BAE38004C72BB /* LaunchImage-568h@2x.png */,
 				92FC2379193BAE38004C72BB /* LaunchImage.png */,
 				92FC237A193BAE38004C72BB /* LaunchImage@2x.png */,
@@ -700,6 +709,7 @@
 				92685E3A1921CF9A00C1CBEF /* PSCSplashViewController.xib in Resources */,
 				92685E311921CCA400C1CBEF /* bt_facebook_normal.png in Resources */,
 				9287F33C192335AC002DE925 /* tab_icon_messages_selected.png in Resources */,
+				92FC2385193BB46E004C72BB /* AppIcon60x60@2x.png in Resources */,
 				9287F33F192335AC002DE925 /* tab_icon_more_idle@2x.png in Resources */,
 				92A361C9193B225000B4C1F5 /* feedback_icon@2x.png in Resources */,
 				92A361CA193B225000B4C1F5 /* love_icon@2x.png in Resources */,
@@ -724,6 +734,7 @@
 				923035081925F62B00520457 /* defaultBackground.jpg in Resources */,
 				9231624E193342080056BDF0 /* conversationsListCellBadge@2x.png in Resources */,
 				9231624D193342080056BDF0 /* conversationsListCellBadge.png in Resources */,
+				92FC237F193BB441004C72BB /* AppIcon57x57.png in Resources */,
 				92A361C3193B220200B4C1F5 /* feedback_icon.png in Resources */,
 				9287F337192335AC002DE925 /* tab_icon_contacts_idle@2x.png in Resources */,
 				923035071925F62B00520457 /* defaultBackground-568h@2x.jpg in Resources */,
@@ -743,6 +754,7 @@
 				923034FF1925CA4700520457 /* text_input_view_bkg@2x.png in Resources */,
 				92685E341921CCA400C1CBEF /* bt_facebook_onpress@2x.png in Resources */,
 				9287F33D192335AC002DE925 /* tab_icon_messages_selected@2x.png in Resources */,
+				92FC2383193BB46A004C72BB /* AppIcon57x57@2x.png in Resources */,
 				923035091925F62B00520457 /* defaultBackground@2x.jpg in Resources */,
 				9287F33B192335AC002DE925 /* tab_icon_messages_idle@2x.png in Resources */,
 				92A361A8193B1D0000B4C1F5 /* facebook_icon.png in Resources */,
@@ -939,7 +951,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BF9434D7FA854FCD81932877 /* Pods-PusherChat.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PusherChat/PusherChat-Prefix.pch";
 				INFOPLIST_FILE = "PusherChat/PusherChat-Info.plist";
@@ -954,7 +965,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BF9434D7FA854FCD81932877 /* Pods-PusherChat.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PusherChat/PusherChat-Prefix.pch";
 				INFOPLIST_FILE = "PusherChat/PusherChat-Info.plist";
