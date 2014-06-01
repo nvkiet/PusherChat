@@ -12,5 +12,6 @@
 
 
 - (IBAction)shareViaMessageTouched:(id)sender;
+- (IBAction)shareViaMailTouched:(id)sender;
 
 @end

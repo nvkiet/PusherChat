@@ -188,8 +188,7 @@
             break;
         case 2: //Email To FeedBack
         {
-            if ([MFMailComposeViewController canSendMail])
-            {
+            if ([MFMailComposeViewController canSendMail]){
                 MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
                 mailer.mailComposeDelegate = self;
                 [mailer setSubject:@"[PusherChat.iOS] Feedback"];
@@ -208,14 +207,8 @@
                 
                 [self presentViewController:mailer animated:YES completion:nil];
             }
-            else
-            {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failure"
-                                                                message:@"Email composition failure. Please try again."
-                                                               delegate:nil
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil];
-                [alert show];
+            else{
+               [self showAlertErrorCannotSendMail];
             }
             
             break;
@@ -242,13 +235,31 @@
 - (IBAction)shareViaMessageTouched:(id)sender
 {
     MFMessageComposeViewController *messageVC = [[MFMessageComposeViewController alloc] init];
-    if([MFMessageComposeViewController canSendText])
-    {
+    if([MFMessageComposeViewController canSendText]){
         messageVC.body = [NSString stringWithFormat:@"Hey, I started using PusherChat. It's an awesome free app for free text messages! - www.pusherchat.com"];
         messageVC.messageComposeDelegate = self;
         
         [self presentViewController:messageVC animated:YES completion:nil];
     }
+}
+
+- (IBAction)shareViaMailTouched:(id)sender
+{
+    if ([MFMailComposeViewController canSendMail]){
+        MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
+        mailer.mailComposeDelegate = self;
+        [mailer setSubject:@"Invitation to PusherChat"];
+        
+        //Set body
+        NSString *emailBody = [NSString stringWithFormat:@"Hey, \n\n I started using PusherChat. It's an awesome free app for free text messages! \n\n Get PusherChat: www.pusherchat.com \n\n Yours,"];
+        [mailer setMessageBody:emailBody isHTML:NO];
+        
+        [self presentViewController:mailer animated:YES completion:nil];
+    }
+    else{
+        [self showAlertErrorCannotSendMail];
+    }
+
 }
 
 - (void)logOutButtonClicked:(id)sender
@@ -268,6 +279,16 @@
 }
 
 #pragma mark - Methods
+
+- (void)showAlertErrorCannotSendMail
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failure"
+                                                    message:@"Email composition failure. Please try again."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
 
 - (void)initListButtonIcons
 {

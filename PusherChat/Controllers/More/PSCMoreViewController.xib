@@ -88,6 +88,9 @@
                         <state key="normal" image="mail_icon.png">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <connections>
+                            <action selector="shareViaMailTouched:" destination="-1" eventType="touchUpInside" id="epp-wR-B1r"/>
+                        </connections>
                     </button>
                 </subviews>
             </tableViewCellContentView>
