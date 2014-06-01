@@ -9,6 +9,8 @@
 #import "PSCMoreViewController.h"
 #import "PSCAppDelegate.h"
 
+
+
 @interface PSCMoreViewController ()<UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -123,7 +125,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 3) {
+    if (indexPath.section == kMoreScreenTableViewShareSectionRowIndex) {
         self.shareCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return self.shareCell;
     }
@@ -160,7 +162,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 3) {
+    if (indexPath.section == kMoreScreenTableViewShareSectionRowIndex) {
         return 80;
     }
     return 40;
@@ -168,7 +170,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (section == 3) {
+    if (section == kMoreScreenTableViewShareSectionRowIndex) {
         return @"Share to your friends";
     }
     return @"";
@@ -178,6 +180,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    switch (indexPath.section) {
+        case 0: //More apps
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/artist/kiet-nguyen/id751705948"]];
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - Actions

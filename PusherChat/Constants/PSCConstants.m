@@ -8,6 +8,7 @@
 
 #import "PSCConstants.h"
 
+int const kMoreScreenTableViewShareSectionRowIndex = 3;
 NSString * const kUserAnonymous = @"Anonymous";
 
 #pragma mark - Notification fields
