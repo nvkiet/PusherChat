@@ -670,6 +670,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Kiet Nguyen";
 				TargetAttributes = {
+					92B1C3401920644500897029 = {
+						DevelopmentTeam = G8S2D25FGH;
+					};
 					92B1C3611920644500897029 = {
 						TestTargetID = 92B1C3401920644500897029;
 					};
@@ -951,6 +954,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BF9434D7FA854FCD81932877 /* Pods-PusherChat.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: KIET NGUYEN (Z83TCZVXN2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: KIET NGUYEN (Z83TCZVXN2)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PusherChat/PusherChat-Prefix.pch";
 				INFOPLIST_FILE = "PusherChat/PusherChat-Info.plist";
@@ -965,6 +970,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BF9434D7FA854FCD81932877 /* Pods-PusherChat.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: KIET NGUYEN (Z83TCZVXN2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: KIET NGUYEN (Z83TCZVXN2)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PusherChat/PusherChat-Prefix.pch";
 				INFOPLIST_FILE = "PusherChat/PusherChat-Info.plist";

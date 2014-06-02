@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#define PUSHER_API_KEY @"a303b94353376eae7485"
-#define PUSHER_APP_ID  @"74518"
-#define PUSHER_API_SECRET  @"43abb3c7a07e0b339e25"
+#define PUSHER_API_KEY @"760826ac4922c8b7563a"
+#define PUSHER_APP_ID  @"76720"
+#define PUSHER_API_SECRET  @"b0d277089fc2d751fb8a"
 
 #define FONT_HELVETICAL_REGULAR  @"HelveticaNeue"
 #define FONT_HELVETICAL_LIGHT  @"HelveticaNeue-Light"
